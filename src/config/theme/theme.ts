@@ -15,7 +15,7 @@ export const theme = createTheme({
                     contrastText:colors.white,
                 },
                 background: {
-                    default: colors.white,
+                    default: colors.lightBlue,
                     paper: colors.white,
                 }
             },
@@ -30,6 +30,15 @@ export const theme = createTheme({
                 secondary:{
                     main:colors.lightOrange,
                     contrastText:colors.white,
+                },
+            },
+        },
+    },
+    components:{
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    boxShadow: "none",
                 },
             },
         },

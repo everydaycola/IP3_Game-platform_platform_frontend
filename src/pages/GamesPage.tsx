@@ -1,9 +1,10 @@
 import {Typography} from "@mui/material";
 
-export function WelcomeComponent() {
+export function GamesPage() {
     return (
         <Typography variant={"h2"}>
-            Platform-frontend
+            Games
         </Typography>
+
     )
 }
