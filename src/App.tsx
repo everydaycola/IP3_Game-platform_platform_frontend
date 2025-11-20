@@ -3,6 +3,7 @@ import {WelcomeComponent} from "./components/WelcomeComponent.tsx";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {theme} from "./config/theme/theme.ts";
 
+
 function App() {
 
   return (

@@ -1,8 +1,8 @@
-import { Typography } from "@mui/material";
+import {Typography} from "@mui/material";
 
-export function WelcomeComponent(){
+export function WelcomeComponent() {
     return (
-        <Typography variant={"h1"}>
+        <Typography variant={"h2"}>
             Platform-frontend
         </Typography>
     )
