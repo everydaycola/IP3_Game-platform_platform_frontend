@@ -16,7 +16,12 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     return (
         <>
             <Box sx={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
-                <AppBar position="static">
+                <AppBar
+                    position="static"
+                    sx={(theme) => ({
+                        background:theme.palette.primary.main
+                    })}
+                >
                     <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>
                         <Typography variant="h5"
                                     component="div">Fourteengames</Typography>
@@ -62,7 +67,10 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
                 <Stack
                     direction="row"
-                    sx={{flex: 1}}
+                    sx={(theme) => ({
+                        flex: 1,
+                        backgroundColor: theme.palette.primary.main,
+                    })}
                 >
                     {!isSmallScreen && (
                             <Box

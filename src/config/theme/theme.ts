@@ -31,6 +31,10 @@ export const theme = createTheme({
                     main:colors.lightOrange,
                     contrastText:colors.white,
                 },
+                background: {
+                    default: colors.lightBlue,
+                    paper: colors.white,
+                }
             },
         },
     },
