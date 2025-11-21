@@ -1,4 +1,4 @@
-import {AppBar, Box, Drawer, IconButton,Stack, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,19 +12,21 @@ type AppLayoutProps = {
 export function AppLayout({mainContent}: AppLayoutProps) {
     const {isSmallScreen} = useMediaQueries();
     const [hamnavOpen, setHamnavOpen] = useState(false);
+    const theme = useTheme();
 
     return (
         <>
             <Box sx={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
                 <AppBar
                     position="static"
-                    sx={(theme) => ({
+                    sx={{
                         background:theme.palette.primary.main
-                    })}
+                    }}
                 >
                     <Toolbar sx={{display:"flex", justifyContent:"space-between"}}>
                         <Typography variant="h5"
-                                    component="div">Fourteengames</Typography>
+                                    component="div"
+                        >Fourteengames</Typography>
                         <IconButton
                             color="inherit"
                             edge="start"
@@ -38,24 +40,31 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
                 <Drawer anchor="top" open={hamnavOpen} onClose={() => setHamnavOpen(false)}>
                     <Box
-                        sx={{ position: "relative",m:2 }}
+                        sx={{ position: "relative" }}
                         role="presentation"
                         onClick={() => setHamnavOpen(false)}
                     >
                         <IconButton
-                            sx={{ position:"absolute",top:4, right:4 }}
+                            sx={{ position:"absolute",top:4, right:4, color:theme.palette.primary.contrastText }}
                             onClick={() => setHamnavOpen(true)}
                         >
                             <CloseIcon />
                         </IconButton>
 
                         <Typography variant="h5"
-                                    component="div">Fourteengames</Typography>
+                                    component="div"
+                                    sx={{
+                                        color:theme.palette.primary.contrastText,
+                                        background:theme.palette.primary.main,
+                                        p:2
+                                    }}
+                        >Fourteengames</Typography>
                         <Typography
-                            sx={(theme) => ({
+                            sx={{
                                 textDecoration: "none",
-                                color:theme.palette.primary.main
-                            })}
+                                color:theme.palette.primary.main,
+                                m:2
+                            }}
                             variant={"h6"}
                             component={Link}
                             to={"/"}
@@ -67,24 +76,24 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
                 <Stack
                     direction="row"
-                    sx={(theme) => ({
+                    sx={{
                         flex: 1,
                         backgroundColor: theme.palette.primary.main,
-                    })}
+                    }}
                 >
                     {!isSmallScreen && (
                             <Box
-                                sx={(theme) => ({
+                                sx={{
                                     flex: 1,
                                     m: 2,
                                     backgroundColor: theme.palette.primary.main,
-                                })}
+                                }}
                             >
                                 <Typography
-                                    sx={(theme) => ({
+                                    sx={{
                                         textDecoration: "none",
                                         color: theme.palette.primary.contrastText
-                                    })}
+                                    }}
                                     variant={"h6"}
                                     component={Link}
                                     to={"/"}
