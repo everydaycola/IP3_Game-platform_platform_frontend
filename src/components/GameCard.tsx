@@ -12,17 +12,17 @@ interface GameCardProps {
 export function GameCard({game}: GameCardProps) {
     const [favorited, setFavorited] = useState(false)
     return (
-        <Card sx={{width: {lg: "20%", xs: "40%"}, marginRight: "5%"}}>
-            <CardActionArea /*onClick={get sent to the game page}*/>
+        <Card sx={{width: {lg: "20%", xs: "40%"}, height:"40%", marginRight: "5%", marginBottom: "5%"}}>
+            <CardActionArea /*onClick={get sent to the game page}*/ sx={{height: "75%"}}>
                 {game.icon == "" ?
                     <Stack alignItems={"center"} sx={{marginY: "1rem"}}>
                         <VideogameAssetIcon/>
                     </Stack>
                     :
-                    <CardMedia image={game.icon}/>
+                    <CardMedia component="img" sx={{padding: "5%", height:"inherit", width:"auto",marginX:"auto"}} image={game.icon}/>
                 }
             </CardActionArea>
-            <CardContent>
+            <CardContent sx={{height: "25%", boxShadow:"5"}}>
                 <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Typography>{game.name}</Typography>
 
@@ -46,7 +46,7 @@ interface GameCardListProps {
 
 export function GameCardList({games}: GameCardListProps) {
     return (
-        <Stack flexDirection={"row"} flexWrap>
+        <Stack flexDirection={"row"} flexWrap="wrap" height={"75%"}>
             {games.map(game => <GameCard game={game} key={game.id}/>)}
         </Stack>
     )
