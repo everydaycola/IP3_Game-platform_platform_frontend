@@ -8,11 +8,11 @@ export const theme = createTheme({
                 mode: "light",
                 primary: {
                     main: colors.lightBlue,
-                    contrastText:colors.white,
+                    contrastText: colors.white,
                 },
-                secondary:{
-                    main:colors.lightOrange,
-                    contrastText:colors.white,
+                secondary: {
+                    main: colors.lightOrange,
+                    contrastText: colors.white,
                 },
                 background: {
                     default: colors.lightBlue,
@@ -27,18 +27,22 @@ export const theme = createTheme({
                     main: colors.darkBlue,
                     contrastText: colors.white,
                 },
-                secondary:{
-                    main:colors.lightOrange,
-                    contrastText:colors.white,
+                secondary: {
+                    main: colors.lightOrange,
+                    contrastText: colors.white,
                 },
                 background: {
                     default: colors.lightBlue,
                     paper: colors.white,
+                },
+                //TEMPORARY SOLUTION: needs to be changed eventually
+                text: {
+                    primary: colors.black,
                 }
             },
         },
     },
-    components:{
+    components: {
         MuiAppBar: {
             styleOverrides: {
                 root: {
