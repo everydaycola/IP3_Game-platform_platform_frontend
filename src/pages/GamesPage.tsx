@@ -7,32 +7,41 @@ import SearchIcon from '@mui/icons-material/Search';
 import {SearchIconWrapper, StyledInputBase, Search} from "../components/Search.tsx";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import {type ChangeEvent, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import type {CompactGame} from "../models/Game.ts";
 
 export function GamesPage() {
     const {isLoading: isLoadingGamesList, isError: isErrorGamesList, games} = useGamesList()
-    const [sortAbc, setSortAbc] = useState<boolean>()
+    const [sortAbc, setSortAbc] = useState(true)
     const [sortedGames, setSortedGames] = useState<CompactGame[]>();
     const [searchTerm, setSearchTerm] = useState("");
 
-    useEffect(() => {
-        let list:CompactGame[] = games?? [];
+    function filterGames(searchString: string, sortAbcBool: boolean) {
+        setSearchTerm(searchString);
+        setSortAbc(sortAbcBool)
 
-        if (searchTerm) {
+        let list: CompactGame[] = games ?? [];
+
+        if (searchString) {
             list = list.filter(g =>
-                g.name.toLowerCase().includes(searchTerm.toLowerCase())
+                g.name.toLowerCase().includes(searchString.toLowerCase())
             );
         }
 
-        list.sort((g1, g2) =>
-            sortAbc
+        console.log("we gaan da hier is sorteren")
+        list = [...list].sort((g1, g2) =>
+            sortAbcBool
                 ? g1.name.localeCompare(g2.name)
                 : g2.name.localeCompare(g1.name)
         );
+        //console.log(list)
 
         setSortedGames(list);
-    }, [games, searchTerm, sortAbc]);
+    }
+
+    useEffect(() => {
+        setSortedGames(games)
+    }, [games]);
 
 
     if (isLoadingGamesList) {
@@ -43,10 +52,6 @@ export function GamesPage() {
         return <div>Something went Wrong! <SentimentDissatisfied/></div>
     }
 
-    const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
-
     return (
         <>
             <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
@@ -54,7 +59,9 @@ export function GamesPage() {
                     Games
                 </Typography>
                 <Stack>
-                    <Button onClick={() => setSortAbc(!sortAbc)}>
+                    <Button onClick={() => {
+                        filterGames(searchTerm, !sortAbc)
+                    }}>
                         <Stack flexDirection={"row"}>
                             <Typography>abc</Typography>
                             {sortAbc ? <ArrowDownwardIcon/> : <ArrowUpwardIcon/>}
@@ -68,7 +75,9 @@ export function GamesPage() {
                             placeholder="Search…"
                             inputProps={{'aria-label': 'search'}}
                             value={searchTerm}
-                            onChange={handleSearchChange}
+                            onChange={(e) => {
+                                filterGames(e.target.value, sortAbc)
+                            }}
                         />
                     </Search>
                 </Stack>
