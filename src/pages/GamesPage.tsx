@@ -28,13 +28,11 @@ export function GamesPage() {
             );
         }
 
-        console.log("we gaan da hier is sorteren")
         list = [...list].sort((g1, g2) =>
             sortAbcBool
                 ? g1.name.localeCompare(g2.name)
                 : g2.name.localeCompare(g1.name)
         );
-        //console.log(list)
 
         setSortedGames(list);
     }
