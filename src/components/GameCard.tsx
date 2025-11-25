@@ -12,14 +12,16 @@ interface GameCardProps {
 export function GameCard({game}: GameCardProps) {
     const [favorited, setFavorited] = useState(false)
     return (
-        <Card sx={{width: {lg: "20%", xs: "40%"}, height:"40%", marginRight: "5%", marginBottom: "5%"}}>
-            <CardActionArea /*onClick={get sent to the game page}*/ sx={{height: "75%"}}>
+        <Card sx={{width: {lg: "20%", xs: "40%"}, height:"60%", marginRight: "5%", marginBottom: "5%"}}>
+            <CardActionArea /*onClick={get sent to the game page}*/ sx={{height: "75%", overflow:"hidden"}}>
                 {game.icon == "" ?
                     <Stack alignItems={"center"} sx={{marginY: "1rem"}}>
                         <VideogameAssetIcon/>
                     </Stack>
                     :
-                    <CardMedia component="img" sx={{padding: "5%", height:"inherit", width:"auto",marginX:"auto"}} image={game.icon}/>
+                    <CardMedia component="img"
+                               sx={{padding: "5%", height:250, width:"100%",marginX:"auto", objectFit:"cover",}}
+                               image={game.icon}/>
                 }
             </CardActionArea>
             <CardContent sx={{height: "25%", boxShadow:"5"}}>
