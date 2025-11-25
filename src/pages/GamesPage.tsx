@@ -54,15 +54,15 @@ export function GamesPage() {
 
     return (
         <>
-            <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
+            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
                 <Typography variant={"h2"}>
                     Games
                 </Typography>
-                <Stack>
+                <Stack direction={"row"}>
                     <Button onClick={() => {
                         filterGames(searchTerm, !sortAbc)
                     }}>
-                        <Stack flexDirection={"row"}>
+                        <Stack direction={"row"}>
                             <Typography>abc</Typography>
                             {sortAbc ? <ArrowDownwardIcon/> : <ArrowUpwardIcon/>}
                         </Stack>
