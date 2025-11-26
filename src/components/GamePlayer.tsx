@@ -3,7 +3,11 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import {useEffect, useState} from "react";
 
-export function GamePlayer(){
+interface GamePlayerProps{
+    gameUrl: string;
+}
+
+export function GamePlayer({gameUrl}:GamePlayerProps){
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     function handleEscapePress(){
@@ -46,7 +50,7 @@ export function GamePlayer(){
                         color: "white",
                     }}
                 >
-                    <iframe width={"100%"} height={"100%"} src={""}/>
+                    <iframe width={"100%"} height={"100%"} src={gameUrl}/>
                 </CardContent>
                 <CardActions
                     sx={{

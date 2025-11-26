@@ -5,6 +5,8 @@ export type Game = {
     price: number;
     image: string;
     icon: string;
+    genre:string;
+    url:string;
 }
 
 export type CompactGame = Omit<Game,  "description" | "price" | "image">
