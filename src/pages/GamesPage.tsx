@@ -1,7 +1,6 @@
-import {CircularProgress, Typography, Container, Stack, Button} from "@mui/material";
+import { Typography, Container, Stack, Button} from "@mui/material";
 import {GameCardList} from "../components/GameCard.tsx";
 import {useGamesList} from "../hooks/useGamesList.tsx";
-import SentimentDissatisfied from "@mui/icons-material/SentimentDissatisfied";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
 import SearchIcon from '@mui/icons-material/Search';
 import {SearchIconWrapper, StyledInputBase, Search} from "../components/Search.tsx";
@@ -11,7 +10,7 @@ import {useEffect, useState} from "react";
 import type {CompactGame} from "../models/Game.ts";
 
 export function GamesPage() {
-    const {isLoading: isLoadingGamesList, isError: isErrorGamesList, games} = useGamesList()
+    const {games} = useGamesList()
     const [sortAbc, setSortAbc] = useState(true)
     const [sortedGames, setSortedGames] = useState<CompactGame[]>();
     const [searchTerm, setSearchTerm] = useState("");
@@ -41,14 +40,6 @@ export function GamesPage() {
         setSortedGames(games)
     }, [games]);
 
-
-    if (isLoadingGamesList) {
-        return <CircularProgress/>
-    }
-
-    if (isErrorGamesList || !games || !sortedGames) {
-        return <div>Something went Wrong! <SentimentDissatisfied/></div>
-    }
 
     return (
         <>
@@ -80,7 +71,7 @@ export function GamesPage() {
                     </Search>
                 </Stack>
             </Stack>
-            {sortedGames.length != 0 ?
+            {sortedGames && sortedGames.length != 0 ?
                 <GameCardList games={sortedGames}/>
                 :
                 <Container>
