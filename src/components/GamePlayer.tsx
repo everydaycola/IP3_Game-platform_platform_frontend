@@ -2,12 +2,14 @@ import {Card, CardActions, CardContent, IconButton} from "@mui/material";
 import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import {useEffect, useState} from "react";
+import {useCheckGameReachable} from "../hooks/useCheckGameReachable.tsx";
 
 interface GamePlayerProps{
     gameUrl: string;
 }
 
 export function GamePlayer({gameUrl}:GamePlayerProps){
+    const {isReachable} = useCheckGameReachable(gameUrl);
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     function handleEscapePress(){
@@ -21,6 +23,10 @@ export function GamePlayer({gameUrl}:GamePlayerProps){
             window.removeEventListener("keydown", handleEscapePress);
         };
     }, []);
+
+    if(!isReachable){
+        throw new Error(gameUrl + "is not reachable...");
+    }
 
     return(
         <>
@@ -50,7 +56,11 @@ export function GamePlayer({gameUrl}:GamePlayerProps){
                         color: "white",
                     }}
                 >
-                    <iframe width={"100%"} height={"100%"} src={gameUrl}/>
+                    <iframe
+                        width={"100%"}
+                        height={"100%"}
+                        src={gameUrl}
+                    />
                 </CardContent>
                 <CardActions
                     sx={{
