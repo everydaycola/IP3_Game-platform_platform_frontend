@@ -7,10 +7,10 @@ import {AppLayout} from "./components/AppLayout.tsx";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./config/api";
 import {GamePage} from "./pages/GamePage.tsx";
-import {Suspense} from "react";
 import {GamePageLoadingFallback} from "./pages/fallbacks/GamePageLoadingFallback.tsx";
-import {ErrorBoundary} from "react-error-boundary";
 import {ErrorCard} from "./components/ErrorCard.tsx";
+import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallback.tsx";
+import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
 
 function App() {
 
@@ -27,18 +27,38 @@ function App() {
                                            element={<Navigate to="/games"
                                                               replace/>}/>
                                     <Route path={"/games"}
-                                           element={<GamesPage/>}/>
+                                           element={
+                                               <FallbackWrapper
+                                                   errorFallback={
+                                                       <ErrorCard
+                                                           title={"Ohnee..."}
+                                                           description={"Er ging iets mis met het ophalen van games..."}
+                                                       />
+                                                   }
+                                                   loadingFallback={
+                                                       <GamesPageLoadingFallback/>
+                                                   }
+                                               >
+                                                   <GamesPage/>
+                                               </FallbackWrapper>
+                                           }/>
                                     <Route
                                         path={"/games/:gameId"}
                                         element={
-                                            <ErrorBoundary
-                                                fallback={<ErrorCard title={"Ohnee..."}
-                                                                     description={"Er ging iets mis met het laden van deze pagina..."}/>
-                                                }>
-                                                <Suspense fallback={<GamePageLoadingFallback/>}>
-                                                    <GamePage/>
-                                                </Suspense>
-                                            </ErrorBoundary>
+
+                                            <FallbackWrapper
+                                                errorFallback={
+                                                    <ErrorCard
+                                                        title={"Ohnee..."}
+                                                        description={"Er ging iets mis met het laden van deze pagina..."}
+                                                    />
+                                                }
+                                                loadingFallback={
+                                                    <GamePageLoadingFallback/>
+                                                }
+                                            >
+                                                <GamePage/>
+                                            </FallbackWrapper>
                                         }/>
                                 </Routes>
                             </MainContentContainer>
