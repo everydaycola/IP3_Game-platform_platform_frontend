@@ -6,6 +6,7 @@ import {MainContentContainer} from "./components/MainContentContainer.tsx";
 import { AppLayout } from "./components/AppLayout.tsx";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./config/api";
+import {GamePage} from "./pages/GamePage.tsx";
 
 function App() {
 
@@ -20,6 +21,9 @@ function App() {
                             <Routes>
                                 <Route path={"/"}
                                        element={<GamesPage/>}/>
+                                <Route
+                                    path={"/games/:gameId"}
+                                    element={<GamePage/>}/>
                             </Routes>
                         </MainContentContainer>
                     }/>
