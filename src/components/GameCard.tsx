@@ -1,5 +1,5 @@
 import type {CompactGame} from "../models/Game.ts";
-import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, IconButton} from "@mui/material"
+import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, IconButton, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
@@ -13,7 +13,7 @@ interface GameCardProps {
 export function GameCard({game}: GameCardProps) {
     const [favorited, setFavorited] = useState(false);
     const navigate = useNavigate();
-
+    const theme = useTheme();
 
     return (
         <Card
@@ -38,7 +38,7 @@ export function GameCard({game}: GameCardProps) {
             </CardActionArea>
             <CardContent sx={{height: "25%", boxShadow:"5"}}>
                 <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
-                    <Typography>{game.name}</Typography>
+                    <Typography color={theme.palette.text.secondary}>{game.name}</Typography>
 
                     {/*This button currently doesn't change anything in the backend*/}
                     <IconButton onClick={(e) => {
@@ -46,9 +46,9 @@ export function GameCard({game}: GameCardProps) {
                         setFavorited(!favorited)
                     }}>
                         {favorited ?
-                            <StarIcon/>
+                            <StarIcon color={"primary"}/>
                             :
-                            <StarOutlineIcon/>
+                            <StarOutlineIcon color={"primary"}/>
                         }
                     </IconButton>
                 </Stack>

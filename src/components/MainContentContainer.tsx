@@ -1,4 +1,4 @@
-import { Box} from "@mui/material";
+import {Box} from "@mui/material";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 
 type AppLayoutProps = {
@@ -12,7 +12,6 @@ export function MainContentContainer({children}: AppLayoutProps){
             <Box
                 sx={{
                     flex: 7,
-                    background:"white",
                     borderTopLeftRadius:  isSmallScreen? 0 : 20,
                     p:2
                 }}

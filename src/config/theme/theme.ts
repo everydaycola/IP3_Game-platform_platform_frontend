@@ -17,6 +17,11 @@ export const theme = createTheme({
                 background: {
                     default: colors.lightBlue,
                     paper: colors.white,
+                    paperChannel: colors.white
+                },
+                text: {
+                    primary: colors.black,
+                    secondary: colors.lightBlue
                 }
             },
         },
@@ -24,7 +29,7 @@ export const theme = createTheme({
             palette: {
                 mode: "dark",
                 primary: {
-                    main: colors.darkBlue,
+                    main: colors.lightBlue,
                     contrastText: colors.white,
                 },
                 secondary: {
@@ -35,9 +40,9 @@ export const theme = createTheme({
                     default: colors.lightBlue,
                     paper: colors.white,
                 },
-                //TEMPORARY SOLUTION: needs to be changed eventually
                 text: {
-                    primary: colors.black,
+                    primary: colors.white,
+                    secondary: colors.darkBlue
                 }
             },
         },
