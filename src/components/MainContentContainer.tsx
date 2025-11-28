@@ -15,7 +15,8 @@ export function MainContentContainer({children}: AppLayoutProps){
                     flex: 7,
                     background: theme.palette.primary.dark,
                     borderTopLeftRadius:  isSmallScreen? 0 : 20,
-                    p: 4
+                    p: 4,
+                    pl: 6,
                 }}
             >
                 {children}
