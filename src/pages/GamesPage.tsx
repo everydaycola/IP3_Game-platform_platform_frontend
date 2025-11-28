@@ -44,7 +44,7 @@ export function GamesPage() {
 
     return (
         <>
-            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"}>
+            <Stack direction={{lg:"row", sx:"column"}} alignItems={"center"} justifyContent={"space-between"}>
                 <Typography variant={"h2"}>
                     Games
                 </Typography>
