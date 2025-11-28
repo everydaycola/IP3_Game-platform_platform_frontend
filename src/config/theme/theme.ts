@@ -8,6 +8,7 @@ export const theme = createTheme({
                 mode: "light",
                 primary: {
                     main: colors.lightBlue,
+                    dark:colors.darkBlue,
                     contrastText: colors.white,
                 },
                 secondary: {
@@ -18,6 +19,9 @@ export const theme = createTheme({
                     default: colors.lightBlue,
                     paper: colors.white,
                     paperChannel: colors.white
+                },
+                info:{
+                    main: colors.emerald,
                 },
                 text: {
                     primary: colors.black,
@@ -30,6 +34,7 @@ export const theme = createTheme({
                 mode: "dark",
                 primary: {
                     main: colors.lightBlue,
+                    dark:colors.darkBlue,
                     contrastText: colors.white,
                 },
                 secondary: {
@@ -40,9 +45,12 @@ export const theme = createTheme({
                     default: colors.lightBlue,
                     paper: colors.white,
                 },
+                info:{
+                    main: colors.emerald,
+                },
                 text: {
                     primary: colors.white,
-                    secondary: colors.darkBlue
+                    secondary: colors.darkBlue,
                 }
             },
         },

@@ -23,12 +23,13 @@ export function GameCard({game}: GameCardProps) {
                 height:"60%",
                 marginRight: "5%",
                 marginBottom: "5%",
-                cursor:"pointer"
+                cursor:"pointer",
+                borderRadius: 4
         }}>
             <CardActionArea sx={{height: "75%", overflow:"hidden"}}>
                 {game.icon == "" ?
                     <Stack alignItems={"center"} sx={{marginY: "1rem"}}>
-                        <VideogameAssetIcon/>
+                        <VideogameAssetIcon sx={{color: theme.palette.primary.dark}}/>
                     </Stack>
                     :
                     <CardMedia component="img"
@@ -46,9 +47,9 @@ export function GameCard({game}: GameCardProps) {
                         setFavorited(!favorited)
                     }}>
                         {favorited ?
-                            <StarIcon color={"primary"}/>
+                            <StarIcon sx={{color: theme.palette.primary.dark}}/>
                             :
-                            <StarOutlineIcon color={"primary"}/>
+                            <StarOutlineIcon sx={{color: theme.palette.primary.dark}}/>
                         }
                     </IconButton>
                 </Stack>

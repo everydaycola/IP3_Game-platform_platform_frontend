@@ -1,4 +1,4 @@
-import { Typography, Container, Stack, Button} from "@mui/material";
+import {Typography, Container, Stack, Button, useTheme} from "@mui/material";
 import {GameCardList} from "../components/GameCard.tsx";
 import {useGamesList} from "../hooks/useGamesList.tsx";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
@@ -14,6 +14,7 @@ export function GamesPage() {
     const [sortAbc, setSortAbc] = useState(true)
     const [sortedGames, setSortedGames] = useState<CompactGame[]>();
     const [searchTerm, setSearchTerm] = useState("");
+    const theme = useTheme();
 
     function filterGames(searchString: string, sortAbcBool: boolean) {
         setSearchTerm(searchString);
@@ -52,8 +53,9 @@ export function GamesPage() {
                         filterGames(searchTerm, !sortAbc)
                     }}>
                         <Stack direction={"row"}>
-                            <Typography>abc</Typography>
-                            {sortAbc ? <ArrowDownwardIcon/> : <ArrowUpwardIcon/>}
+                            <Typography color={theme.palette.text.primary}>abc</Typography>
+                            {sortAbc ? <ArrowDownwardIcon sx={{color: theme.palette.text.primary}}/>
+                                : <ArrowUpwardIcon sx={{color: theme.palette.text.primary}}/>}
                         </Stack>
                     </Button>
                     <Search>
@@ -77,7 +79,7 @@ export function GamesPage() {
                 <Container>
                     <Stack alignItems="center" justifyContent="center" spacing={2}>
                         <VideogameAssetOffIcon/>
-                        <Typography color={"info"}>Geen games gevonden</Typography>
+                        <Typography variant={"h5"} color={"info"}>Geen games gevonden</Typography>
                     </Stack>
                 </Container>
             }
