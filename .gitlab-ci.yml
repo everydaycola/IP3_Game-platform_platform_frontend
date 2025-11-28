@@ -33,5 +33,3 @@ docker-publish:
   script:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
