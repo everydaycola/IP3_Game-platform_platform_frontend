@@ -18,7 +18,7 @@ build:
       - dist/
     expire_in: 1 hour
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "#20-dockerization-ci-cd"'
 
 docker-publish:
   image: docker:24.0.5-cli
@@ -35,4 +35,4 @@ docker-publish:
     - docker build -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: '$CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "#20-dockerization-ci-cd"'
