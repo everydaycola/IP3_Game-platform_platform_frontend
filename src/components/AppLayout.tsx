@@ -1,9 +1,10 @@
-import {AppBar, Box, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
+import {AppBar, Box, Drawer, IconButton,Stack, Toolbar, Typography, useTheme} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
+import {ThemeControls} from "./ThemeControls.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -27,10 +28,11 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                         <Typography variant="h5"
                                     component="div"
                         >Fourteengames</Typography>
+                        <ThemeControls/>
                         <IconButton
                             color="inherit"
                             edge="start"
-                            sx={{ mr: 2, display: { md: "none" } }}
+                            sx={{ mr: 2, display: { md: "none" }}}
                             onClick={() => setHamnavOpen(true)}
                         >
                             <MenuIcon />
