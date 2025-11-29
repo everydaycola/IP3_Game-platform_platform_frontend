@@ -1,12 +1,22 @@
-import {Typography, Stack, Avatar, Checkbox, Button} from "@mui/material";
+import {Typography, Stack, Avatar, Button} from "@mui/material";
 import {ThemeControls} from "../components/ThemeControls.tsx";
+import {useContext} from "react";
+import SecurityContext from "../context/SecurityContext.ts";
+import {Navigate} from "react-router-dom";
 
 export function UserConfigPage() {
+    const {isAuthenticated, isInitialised, loggedInUser, logout, login} = useContext(SecurityContext)
+
+    // If not authenticated, redirect to Games page
+    if (isInitialised && !isAuthenticated()) {
+        return <Navigate to="/games" replace />
+    }
+
     return (
         <>
             <Stack direction="row" justifyContent="flex-end">
-                <Button sx={{ width: "25%" }} variant="contained" color="secondary">
-                    Uitloggen
+                <Button sx={{ width: "25%" }} variant="contained" color="secondary" onClick={isAuthenticated() ? logout : login}>
+                    {isAuthenticated() ? "Uitloggen" : "Inloggen"}
                 </Button>
             </Stack>
 
@@ -35,8 +45,13 @@ export function UserConfigPage() {
                         variant={"h4"}
                         sx={{mt: 2}}
                     >
-                        USERNAME
+                        {loggedInUser?.name || loggedInUser?.username || "Gebruiker"}
                     </Typography>
+                    {loggedInUser?.email && (
+                        <Typography variant={"subtitle1"} sx={{mt:1}}>
+                            {loggedInUser.email}
+                        </Typography>
+                    )}
                 </Stack>
                 <Stack direction={"column"}
                        sx={{
@@ -52,6 +67,18 @@ export function UserConfigPage() {
                     >
                         Uw voorkeuren beheren
                     </Typography>
+                    {loggedInUser && (
+                        <Stack direction={"column"} sx={{mt:2}}>
+                            {(loggedInUser.firstName || loggedInUser.lastName) && (
+                                <Typography>
+                                    Naam: {[loggedInUser.firstName, loggedInUser.lastName].filter(Boolean).join(" ")}
+                                </Typography>
+                            )}
+                            {loggedInUser.username && (
+                                <Typography>Gebruikersnaam: {loggedInUser.username}</Typography>
+                            )}
+                        </Stack>
+                    )}
                     <Stack direction={"row"}
                            sx={{
                                display: "flex",
@@ -69,16 +96,16 @@ export function UserConfigPage() {
                     >
                         Notificaties
                     </Typography>
-                    <Stack direction={"row"}
-                           alignItems={"center"}>
-                        Meldingen binnen het platform ontvangen?
-                        <Checkbox/>
-                    </Stack>
-                    <Stack direction={"row"}
-                           alignItems={"center"}>
-                        Meldingen via e-mail ontvangen?
-                        <Checkbox/>
-                    </Stack>
+                    {/*<Stack direction={"row"}*/}
+                    {/*       alignItems={"center"}>*/}
+                    {/*    Meldingen binnen het platform ontvangen?*/}
+                    {/*    <Checkbox/>*/}
+                    {/*</Stack>*/}
+                    {/*<Stack direction={"row"}*/}
+                    {/*       alignItems={"center"}>*/}
+                    {/*    Meldingen via e-mail ontvangen?*/}
+                    {/*    <Checkbox/>*/}
+                    {/*</Stack>*/}
                 </Stack>
 
             </Stack>

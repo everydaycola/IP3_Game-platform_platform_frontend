@@ -33,6 +33,7 @@ export default function SecurityContextProvider({children}: PropsWithChildren) {
 
     keycloak.onAuthLogout = () => {
         removeAccessTokenFromAuthHeader()
+        setLoggedInUser(undefined)
     }
 
     keycloak.onAuthError = () => {
@@ -50,6 +51,14 @@ export default function SecurityContextProvider({children}: PropsWithChildren) {
         keycloak.login()
     }
 
+    function logout() {
+        // Clear local state immediately for responsiveness; Keycloak will handle session
+        removeAccessTokenFromAuthHeader()
+        setLoggedInUser(undefined)
+        // After logging out at the IdP, return to the app's main page
+        keycloak.logout({ redirectUri: window.location.origin })
+    }
+
     function isAuthenticated() {
         if (keycloak.token) return !isExpired(keycloak.token)
         else return false
@@ -58,12 +67,20 @@ export default function SecurityContextProvider({children}: PropsWithChildren) {
     function updateUserFromToken() {
         if (!keycloak.idTokenParsed || !keycloak.tokenParsed) return
 
-        const name = keycloak.idTokenParsed.given_name
+        const preferredUsername = (keycloak.tokenParsed as any)["preferred_username"] as string | undefined
+        const email = (keycloak.tokenParsed as any)["email"] as string | undefined
+        const givenName = (keycloak.idTokenParsed as any)["given_name"] as string | undefined
+        const familyName = (keycloak.idTokenParsed as any)["family_name"] as string | undefined
+        const name = keycloak.idTokenParsed.given_name ?? preferredUsername ?? ""
         const realmRoles =
             keycloak.tokenParsed.realm_access?.roles ?? []
 
         setLoggedInUser({
             name,
+            username: preferredUsername,
+            email: email,
+            firstName: givenName,
+            lastName: familyName,
             roles: realmRoles,
         })
     }
@@ -76,6 +93,7 @@ export default function SecurityContextProvider({children}: PropsWithChildren) {
                 isAuthenticated,
                 loggedInUser,
                 login,
+                logout,
             }}
         >
             {children}

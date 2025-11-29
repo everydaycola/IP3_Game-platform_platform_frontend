@@ -68,6 +68,7 @@ function App() {
                                         <Route
                                             path={"/user"}
                                             element={
+                                                <RouteGuard>
                                                     <FallbackWrapper
                                                         errorFallback={
                                                             <ErrorCard
@@ -81,9 +82,8 @@ function App() {
                                                     >
                                                         <UserConfigPage/>
                                                     </FallbackWrapper>
+                                                </RouteGuard>
                                             }/>
-
-
                                     </Routes>
                                 </MainContentContainer>
                             }/>
