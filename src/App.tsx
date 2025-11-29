@@ -1,6 +1,6 @@
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {GamesPage} from "./pages/GamesPage.tsx";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {CssBaseline, ThemeProvider, Typography} from "@mui/material";
 import {theme} from "./config/theme/theme.ts";
 import {MainContentContainer} from "./components/MainContentContainer.tsx";
 import {AppLayout} from "./components/AppLayout.tsx";
@@ -13,6 +13,7 @@ import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallba
 import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
 import {RouteGuard} from "./components/RouteGuard.tsx";
 import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
+import {UserConfigPage} from "./pages/UserConfigPage.tsx";
 
 function App() {
 
@@ -64,6 +65,25 @@ function App() {
                                                     </FallbackWrapper>
                                                 </RouteGuard>
                                             }/>
+                                        <Route
+                                            path={"/user"}
+                                            element={
+                                                    <FallbackWrapper
+                                                        errorFallback={
+                                                            <ErrorCard
+                                                                title={"Ohnee..."}
+                                                                description={"Er ging iets mis met het laden van deze pagina..."}
+                                                            />
+                                                        }
+                                                        loadingFallback={
+                                                            <Typography>FALLBACK</Typography>
+                                                        }
+                                                    >
+                                                        <UserConfigPage/>
+                                                    </FallbackWrapper>
+                                            }/>
+
+
                                     </Routes>
                                 </MainContentContainer>
                             }/>

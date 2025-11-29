@@ -1,10 +1,9 @@
-import {AppBar, Box, Drawer, IconButton,Stack, Toolbar, Typography, useTheme} from "@mui/material";
-import {Link} from "react-router-dom";
+import {AppBar, Avatar, Box, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
-import {ThemeControls} from "./ThemeControls.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -14,6 +13,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const {isSmallScreen} = useMediaQueries();
     const [hamnavOpen, setHamnavOpen] = useState(false);
     const theme = useTheme();
+    const navigate = useNavigate();
 
     return (
         <>
@@ -28,7 +28,6 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                         <Typography variant="h5"
                                     component="div"
                         >Fourteengames</Typography>
-                        <ThemeControls/>
                         <IconButton
                             color="inherit"
                             edge="start"
@@ -84,6 +83,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                     }}
                 >
                     {!isSmallScreen && (
+                        <Stack direction={"column"} sx={{flex:1}}>
                             <Box
                                 sx={{
                                     flex: 1,
@@ -102,8 +102,14 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                 >
                                     Games
                                 </Typography>
-
                             </Box>
+                            <Avatar
+                                alt="Placeholder"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99-ZMZeEtYlFVdT-HN3Hz0f_i64Zf76D67g&s"
+                                sx={{width: 100, height: 100, margin:"0 auto", mb:4, cursor:"pointer"}}
+                                onClick={() => navigate("/user")}
+                            />
+                        </Stack>
                         )
                     }
 
