@@ -1,6 +1,6 @@
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {GamesPage} from "./pages/GamesPage.tsx";
-import {CssBaseline, ThemeProvider} from "@mui/material";
+import {CssBaseline, ThemeProvider, Typography} from "@mui/material";
 import {theme} from "./config/theme/theme.ts";
 import {MainContentContainer} from "./components/MainContentContainer.tsx";
 import {AppLayout} from "./components/AppLayout.tsx";
@@ -11,6 +11,9 @@ import {GamePageLoadingFallback} from "./pages/fallbacks/GamePageLoadingFallback
 import {ErrorCard} from "./components/ErrorCard.tsx";
 import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallback.tsx";
 import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
+import {RouteGuard} from "./components/RouteGuard.tsx";
+import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
+import {UserConfigPage} from "./pages/UserConfigPage.tsx";
 
 function App() {
 
@@ -18,52 +21,74 @@ function App() {
         <>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider theme={theme}>
-                    <CssBaseline/>
-                    <BrowserRouter>
-                        <AppLayout mainContent={
-                            <MainContentContainer>
-                                <Routes>
-                                    <Route path="/"
-                                           element={<Navigate to="/games"
-                                                              replace/>}/>
-                                    <Route path={"/games"}
-                                           element={
-                                               <FallbackWrapper
-                                                   errorFallback={
-                                                       <ErrorCard
-                                                           title={"Ohnee..."}
-                                                           description={"Er ging iets mis met het ophalen van games..."}
-                                                       />
-                                                   }
-                                                   loadingFallback={
-                                                       <GamesPageLoadingFallback/>
-                                                   }
-                                               >
-                                                   <GamesPage/>
-                                               </FallbackWrapper>
-                                           }/>
-                                    <Route
-                                        path={"/games/:gameId"}
-                                        element={
-
-                                            <FallbackWrapper
-                                                errorFallback={
-                                                    <ErrorCard
-                                                        title={"Ohnee..."}
-                                                        description={"Er ging iets mis met het laden van deze pagina..."}
-                                                    />
-                                                }
-                                                loadingFallback={
-                                                    <GamePageLoadingFallback/>
-                                                }
-                                            >
-                                                <GamePage/>
-                                            </FallbackWrapper>
-                                        }/>
-                                </Routes>
-                            </MainContentContainer>
-                        }/>
-                    </BrowserRouter>
+                    <SecurityContextProvider>
+                        <CssBaseline/>
+                        <BrowserRouter>
+                            <AppLayout mainContent={
+                                <MainContentContainer>
+                                    <Routes>
+                                        <Route path="/"
+                                               element={<Navigate to="/games"
+                                                                  replace/>}/>
+                                        <Route path={"/games"}
+                                               element={
+                                                   <FallbackWrapper
+                                                       errorFallback={
+                                                           <ErrorCard
+                                                               title={"Ohnee..."}
+                                                               description={"Er ging iets mis met het ophalen van games..."}
+                                                           />
+                                                       }
+                                                       loadingFallback={
+                                                           <GamesPageLoadingFallback/>
+                                                       }
+                                                   >
+                                                       <GamesPage/>
+                                                   </FallbackWrapper>
+                                               }/>
+                                        <Route
+                                            path={"/games/:gameId"}
+                                            element={
+                                                <RouteGuard>
+                                                    <FallbackWrapper
+                                                        errorFallback={
+                                                            <ErrorCard
+                                                                title={"Ohnee..."}
+                                                                description={"Er ging iets mis met het laden van deze pagina..."}
+                                                            />
+                                                        }
+                                                        loadingFallback={
+                                                            <GamePageLoadingFallback/>
+                                                        }
+                                                    >
+                                                        <GamePage/>
+                                                    </FallbackWrapper>
+                                                </RouteGuard>
+                                            }/>
+                                        <Route
+                                            path={"/user"}
+                                            element={
+                                                <RouteGuard>
+                                                    <FallbackWrapper
+                                                        errorFallback={
+                                                            <ErrorCard
+                                                                title={"Ohnee..."}
+                                                                description={"Er ging iets mis met het laden van deze pagina..."}
+                                                            />
+                                                        }
+                                                        loadingFallback={
+                                                            <Typography>FALLBACK</Typography>
+                                                        }
+                                                    >
+                                                        <UserConfigPage/>
+                                                    </FallbackWrapper>
+                                                </RouteGuard>
+                                            }/>
+                                    </Routes>
+                                </MainContentContainer>
+                            }/>
+                        </BrowserRouter>
+                    </SecurityContextProvider>
                 </ThemeProvider>
             </QueryClientProvider>
         </>
