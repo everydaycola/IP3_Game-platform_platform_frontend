@@ -1,13 +1,13 @@
 import {Typography, Container, Stack, Button, useTheme} from "@mui/material";
-import {GameCardList} from "../components/GameCard.tsx";
 import {useGamesList} from "../hooks/useGamesList.tsx";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
 import SearchIcon from '@mui/icons-material/Search';
-import {SearchIconWrapper, StyledInputBase, Search} from "../components/Search.tsx";
+import {SearchIconWrapper, StyledInputBase, Search} from "../components/controls/Search.tsx";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {useEffect, useState} from "react";
 import type {CompactGame} from "../models/Game.ts";
+import {GameCardList} from "../components/lists/GameCardList.tsx";
 
 export function GamesPage() {
     const {games} = useGamesList()

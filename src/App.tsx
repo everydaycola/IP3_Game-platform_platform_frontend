@@ -8,10 +8,10 @@ import {QueryClientProvider} from "@tanstack/react-query";
 import {queryClient} from "./config/api";
 import {GamePage} from "./pages/GamePage.tsx";
 import {GamePageLoadingFallback} from "./pages/fallbacks/GamePageLoadingFallback.tsx";
-import {ErrorCard} from "./components/ErrorCard.tsx";
+import {ErrorCard} from "./components/cards/ErrorCard.tsx";
 import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallback.tsx";
 import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
-import {RouteGuard} from "./components/RouteGuard.tsx";
+import {RouteGuard} from "./components/identityHelpers/RouteGuard.tsx";
 import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
 import {UserConfigPage} from "./pages/UserConfigPage.tsx";
 

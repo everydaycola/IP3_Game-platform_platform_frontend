@@ -1,5 +1,5 @@
 import {type PropsWithChildren, useContext, useEffect} from 'react'
-import SecurityContext from '../context/SecurityContext.ts'
+import SecurityContext from '../../context/SecurityContext.ts'
 
 export function RouteGuard({children}: PropsWithChildren) {
     const {isInitialised, isAuthenticated, login} = useContext(SecurityContext)

@@ -3,18 +3,34 @@ import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import {useEffect, useState} from "react";
 import {useCheckGameReachable} from "../hooks/useCheckGameReachable.tsx";
+import {FavoriteButton} from "./FavoriteButton.tsx";
+import {useFavoriteGame} from "../hooks/useFavoriteGame.tsx";
 
 interface GamePlayerProps{
+    gameId: string;
     gameUrl: string;
 }
 
-export function GamePlayer({gameUrl}:GamePlayerProps){
+export function GamePlayer({gameId,gameUrl}:GamePlayerProps){
+    const [favorited, setFavorited] = useState(false);
+    const {addFavorite, removeFavorite} = useFavoriteGame();
     const {isReachable} = useCheckGameReachable(gameUrl);
     const [isFullScreen, setIsFullScreen] = useState(false);
 
     function handleEscapePress(){
         setIsFullScreen(false);
     }
+
+    function handleFavoriteChange(){
+        if(favorited){
+            removeFavorite(gameId);
+            setFavorited(false);
+        }else{
+            addFavorite(gameId);
+            setFavorited(true);
+        }
+    }
+
 
     useEffect(() => {
         window.addEventListener('keydown', handleEscapePress);
@@ -72,6 +88,7 @@ export function GamePlayer({gameUrl}:GamePlayerProps){
                         px: 1,
                     }}
                 >
+                    <FavoriteButton mainColor={false} onClick={handleFavoriteChange} selected={favorited}/>
                     <IconButton
                         onClick={() => setIsFullScreen(!isFullScreen)}
                         sx={{color:"white"}}

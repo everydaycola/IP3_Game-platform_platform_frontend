@@ -1,5 +1,5 @@
 import {Typography, Stack, Avatar, Button} from "@mui/material";
-import {ThemeControls} from "../components/ThemeControls.tsx";
+import {ThemeControls} from "../components/controls/ThemeControls.tsx";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {Navigate} from "react-router-dom";

@@ -1,10 +1,10 @@
-import type {CompactGame} from "../models/Game.ts";
-import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, IconButton, useTheme} from "@mui/material"
+import type {CompactGame} from "../../models/Game.ts";
+import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import StarIcon from '@mui/icons-material/Star';
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useFavoriteGame} from "../../hooks/useFavoriteGame.tsx";
+import {FavoriteButton} from "../FavoriteButton.tsx";
 
 interface GameCardProps {
     game: CompactGame
@@ -14,6 +14,19 @@ export function GameCard({game}: GameCardProps) {
     const [favorited, setFavorited] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
+    const {addFavorite, removeFavorite} = useFavoriteGame();
+
+    function handleFavoriteChange(){
+        console.log("favo is currently: ", favorited);
+        if(favorited){
+            removeFavorite(game.id);
+            setFavorited(false);
+        }else{
+            addFavorite(game.id);
+            setFavorited(true);
+        }
+    }
+
 
     return (
         <Card
@@ -41,31 +54,12 @@ export function GameCard({game}: GameCardProps) {
                 <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Typography color={theme.palette.text.secondary}>{game.name}</Typography>
 
-                    {/*This button currently doesn't change anything in the backend*/}
-                    <IconButton onClick={(e) => {
-                        e.stopPropagation();
-                        setFavorited(!favorited)
-                    }}>
-                        {favorited ?
-                            <StarIcon sx={{color: theme.palette.text.secondary}}/>
-                            :
-                            <StarOutlineIcon sx={{color: theme.palette.text.secondary}}/>
-                        }
-                    </IconButton>
+                    <FavoriteButton
+                        onClick={handleFavoriteChange}
+                        selected={favorited}
+                    />
                 </Stack>
             </CardContent>
         </Card>
-    )
-}
-
-interface GameCardListProps {
-    games: CompactGame[]
-}
-
-export function GameCardList({games}: GameCardListProps) {
-    return (
-        <Stack direction={"row"} flexWrap="wrap" height={"75%"} sx={{pt:2}}>
-            {games.map(game => <GameCard game={game} key={game.id}/>)}
-        </Stack>
     )
 }
