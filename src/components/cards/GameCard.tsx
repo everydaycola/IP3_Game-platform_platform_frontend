@@ -14,7 +14,11 @@ export function GameCard({game}: GameCardProps) {
     const [favorited, setFavorited] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
-    const {addFavorite, removeFavorite} = useFavoriteGame();
+    const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGame();
+
+    if(removeFavoriteError || addFavoriteError){
+        throw new Error("Error with updating favorites.");
+    }
 
     function handleFavoriteChange(){
         console.log("favo is currently: ", favorited);
@@ -61,17 +65,5 @@ export function GameCard({game}: GameCardProps) {
                 </Stack>
             </CardContent>
         </Card>
-    )
-}
-
-interface GameCardListProps {
-    games: CompactGame[]
-}
-
-export function GameCardList({games}: GameCardListProps) {
-    return (
-        <Stack direction={"row"} flexWrap="wrap" height={"75%"} sx={{pt:2}}>
-            {games.map(game => <GameCard game={game} key={game.id}/>)}
-        </Stack>
     )
 }
