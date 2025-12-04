@@ -41,7 +41,6 @@ export function GameCard({game}: GameCardProps) {
                 <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Typography color={theme.palette.text.secondary}>{game.name}</Typography>
 
-                    {/*This button currently doesn't change anything in the backend*/}
                     <IconButton onClick={(e) => {
                         e.stopPropagation();
                         setFavorited(!favorited)
