@@ -63,3 +63,15 @@ export function GameCard({game}: GameCardProps) {
         </Card>
     )
 }
+
+interface GameCardListProps {
+    games: CompactGame[]
+}
+
+export function GameCardList({games}: GameCardListProps) {
+    return (
+        <Stack direction={"row"} flexWrap="wrap" height={"75%"} sx={{pt:2}}>
+            {games.map(game => <GameCard game={game} key={game.id}/>)}
+        </Stack>
+    )
+}
