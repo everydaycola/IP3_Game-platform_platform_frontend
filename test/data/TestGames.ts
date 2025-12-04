@@ -1,4 +1,4 @@
-import {CompactGame} from "../../src/models/Game";
+import type {CompactGame} from "../../src/models/Game.ts";
 
 export const compactGame1: CompactGame = {
     id: "1",

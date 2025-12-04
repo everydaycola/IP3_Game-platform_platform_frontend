@@ -96,16 +96,6 @@ export function UserConfigPage() {
                     >
                         Notificaties
                     </Typography>
-                    {/*<Stack direction={"row"}*/}
-                    {/*       alignItems={"center"}>*/}
-                    {/*    Meldingen binnen het platform ontvangen?*/}
-                    {/*    <Checkbox/>*/}
-                    {/*</Stack>*/}
-                    {/*<Stack direction={"row"}*/}
-                    {/*       alignItems={"center"}>*/}
-                    {/*    Meldingen via e-mail ontvangen?*/}
-                    {/*    <Checkbox/>*/}
-                    {/*</Stack>*/}
                 </Stack>
 
             </Stack>
