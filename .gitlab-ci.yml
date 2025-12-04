@@ -2,8 +2,8 @@ image: node:24
 
 stages:
   - build
-  - docker-publish
   - test
+  - docker-publish
 
 cache:
   paths:
@@ -31,6 +31,7 @@ test:
     when: always
   dependencies:
     - build
+
 
 docker-publish:
   image: docker:24.0.5-cli
