@@ -11,7 +11,6 @@ export function FriendListPage() {
     const {loggedInUser} = useContext(SecurityContext);
     const {friendList} = useFriendList();
     const { friendRequests} = useFriendRequestList();
-    console.log(friendRequests);
 
     return (
         <Card sx={{
@@ -30,7 +29,11 @@ export function FriendListPage() {
                         <Typography variant={"h5"}>Openstaande vriendschaps verzoeken</Typography>
                         <Stack direction={"row"} sx={{mt:-2}} flexWrap={"wrap"}>
                             {friendRequests.friends.map((friendRequest) =>
-                                    <FriendRequestCard userName={friendRequest.userName} key={"friendRequest"+ friendRequest.userName}/>
+                                    <FriendRequestCard
+                                        data-testid={"friend-request-card"}
+                                        userName={friendRequest.userName}
+                                        key={"friendRequest"+ friendRequest.userName}
+                                    />
                                 )
                             }
                         </Stack>
@@ -40,14 +43,14 @@ export function FriendListPage() {
                 }
 
                 {friendList.friends.length === 0 &&
-                    <Typography variant={"h5"}>Het lijkt er op dat je nog geen vrienden hebt toegevoegd...</Typography>
+                    <Typography variant={"h5"} data-testid={"no-friend-warning"}>Het lijkt er op dat je nog geen vrienden hebt toegevoegd...</Typography>
                 }
 
                 <Stack direction={"column"}>
                     <Typography variant={"h5"}>Jouw vrienden:</Typography>
                     <Stack flexWrap={"wrap"} direction={"row"} sx={{mt:-2}} gap={2}>
                         {friendList.friends.map((friend) => {
-                            return <FriendCard key={friend.userName} userName={friend.userName}/>
+                            return <FriendCard data-testid={"friend-card"} key={friend.userName} userName={friend.userName}/>
                         })}
                     </Stack>
                 </Stack>

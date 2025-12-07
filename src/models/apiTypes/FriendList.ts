@@ -1,7 +1,7 @@
 import type {FriendRelation} from "./FriendRelation.ts";
 
 export type FriendList = {
-    id:"",
+    id:string,
     friends:FriendRelation[]
 };
 

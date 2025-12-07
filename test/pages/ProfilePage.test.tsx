@@ -10,8 +10,8 @@ vi.mock('axios')
 
 describe('ProfilePage', () => {
     it("renders profile page of another user without any editing options succesfully", async () => {
+        //Arrange
         const queryClient = new QueryClient();
-
         const searchedUser = "anotherUser";
         const mockSecurityContextValue = {
             isInitialised: true,
@@ -20,7 +20,7 @@ describe('ProfilePage', () => {
             login: vi.fn(),
             logout: vi.fn(),
         };
-
+        //Act
         render(
             <QueryClientProvider client={queryClient}>
                 <SecurityContext.Provider value={mockSecurityContextValue}>
@@ -34,6 +34,7 @@ describe('ProfilePage', () => {
             </QueryClientProvider>
         );
 
+        //Assert
         await waitFor(() => {
             expect(screen.queryByTestId("preference-edit-button")).not.toBeInTheDocument();
             expect(screen.queryByTestId("friend-view-button")).not.toBeInTheDocument();
@@ -41,8 +42,8 @@ describe('ProfilePage', () => {
     });
 
     it("renders profile page of the current user with editing options succesfully", async () => {
+        //Arrange
         const queryClient = new QueryClient();
-
         const mockSecurityContextValue = {
             isInitialised: true,
             isAuthenticated: () => true,
@@ -50,7 +51,7 @@ describe('ProfilePage', () => {
             login: vi.fn(),
             logout: vi.fn(),
         };
-
+        //Act
         render(
             <QueryClientProvider client={queryClient}>
                 <SecurityContext.Provider value={mockSecurityContextValue}>
@@ -63,12 +64,10 @@ describe('ProfilePage', () => {
                 </SecurityContext.Provider>
             </QueryClientProvider>
         );
-
+        //Assert
         await waitFor(() => {
             expect(screen.getByTestId("preference-edit-button")).toBeInTheDocument();
             expect(screen.getByTestId("friend-view-button")).toBeInTheDocument();
         });
     });
-
-
 })
