@@ -1,7 +1,8 @@
-import {Card, CardContent, Typography, useTheme} from "@mui/material";
+import {Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {useFriendList} from "../hooks/useFriendList.tsx";
+import FriendCard from "../components/cards/FriendCard.tsx";
 
 export function FriendListPage() {
     const theme = useTheme();
@@ -16,25 +17,20 @@ export function FriendListPage() {
             mt: 5,
             borderRadius: 3,
             overflow: 'hidden',
-            color:theme.palette.primary.main
+            color: theme.palette.primary.main
         }}>
             <CardContent>
-                <Typography variant={"h4"}><span style={{fontWeight:"bold"}}>{loggedInUser?.username}'s</span> vrienden</Typography>
+                <Typography variant={"h4"}><span style={{fontWeight: "bold"}}>{loggedInUser?.username}'s</span> vrienden</Typography>
 
                 {friendList.friends.length === 0 &&
                     <Typography>Zo te zien heb je nog geen vrienden in je vriendenlijst :'(</Typography>
                 }
 
-                {friendList.friends.map((friend) => {
-                    let correctFriend;
-                    if(friend.user1 === friendList.id){
-                        correctFriend = friend.user2
-                    }else{
-                        correctFriend = friend.user1
-                    }
-
-                    return <Typography sx={{mt:2}} key={correctFriend}>{correctFriend}</Typography>;
-                })}
+                <Stack flexWrap={"wrap"} direction={"row"} gap={2}>
+                    {friendList.friends.map((friend) => {
+                        return <FriendCard key={friend.userName} userName={friend.userName}/>
+                    })}
+                </Stack>
 
             </CardContent>
         </Card>

@@ -10,3 +10,11 @@ export function addAccessTokenToAuthHeader(token: string | undefined) {
 export function removeAccessTokenFromAuthHeader() {
     delete axios.defaults.headers.common['Authorization']
 }
+
+export async function notifyBackendUserLogin() {
+    try {
+        await axios.post("/user");
+    } catch (e) {
+        console.error("Failed to notify backend about user login", e);
+    }
+}

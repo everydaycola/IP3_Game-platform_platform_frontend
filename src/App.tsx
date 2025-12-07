@@ -16,6 +16,7 @@ import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
 import {UserConfigPage} from "./pages/UserConfigPage.tsx";
 import {ProfilePage} from "./pages/ProfilePage.tsx";
 import {FriendListPage} from "./pages/FriendListPage.tsx";
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 function App() {
 
@@ -133,6 +134,7 @@ function App() {
                             }/>
                         </BrowserRouter>
                     </SecurityContextProvider>
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </ThemeProvider>
             </QueryClientProvider>
         </>

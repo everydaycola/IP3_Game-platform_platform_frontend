@@ -43,7 +43,7 @@ export function ProfilePage() {
                         width: 100,
                         height: 100,
                         border: '3px solid white',
-                        color:theme.palette.primary.contrastText
+                        color: theme.palette.primary.contrastText
                     }}
                 />
             </Box>
@@ -60,39 +60,40 @@ export function ProfilePage() {
                         width: '100%',
                         minHeight: 250,
                         overflow: 'hidden',
-                        mt:4,
-                        color:theme.palette.primary.main
+                        mt: 4,
+                        color: theme.palette.primary.main
                     }}
                 >
                     <Box
                         sx={{
                             width: '75%',
                             p: 2,
-                            textAlign:"left"
+                            textAlign: "left"
                         }}
                     >
-                        <Typography variant="h6">Left Content</Typography>
-                        <Typography variant="body2">
-                            Hier kan een klein tekstje komen maar dat moet nog even voorzien worden in de database.
+                        <Typography>
+                            Placeholder voor de biografie van een gebruiker.
                         </Typography>
                     </Box>
 
-                    <Box
-                        sx={{
-                            width: '25%',
-                            p: 2,
-                            textAlign:"right"
-                        }}
-                    >
-                        <Button
-                            variant="contained"
-                            sx={{ mt: 1 }}
-                            component={Link}
-                            to={"/friends"}
+                    {loggedInUser?.username === userName &&
+                        <Box
+                            sx={{
+                                width: '25%',
+                                p: 2,
+                                textAlign: "right"
+                            }}
                         >
-                            Vrienden
-                        </Button>
-                    </Box>
+                            <Button
+                                variant="contained"
+                                sx={{mt: 1}}
+                                component={Link}
+                                to={"/friends"}
+                            >
+                                Vrienden
+                            </Button>
+                        </Box>
+                    }
                 </Paper>
             </CardContent>
         </Card>
