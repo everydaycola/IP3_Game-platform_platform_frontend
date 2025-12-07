@@ -3,6 +3,10 @@ export const gamesQueryKey={
     currentGame: (gameId: string) => ["currentGame", gameId] as const,
 }
 
+export const userDataQueryKey={
+    current:["currentUserData"] as const,
+}
+
 export const friendsQueryKey={
     all:["friends"] as const,
 }

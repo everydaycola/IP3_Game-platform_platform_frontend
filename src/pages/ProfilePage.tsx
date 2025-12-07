@@ -2,11 +2,13 @@ import {Avatar, Box, Button, Card, CardContent, Paper, Typography, useTheme} fro
 import {Link, useParams} from "react-router-dom";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 
 export function ProfilePage() {
     const theme = useTheme();
     const {userName} = useParams();
     const {loggedInUser} = useContext(SecurityContext);
+    const {platformUser} = usePlatformUser();
 
     return (
         <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3, overflow: 'hidden'}}>
@@ -73,7 +75,7 @@ export function ProfilePage() {
                         }}
                     >
                         <Typography>
-                            Placeholder voor de biografie van een gebruiker.
+                            {platformUser.biography}
                         </Typography>
                     </Box>
 

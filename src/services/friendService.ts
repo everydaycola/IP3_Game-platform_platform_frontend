@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {FriendList} from "../models/apiTypes/FriendList.ts";
+import type {FriendList, FriendRequestList} from "../models/apiTypes/FriendList.ts";
 
 export async function findAllFriends(){
     const {data: friends} = await axios.get<FriendList>('/user/friends')
@@ -7,6 +7,6 @@ export async function findAllFriends(){
 }
 
 export async function findAllOpenFriendRequests(){
-    const {data: friends} = await axios.get<FriendList>('/user/friends/requests')
+    const {data: friends} = await axios.get<FriendRequestList>('/user/friends/requests')
     return friends
 }

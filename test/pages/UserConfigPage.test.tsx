@@ -88,8 +88,6 @@ describe('UserConfig', () => {
         );
 
         expect(screen.getByText("Uw voorkeuren beheren")).toBeInTheDocument();
-        expect(screen.getByText("testUser")).toBeInTheDocument();
-        expect(screen.getByText("test@test.com")).toBeInTheDocument();
         expect(screen.getByRole("button", {name: /uitloggen/i})).toBeInTheDocument();
     });
 

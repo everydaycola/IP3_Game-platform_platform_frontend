@@ -8,6 +8,14 @@ import {ProfilePage} from "../../src/pages/ProfilePage.tsx";
 
 vi.mock('axios')
 
+vi.mock('../../src/hooks/usePlatformUser.tsx', () => ({
+    usePlatformUser: () => ({
+        platformUser: {
+            biography: 'Test biography'
+        }
+    })
+}));
+
 describe('ProfilePage', () => {
     it("renders profile page of another user without any editing options succesfully", async () => {
         //Arrange
