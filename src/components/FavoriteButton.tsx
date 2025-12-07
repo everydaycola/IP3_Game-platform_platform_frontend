@@ -16,9 +16,15 @@ export function FavoriteButton({onClick, selected, mainColor=true}:FavoriteButto
             onClick();
         }}>
             {selected ?
-                <StarIcon sx={{color:mainColor? theme.palette.text.secondary: theme.palette.primary.contrastText}}/>
+                <StarIcon
+                    sx={{color:mainColor? theme.palette.text.secondary: theme.palette.primary.contrastText}}
+                    data-testid="favorite-icon"
+                />
                 :
-                <StarOutlineIcon sx={{color:mainColor? theme.palette.text.secondary: theme.palette.primary.contrastText}}/>
+                <StarOutlineIcon
+                    sx={{color:mainColor? theme.palette.text.secondary: theme.palette.primary.contrastText}}
+                    data-testid="not-favorite-icon"
+                />
             }
         </IconButton>
     )
