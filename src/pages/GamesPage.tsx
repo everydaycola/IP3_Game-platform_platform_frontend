@@ -8,9 +8,11 @@ import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {useEffect, useState} from "react";
 import type {CompactGame} from "../models/Game.ts";
 import {GameCardList} from "../components/lists/GameCardList.tsx";
+import {useFavoriteGames} from "../hooks/useFavoriteGames.tsx";
 
 export function GamesPage() {
     const {games} = useGamesList()
+    const {favorites} = useFavoriteGames();
     const [sortAbc, setSortAbc] = useState(true)
     const [sortedGames, setSortedGames] = useState<CompactGame[]>();
     const [searchTerm, setSearchTerm] = useState("");
@@ -74,7 +76,7 @@ export function GamesPage() {
                 </Stack>
             </Stack>
             {sortedGames && sortedGames.length != 0 ?
-                <GameCardList games={sortedGames}/>
+                <GameCardList games={sortedGames} favorites={favorites}/>
                 :
                 <Container>
                     <Stack alignItems="center" justifyContent="center" spacing={2}>

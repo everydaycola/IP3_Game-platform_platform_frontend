@@ -4,11 +4,13 @@ import {GamePlayer} from "../components/GamePlayer.tsx";
 import {useGame} from "../hooks/useGame.tsx";
 import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx";
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
+import {useGameIsFavorite} from "../hooks/useIsFavoriteGame.tsx";
 
 
 export function GamePage() {
     const {gameId} = useParams();
     const {game} = useGame(gameId!);
+    const {isFavorite} = useGameIsFavorite(gameId!);
     const isPortrait = useMediaQuery('(orientation: portrait)');
 
     if (!game || !gameId) {
@@ -25,7 +27,7 @@ export function GamePage() {
                 :
                 <>
                     {game.url ?
-                    <GamePlayer gameId={game.id} gameUrl={game.url}/>
+                    <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
                         :
                         <ErrorCard
                             title={"Ohnee..."}

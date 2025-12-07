@@ -1,33 +1,29 @@
 import type {CompactGame} from "../../models/Game.ts";
 import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {useFavoriteGame} from "../../hooks/useFavoriteGame.tsx";
+import {useFavoriteGameUpdates} from "../../hooks/useFavoriteGameUpdates.tsx";
 import {FavoriteButton} from "../FavoriteButton.tsx";
 
 interface GameCardProps {
     game: CompactGame
+    isFavorite:boolean;
 }
 
-export function GameCard({game}: GameCardProps) {
-    const [favorited, setFavorited] = useState(false);
+export function GameCard({game,isFavorite}: GameCardProps) {
     const navigate = useNavigate();
     const theme = useTheme();
-    const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGame();
+    const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGameUpdates();
 
     if(removeFavoriteError || addFavoriteError){
         throw new Error("Error with updating favorites.");
     }
 
     function handleFavoriteChange(){
-        console.log("favo is currently: ", favorited);
-        if(favorited){
+        if(isFavorite){
             removeFavorite(game.id);
-            setFavorited(false);
         }else{
             addFavorite(game.id);
-            setFavorited(true);
         }
     }
 
@@ -60,7 +56,7 @@ export function GameCard({game}: GameCardProps) {
 
                     <FavoriteButton
                         onClick={handleFavoriteChange}
-                        selected={favorited}
+                        selected={isFavorite}
                     />
                 </Stack>
             </CardContent>

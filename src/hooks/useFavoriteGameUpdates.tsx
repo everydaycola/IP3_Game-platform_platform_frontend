@@ -1,9 +1,9 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {gamesQueryKey} from "../config/api/queryKeys";
-import {addFavoriteGame, removeFavoriteGame} from "../services/gameService.ts";
+import {favoriteGamesQueryKey} from "../config/api/queryKeys";
+import {addFavoriteGame, removeFavoriteGame} from "../services/favoriteGameService.ts";
 
 
-export function useFavoriteGame() {
+export function useFavoriteGameUpdates() {
     const queryClient = useQueryClient()
     const {mutate:addFavorite, isPending: addFavoritePending, isError: addFavoriteError} = useMutation(
         {
@@ -11,7 +11,7 @@ export function useFavoriteGame() {
                 return addFavoriteGame(gameId)
             },
             onSuccess: () => {
-                queryClient.invalidateQueries({queryKey: gamesQueryKey.all});
+                queryClient.invalidateQueries({queryKey: favoriteGamesQueryKey.all});
             }
         }
     )
@@ -22,7 +22,7 @@ export function useFavoriteGame() {
                 return removeFavoriteGame(gameId)
             },
             onSuccess: () => {
-                queryClient.invalidateQueries({queryKey: gamesQueryKey.all});
+                queryClient.invalidateQueries({queryKey: favoriteGamesQueryKey.all});
             }
         }
     )

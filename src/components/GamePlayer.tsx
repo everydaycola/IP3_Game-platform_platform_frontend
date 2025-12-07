@@ -4,16 +4,16 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import {useEffect, useState} from "react";
 import {useCheckGameReachable} from "../hooks/useCheckGameReachable.tsx";
 import {FavoriteButton} from "./FavoriteButton.tsx";
-import {useFavoriteGame} from "../hooks/useFavoriteGame.tsx";
+import {useFavoriteGameUpdates} from "../hooks/useFavoriteGameUpdates.tsx";
 
 interface GamePlayerProps{
     gameId: string;
     gameUrl: string;
+    isFavorite:boolean;
 }
 
-export function GamePlayer({gameId,gameUrl}:GamePlayerProps){
-    const [favorited, setFavorited] = useState(false);
-    const {addFavorite, removeFavorite} = useFavoriteGame();
+export function GamePlayer({gameId,gameUrl,isFavorite}:GamePlayerProps){
+    const {addFavorite, removeFavorite} = useFavoriteGameUpdates();
     const {isReachable} = useCheckGameReachable(gameUrl);
     const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -22,12 +22,10 @@ export function GamePlayer({gameId,gameUrl}:GamePlayerProps){
     }
 
     function handleFavoriteChange(){
-        if(favorited){
+        if(isFavorite){
             removeFavorite(gameId);
-            setFavorited(false);
         }else{
             addFavorite(gameId);
-            setFavorited(true);
         }
     }
 
@@ -88,7 +86,7 @@ export function GamePlayer({gameId,gameUrl}:GamePlayerProps){
                         px: 1,
                     }}
                 >
-                    <FavoriteButton mainColor={false} onClick={handleFavoriteChange} selected={favorited}/>
+                    <FavoriteButton mainColor={false} onClick={handleFavoriteChange} selected={isFavorite}/>
                     <IconButton
                         onClick={() => setIsFullScreen(!isFullScreen)}
                         sx={{color:"white"}}
