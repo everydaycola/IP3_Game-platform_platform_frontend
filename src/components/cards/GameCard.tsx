@@ -1,4 +1,4 @@
-import type {CompactGame} from "../models/Game.ts";
+import type {CompactGame} from "../../models/Game.ts";
 import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, IconButton, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';

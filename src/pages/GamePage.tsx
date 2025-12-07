@@ -3,7 +3,7 @@ import {useParams} from "react-router-dom";
 import {GamePlayer} from "../components/GamePlayer.tsx";
 import {useGame} from "../hooks/useGame.tsx";
 import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx";
-import {ErrorCard} from "../components/ErrorCard.tsx";
+import {ErrorCard} from "../components/cards/ErrorCard.tsx";
 
 
 export function GamePage() {

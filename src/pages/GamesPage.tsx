@@ -1,5 +1,5 @@
 import {Typography, Container, Stack, Button, useTheme} from "@mui/material";
-import {GameCardList} from "../components/GameCard.tsx";
+import {GameCardList} from "../components/cards/GameCard.tsx";
 import {useGamesList} from "../hooks/useGamesList.tsx";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
 import SearchIcon from '@mui/icons-material/Search';
