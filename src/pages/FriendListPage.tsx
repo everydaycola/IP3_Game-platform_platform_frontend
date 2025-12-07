@@ -3,12 +3,15 @@ import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {useFriendList} from "../hooks/useFriendList.tsx";
 import FriendCard from "../components/cards/FriendCard.tsx";
+import {useFriendRequestList} from "../hooks/useFriendRequestList.tsx";
+import FriendRequestCard from "../components/cards/FriendRequestCard.tsx";
 
 export function FriendListPage() {
     const theme = useTheme();
     const {loggedInUser} = useContext(SecurityContext);
     const {friendList} = useFriendList();
-    console.log(friendList);
+    const { friendRequests} = useFriendRequestList();
+    console.log(friendRequests);
 
     return (
         <Card sx={{
@@ -22,14 +25,31 @@ export function FriendListPage() {
             <CardContent>
                 <Typography variant={"h4"}><span style={{fontWeight: "bold"}}>{loggedInUser?.username}'s</span> vrienden</Typography>
 
-                {friendList.friends.length === 0 &&
-                    <Typography>Zo te zien heb je nog geen vrienden in je vriendenlijst :'(</Typography>
+                {friendRequests.friends.length != 0 &&
+                    <Stack direction={"column"} sx={{mb:2,mt:2}}>
+                        <Typography variant={"h5"}>Openstaande vriendschaps verzoeken</Typography>
+                        <Stack direction={"row"} sx={{mt:-2}} flexWrap={"wrap"}>
+                            {friendRequests.friends.map((friendRequest) =>
+                                    <FriendRequestCard userName={friendRequest.userName} key={"friendRequest"+ friendRequest.userName}/>
+                                )
+                            }
+                        </Stack>
+                    </Stack>
+
+
                 }
 
-                <Stack flexWrap={"wrap"} direction={"row"} gap={2}>
-                    {friendList.friends.map((friend) => {
-                        return <FriendCard key={friend.userName} userName={friend.userName}/>
-                    })}
+                {friendList.friends.length === 0 &&
+                    <Typography variant={"h5"}>Het lijkt er op dat je nog geen vrienden hebt toegevoegd...</Typography>
+                }
+
+                <Stack direction={"column"}>
+                    <Typography variant={"h5"}>Jouw vrienden:</Typography>
+                    <Stack flexWrap={"wrap"} direction={"row"} sx={{mt:-2}} gap={2}>
+                        {friendList.friends.map((friend) => {
+                            return <FriendCard key={friend.userName} userName={friend.userName}/>
+                        })}
+                    </Stack>
                 </Stack>
 
             </CardContent>

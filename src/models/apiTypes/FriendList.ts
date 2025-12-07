@@ -4,3 +4,7 @@ export type FriendList = {
     id:"",
     friends:FriendRelation[]
 };
+
+export type FriendRequestList ={
+    friends:FriendRelation[]
+};

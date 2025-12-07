@@ -6,3 +6,7 @@ export const gamesQueryKey={
 export const friendsQueryKey={
     all:["friends"] as const,
 }
+
+export const friendRequestQueryKey={
+    all:["friend-requests"] as const,
+}
