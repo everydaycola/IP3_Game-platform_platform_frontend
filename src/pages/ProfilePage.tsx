@@ -24,6 +24,7 @@ export function ProfilePage() {
             >
                 {loggedInUser?.username === userName &&
                     <Button
+                        data-testid="preference-edit-button"
                         sx={{
                             position: "absolute",
                             top: 8,
@@ -85,6 +86,7 @@ export function ProfilePage() {
                             }}
                         >
                             <Button
+                                data-testid="friend-view-button"
                                 variant="contained"
                                 sx={{mt: 1}}
                                 component={Link}
