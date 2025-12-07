@@ -28,7 +28,7 @@ describe('GameCard', () => {
                                        loadingFallback={<div>Loading</div>}
                                        errorFallback={<div>Error</div>}
                                    >
-                                       <GameCard game={compactGame1}/>
+                                       <GameCard game={compactGame1} isFavorite={false}/>
                                    </FallbackWrapper>
                                }
                         />
