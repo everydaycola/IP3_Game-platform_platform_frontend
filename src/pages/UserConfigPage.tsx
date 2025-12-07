@@ -1,4 +1,4 @@
-import {Typography, Stack, Avatar, Button, Card} from "@mui/material";
+import {Typography, Stack, Avatar, Button, Card, useTheme} from "@mui/material";
 import {ThemeControls} from "../components/ThemeControls.tsx";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
@@ -6,7 +6,7 @@ import {Navigate} from "react-router-dom";
 
 export function UserConfigPage() {
     const {isAuthenticated, isInitialised, loggedInUser, logout, login} = useContext(SecurityContext)
-    // If not authenticated, redirect to Games page
+    const theme = useTheme();
     if (isInitialised && !isAuthenticated()) {
         return <Navigate to="/games"
                          replace/>
@@ -14,7 +14,7 @@ export function UserConfigPage() {
 
     return (
         <>
-            <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3,p:4, overflow: 'hidden'}}>
+            <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3,p:4, overflow: 'hidden', color:theme.palette.primary.main}}>
                 <Stack direction="row"
                        justifyContent="flex-end">
                     <Button sx={{width: "25%"}}
@@ -50,14 +50,8 @@ export function UserConfigPage() {
                             variant={"h4"}
                             sx={{mt: 2}}
                         >
-                            {loggedInUser?.name || loggedInUser?.username || "Gebruiker"}
+                            {loggedInUser?.username || "Gebruiker"}
                         </Typography>
-                        {loggedInUser?.email && (
-                            <Typography variant={"subtitle1"}
-                                        sx={{mt: 1}}>
-                                {loggedInUser.email}
-                            </Typography>
-                        )}
                     </Stack>
                     <Stack direction={"column"}
                            sx={{
@@ -82,7 +76,7 @@ export function UserConfigPage() {
                                     </Typography>
                                 )}
                                 {loggedInUser.username && (
-                                    <Typography>Gebruikersnaam: {loggedInUser.username}</Typography>
+                                    <Typography>Email: {loggedInUser.email}</Typography>
                                 )}
                             </Stack>
                         )}
@@ -101,7 +95,7 @@ export function UserConfigPage() {
                             fontWeight={"bold"}
                             sx={{mt: 2}}
                         >
-                            Notificaties
+                            Notificatie instellingen
                         </Typography>
                     </Stack>
 
