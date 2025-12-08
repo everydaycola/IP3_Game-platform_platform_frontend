@@ -11,10 +11,12 @@ import {GamePageLoadingFallback} from "./pages/fallbacks/GamePageLoadingFallback
 import {ErrorCard} from "./components/cards/ErrorCard.tsx";
 import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallback.tsx";
 import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
-import {RouteGuard} from "./components/identityHelpers/RouteGuard.tsx";
 import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
 import {UserConfigPage} from "./pages/UserConfigPage.tsx";
+import {ProfilePage} from "./pages/ProfilePage.tsx";
+import {FriendListPage} from "./pages/FriendListPage.tsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
+import {RouteGuard} from "./components/identity/RouteGuard.tsx";
 
 function App() {
 
@@ -66,8 +68,29 @@ function App() {
                                                     </FallbackWrapper>
                                                 </RouteGuard>
                                             }/>
+
                                         <Route
-                                            path={"/user"}
+                                            path={"/profile/:userName"}
+                                            element={
+                                                <RouteGuard>
+                                                    <FallbackWrapper
+                                                        errorFallback={
+                                                            <ErrorCard
+                                                                title={"Ohnee..."}
+                                                                description={"Er ging iets mis met het laden van deze pagina..."}
+                                                            />
+                                                        }
+                                                        loadingFallback={
+                                                            <Typography>FALLBACK</Typography>
+                                                        }
+                                                    >
+                                                        <ProfilePage/>
+                                                    </FallbackWrapper>
+                                                </RouteGuard>
+                                            }/>
+
+                                        <Route
+                                            path={"/userPreferences"}
                                             element={
                                                 <RouteGuard>
                                                     <FallbackWrapper
@@ -85,12 +108,33 @@ function App() {
                                                     </FallbackWrapper>
                                                 </RouteGuard>
                                             }/>
+
+                                        <Route
+                                            path={"/friends"}
+                                            element={
+                                                <RouteGuard>
+                                                    <FallbackWrapper
+                                                        errorFallback={
+                                                            <ErrorCard
+                                                                title={"Ohnee..."}
+                                                                description={"Er ging iets mis met het laden van deze pagina..."}
+                                                            />
+                                                        }
+                                                        loadingFallback={
+                                                            <Typography>FALLBACK</Typography>
+                                                        }
+                                                    >
+                                                        <FriendListPage/>
+                                                    </FallbackWrapper>
+                                                </RouteGuard>
+                                            }/>
+
                                     </Routes>
                                 </MainContentContainer>
                             }/>
                         </BrowserRouter>
                     </SecurityContextProvider>
-                    <ReactQueryDevtools initialIsOpen={false}/>
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </ThemeProvider>
             </QueryClientProvider>
         </>

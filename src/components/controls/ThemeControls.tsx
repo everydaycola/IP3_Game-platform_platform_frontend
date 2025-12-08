@@ -2,10 +2,11 @@ import {useColorScheme} from "@mui/material/styles";
 import SettingsBrightnessIcon from '@mui/icons-material/SettingsBrightness';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import {ToggleButton, ToggleButtonGroup, Tooltip} from "@mui/material";
+import {ToggleButton, ToggleButtonGroup, Tooltip, useTheme} from "@mui/material";
 
 export function ThemeControls(){
     const {mode, setMode} = useColorScheme();
+    const theme = useTheme();
 
     if (!mode) return null;
 
@@ -22,25 +23,26 @@ export function ThemeControls(){
             exclusive
             onChange={handleChange}
             size="small"
+            sx={{color:theme.palette.primary.main}}
         >
             <Tooltip title="System">
                 <ToggleButton value="system"
                               aria-label="system mode">
-                    <SettingsBrightnessIcon/>
+                    <SettingsBrightnessIcon sx={{color:theme.palette.primary.main}}/>
                 </ToggleButton>
             </Tooltip>
 
             <Tooltip title="Light">
                 <ToggleButton value="light"
                               aria-label="light mode">
-                    <LightModeIcon/>
+                    <LightModeIcon sx={{color:theme.palette.primary.main}}/>
                 </ToggleButton>
             </Tooltip>
 
             <Tooltip title="Dark">
                 <ToggleButton value="dark"
                               aria-label="dark mode">
-                    <DarkModeIcon/>
+                    <DarkModeIcon sx={{color:theme.palette.primary.main}}/>
                 </ToggleButton>
             </Tooltip>
         </ToggleButtonGroup>

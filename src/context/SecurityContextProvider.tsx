@@ -3,7 +3,7 @@ import SecurityContext from './SecurityContext'
 import Keycloak from 'keycloak-js'
 import type {User} from "../models/user.ts";
 import {isExpired} from 'react-jwt'
-import {addAccessTokenToAuthHeader, removeAccessTokenFromAuthHeader} from "../services/auth.ts";
+import {addAccessTokenToAuthHeader, removeAccessTokenFromAuthHeader, notifyBackendUserLogin} from "../services/auth.ts";
 
 
 const keycloakConfig = {
@@ -29,6 +29,7 @@ export default function SecurityContextProvider({children}: PropsWithChildren) {
     keycloak.onAuthSuccess = () => {
         addAccessTokenToAuthHeader(keycloak.token)
         updateUserFromToken()
+        notifyBackendUserLogin();
     }
 
     keycloak.onAuthLogout = () => {
