@@ -5,6 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import {useContext, useState} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
+import {NotificationStack} from "./NotificationStack.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -20,6 +21,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     return (
         <>
             <Box sx={{display: "flex", flexDirection: "column", minHeight: "100vh"}}>
+                <NotificationStack/>
                 <AppBar
                     position="static"
                     sx={{

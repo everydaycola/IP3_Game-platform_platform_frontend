@@ -1,16 +1,18 @@
-import {Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
+import {Button, Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {useFriendList} from "../hooks/useFriendList.tsx";
 import FriendCard from "../components/cards/FriendCard.tsx";
 import {useFriendRequestList} from "../hooks/useFriendRequestList.tsx";
 import FriendRequestCard from "../components/cards/FriendRequestCard.tsx";
+import {useNotificationStore} from "../stores/notificationStore.ts";
 
 export function FriendListPage() {
     const theme = useTheme();
     const {loggedInUser} = useContext(SecurityContext);
     const {friendList} = useFriendList();
     const { friendRequests} = useFriendRequestList();
+    const addNotification = useNotificationStore((state) => state.addNotification);
 
     return (
         <Card sx={{
@@ -22,6 +24,14 @@ export function FriendListPage() {
             color: theme.palette.primary.main
         }}>
             <CardContent>
+
+                <Button  variant={"contained"}
+                         color={"secondary"}
+                         sx={{m:2}}
+                         onClick={() => addNotification({message: "Test notification", severity:"success"})}>
+                    TEST NOTIFICATION
+                </Button>
+
                 <Typography variant={"h4"}><span style={{fontWeight: "bold"}}>{loggedInUser?.username}'s</span> vrienden</Typography>
 
                 {friendRequests.friends.length != 0 &&

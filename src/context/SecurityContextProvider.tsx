@@ -1,5 +1,5 @@
 import {type PropsWithChildren, useEffect, useState} from 'react'
-import SecurityContext from './SecurityContext'
+import SecurityContext from './SecurityContext.ts'
 import Keycloak from 'keycloak-js'
 import type {User} from "../models/user.ts";
 import {isExpired} from 'react-jwt'
