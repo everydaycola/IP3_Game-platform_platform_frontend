@@ -1,11 +1,12 @@
 import { useSuspenseQuery} from "@tanstack/react-query";
-import {friendRequestQueryKey} from "../config/api/queryKeys";
-import {findAllOpenFriendRequests} from "../services/friendService.ts";
+import {friendRequestQueryKey} from "../../../config/api/queryKeys";
+import {findAllOpenFriendRequests} from "../../../services/friendService.ts";
 
 export function useFriendRequestList(){
     const { data: friendRequests} = useSuspenseQuery({
         queryKey: friendRequestQueryKey.all,
         queryFn: () => findAllOpenFriendRequests(),
+        refetchInterval:30000
     })
     return {friendRequests}
 }

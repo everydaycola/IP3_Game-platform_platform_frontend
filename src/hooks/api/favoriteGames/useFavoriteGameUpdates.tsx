@@ -1,6 +1,6 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {favoriteGamesQueryKey} from "../config/api/queryKeys";
-import {addFavoriteGame, removeFavoriteGame} from "../services/favoriteGameService.ts";
+import {favoriteGamesQueryKey} from "../../../config/api/queryKeys";
+import {addFavoriteGame, removeFavoriteGame} from "../../../services/favoriteGameService.ts";
 
 
 export function useFavoriteGameUpdates() {

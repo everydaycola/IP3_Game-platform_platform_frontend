@@ -19,3 +19,7 @@ export const friendsQueryKey={
 export const friendRequestQueryKey={
     all:["friend-requests"] as const,
 }
+
+export const friendRecommendationsQueryKey={
+    all:["friend-recommendations"] as const,
+}

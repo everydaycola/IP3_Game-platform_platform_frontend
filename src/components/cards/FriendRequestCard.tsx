@@ -1,4 +1,5 @@
 import {Avatar, Button, Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
+import {useFriendRequestResponse} from "../../hooks/api/friends/useFriendRequestResponse.tsx";
 
 interface FriendCardProps {
     userName: string;
@@ -6,6 +7,7 @@ interface FriendCardProps {
 
 export default function FriendRequestCard({userName}: FriendCardProps) {
     const theme = useTheme();
+    const {acceptRequest, denyRequest} = useFriendRequestResponse();
     return (
         <Card
             sx={{
@@ -33,12 +35,14 @@ export default function FriendRequestCard({userName}: FriendCardProps) {
                         }}
                         variant={"contained"}
                         color={"primary"}
+                        onClick={() => acceptRequest(userName)}
                     >
                         Accepteren
                     </Button>
                     <Button
                         variant={"contained"}
                         color={"secondary"}
+                        onClick={() => denyRequest(userName)}
                     >
                         Weigeren
                     </Button>
