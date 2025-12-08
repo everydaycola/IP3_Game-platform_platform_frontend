@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {friendRequestQueryKey, friendsQueryKey} from "../../../config/api/queryKeys";
+import {friendRecommendationsQueryKey, friendRequestQueryKey, friendsQueryKey} from "../../../config/api/queryKeys";
 import {acceptFriendRequest, denyFriendRequest} from "../../../services/friendService.ts";
 
 
@@ -13,6 +13,7 @@ export function useFriendRequestResponse() {
             onSuccess: () => {
                 queryClient.invalidateQueries({queryKey: friendsQueryKey.all});
                 queryClient.invalidateQueries({queryKey: friendRequestQueryKey.all});
+                queryClient.invalidateQueries({queryKey: friendRecommendationsQueryKey.all});
             }
         }
     )
@@ -25,6 +26,7 @@ export function useFriendRequestResponse() {
             onSuccess: () => {
                 queryClient.invalidateQueries({queryKey: friendsQueryKey.all});
                 queryClient.invalidateQueries({queryKey: friendRequestQueryKey.all});
+                queryClient.invalidateQueries({queryKey: friendRecommendationsQueryKey.all});
             }
         }
     )
