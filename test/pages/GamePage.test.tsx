@@ -11,12 +11,14 @@ vi.mock('axios')
 
 describe('GamePage', () => {
     it("renders gamepage with valid IFrame when fetches are successful", async () => {
+        //Arrange
         const gameId = compactGame1.id; // or whatever the id is
         const queryClient = new QueryClient();
 
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
         mockedAxios.get.mockResolvedValueOnce({data: compactGame1});
 
+        //Act
         const {container} = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games/${gameId}`]}>
@@ -26,7 +28,7 @@ describe('GamePage', () => {
                 </MemoryRouter>
             </QueryClientProvider>
         );
-
+        //Assert
         await waitFor(() => {
             expect(screen.getByText(compactGame1.name)).toBeInTheDocument();
             const iframe = container.querySelector("iframe");
@@ -37,11 +39,13 @@ describe('GamePage', () => {
 
 
     it("throws error when fetched without a valid gameId", async () => {
+        //Arrange
         const gameId = "6789";//Invalid ID.
         const queryClient = new QueryClient({
             defaultOptions: { queries: { retry: false } }
         });
 
+        //Act
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games/${gameId}`]}>
@@ -56,12 +60,14 @@ describe('GamePage', () => {
             </QueryClientProvider>
         );
 
+        //Assert
         await waitFor(() => {
             expect(screen.getByText("Error!")).toBeInTheDocument();
         });
     });
 
     it('throws an error when fetching game fails',async () => {
+        //Arrange
         const gameId = compactGame1.id;
         const queryClient = new QueryClient({
             defaultOptions: { queries: { retry: false } }
@@ -70,6 +76,7 @@ describe('GamePage', () => {
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
         mockedAxios.get.mockResolvedValueOnce(new Error("Network error"));
 
+        //Act
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games/${gameId}`]}>
@@ -84,12 +91,14 @@ describe('GamePage', () => {
             </QueryClientProvider>
         );
 
+        //Assert
         await waitFor(() => {
             expect(screen.getByText("Error!")).toBeInTheDocument();
         });
     })
 
     it("renders fallback when no game url was set.", async () => {
+        //Arrange
         const gameId = compactGame1.id;
         const queryClient = new QueryClient();
 
@@ -98,6 +107,7 @@ describe('GamePage', () => {
             data: { ...compactGame1, url: undefined }
         });
 
+        //Act
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games/${gameId}`]}>
@@ -108,6 +118,7 @@ describe('GamePage', () => {
             </QueryClientProvider>
         );
 
+        //Assert
         await waitFor(() => {
             //this text gets renderd in from ErrorCard inside GamePage.
             expect(screen.getByText("Ohnee...")).toBeInTheDocument();

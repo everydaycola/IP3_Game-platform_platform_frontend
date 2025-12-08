@@ -1,19 +1,32 @@
 import type {CompactGame} from "../../models/Game.ts";
-import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, IconButton, useTheme} from "@mui/material"
+import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import StarOutlineIcon from '@mui/icons-material/StarOutline';
-import StarIcon from '@mui/icons-material/Star';
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useFavoriteGameUpdates} from "../../hooks/useFavoriteGameUpdates.tsx";
+import {FavoriteButton} from "../FavoriteButton.tsx";
 
 interface GameCardProps {
     game: CompactGame
+    isFavorite:boolean;
 }
 
-export function GameCard({game}: GameCardProps) {
-    const [favorited, setFavorited] = useState(false);
+export function GameCard({game,isFavorite}: GameCardProps) {
     const navigate = useNavigate();
     const theme = useTheme();
+    const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGameUpdates();
+
+    if(removeFavoriteError || addFavoriteError){
+        throw new Error("Error with updating favorites.");
+    }
+
+    function handleFavoriteChange(){
+        if(isFavorite){
+            removeFavorite(game.id);
+        }else{
+            addFavorite(game.id);
+        }
+    }
+
 
     return (
         <Card
@@ -41,16 +54,10 @@ export function GameCard({game}: GameCardProps) {
                 <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                     <Typography color={theme.palette.text.secondary}>{game.name}</Typography>
 
-                    <IconButton onClick={(e) => {
-                        e.stopPropagation();
-                        setFavorited(!favorited)
-                    }}>
-                        {favorited ?
-                            <StarIcon sx={{color: theme.palette.text.secondary}}/>
-                            :
-                            <StarOutlineIcon sx={{color: theme.palette.text.secondary}}/>
-                        }
-                    </IconButton>
+                    <FavoriteButton
+                        onClick={handleFavoriteChange}
+                        selected={isFavorite}
+                    />
                 </Stack>
             </CardContent>
         </Card>

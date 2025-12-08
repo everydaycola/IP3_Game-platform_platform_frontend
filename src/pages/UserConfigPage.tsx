@@ -1,8 +1,8 @@
 import {Typography, Stack, Avatar, Button, Card, useTheme} from "@mui/material";
-import {ThemeControls} from "../components/ThemeControls.tsx";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {Navigate} from "react-router-dom";
+import {ThemeControls} from "../components/controls/ThemeControls.tsx";
 
 export function UserConfigPage() {
     const {isAuthenticated, isInitialised, loggedInUser, logout, login} = useContext(SecurityContext)

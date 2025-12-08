@@ -1,4 +1,5 @@
 import type {CompactGame} from "../../src/models/Game.ts";
+import type {FavoriteGame} from "../../src/models/FavoriteGame.ts";
 
 export const compactGame1: CompactGame = {
     id: "1",
@@ -25,3 +26,12 @@ export const compactGame3: CompactGame = {
 
 export const compactGameList : CompactGame[] =[compactGame1,compactGame2,compactGame3];
 export const emptyCompactGameList: CompactGame[] = [];
+
+
+export const favoriteGame1: FavoriteGame={
+    id:"5",
+    gameId:"1"
+}
+
+export const favoriteGamesList: FavoriteGame[] = [favoriteGame1];
+export const emptyFavoriteGamesList: FavoriteGame[] = [];
