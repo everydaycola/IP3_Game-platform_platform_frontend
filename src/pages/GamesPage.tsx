@@ -1,16 +1,18 @@
 import {Typography, Container, Stack, Button, useTheme} from "@mui/material";
-import {GameCardList} from "../components/GameCard.tsx";
 import {useGamesList} from "../hooks/useGamesList.tsx";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
 import SearchIcon from '@mui/icons-material/Search';
-import {SearchIconWrapper, StyledInputBase, Search} from "../components/Search.tsx";
+import {SearchIconWrapper, StyledInputBase, Search} from "../components/controls/Search.tsx";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {useEffect, useState} from "react";
 import type {CompactGame} from "../models/Game.ts";
+import {GameCardList} from "../components/lists/GameCardList.tsx";
+import {useFavoriteGames} from "../hooks/useFavoriteGames.tsx";
 
 export function GamesPage() {
     const {games} = useGamesList()
+    const {favorites} = useFavoriteGames();
     const [sortAbc, setSortAbc] = useState(true)
     const [sortedGames, setSortedGames] = useState<CompactGame[]>();
     const [searchTerm, setSearchTerm] = useState("");
@@ -74,7 +76,7 @@ export function GamesPage() {
                 </Stack>
             </Stack>
             {sortedGames && sortedGames.length != 0 ?
-                <GameCardList games={sortedGames}/>
+                <GameCardList games={sortedGames} favorites={favorites}/>
                 :
                 <Container>
                     <Stack alignItems="center" justifyContent="center" spacing={2}>

@@ -7,6 +7,7 @@ export async function checkGameReachable(gameUrl: string): Promise<boolean>{
         await axios.get(gameUrl);
         return true;
     }catch(e){
+        console.error('Error fetching game:', e);
         return false;
     }
 }
