@@ -1,15 +1,16 @@
-import {Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, useTheme} from "@mui/material";
+import {Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Stack, useMediaQuery, useTheme} from "@mui/material";
 import {AddOnUserName} from "../controls/AddOnUserName.tsx";
 import {FriendRecommendationList} from "../lists/FriendRecommendationList.tsx";
 import {Suspense} from "react";
 
-interface NewFriendDialog {
+interface NewFriendDialogProps {
     isOpen: boolean;
     onClose: () => void;
 }
 
-export function NewFriendDialog({isOpen, onClose}: NewFriendDialog) {
+export function NewFriendDialog({isOpen, onClose}: NewFriendDialogProps) {
     const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     return (
         <Dialog
@@ -17,6 +18,7 @@ export function NewFriendDialog({isOpen, onClose}: NewFriendDialog) {
             onClose={onClose}
             fullWidth
             maxWidth={"lg"}
+            fullScreen={isMobile}
             sx={{color: theme.palette.primary.main}}
         >
             <DialogTitle sx={{color: theme.palette.primary.main}}
@@ -24,10 +26,12 @@ export function NewFriendDialog({isOpen, onClose}: NewFriendDialog) {
                 Nieuwe vrienden toevoegen
             </DialogTitle>
             <DialogContent>
-                <Stack direction="row"
-                       spacing={2}>
-                    {/* Left side - 75% */}
-                    <Box sx={{flex: 3}}>
+                <Stack
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={2}
+                    sx={{ height: "100%" }}
+                >
+                    <Box sx={{ flex: { md: 3 }, width: "100%" }}>
                         <Suspense fallback={<CircularProgress/>}>
                             <FriendRecommendationList/>
                         </Suspense>
@@ -36,12 +40,23 @@ export function NewFriendDialog({isOpen, onClose}: NewFriendDialog) {
                         orientation="vertical"
                         flexItem
                         sx={{
-                            my: 2,
+                            display: { xs: "none", md: "block" },
                             borderColor: theme.palette.primary.main,
-                            width: 2
+                            width: 2,
+                            my: 2
                         }}
                     />
-                    <Box sx={{flex: 1}}>
+
+                    <Divider
+                        orientation="horizontal"
+                        flexItem
+                        sx={{
+                            display: { xs: "block", md: "none" },
+                            borderColor: theme.palette.primary.main,
+                        }}
+                    />
+
+                    <Box sx={{ flex: { md: 1 }, width: "100%" }}>
                         <AddOnUserName/>
                     </Box>
                 </Stack>

@@ -16,6 +16,7 @@ interface NotificationActions {
     removeNotification: (id: string) => void;
 }
 
+//This store is used inside the "NotificationStack component" simply calling addNotification will handle the notify of a user.
 export const useNotificationStore = create<NotificationState & NotificationActions>((set) => ({
     // State
     notifications: [],
