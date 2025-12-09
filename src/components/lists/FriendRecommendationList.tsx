@@ -1,8 +1,8 @@
-import {Button,  Divider, Stack, TextField, Typography, useTheme} from "@mui/material";
+import {Button, Divider,Stack, TextField, Typography, useTheme} from "@mui/material";
 import {useFriendRecommendations} from "../../hooks/api/friends/useFriendRecommendations.tsx";
 import NewFriendCard from "../cards/NewFriendCard.tsx";
 import {type FormEvent,  useState} from "react";
-
+import SearchIcon from "@mui/icons-material/Search";
 
 
 export function FriendRecommendationList() {
@@ -23,22 +23,31 @@ export function FriendRecommendationList() {
             </Typography>
 
             <form onSubmit={handleFormSubmit}>
-                <Stack direction="column" spacing={2} sx={{ m: 2 }}>
+                <Stack direction={{ md:"column", lg:"row"}} spacing={2} sx={{ m: 2 }}>
                     <TextField
                         label="Gebruikersnaam"
                         variant="outlined"
                         fullWidth
                         value={currentSearch}
                         sx={{
+                            '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                                borderColor: theme.palette.primary.main,
+                            },
                             '& .MuiOutlinedInput-input': {
                                 color: theme.palette.primary.main,
                             }
                         }}
                         onChange={(e) => setCurrentSearch(e.target.value)}
                     />
-                    <Button type="submit" variant="contained">
-                        Zoeken
+
+                    <Button
+                        variant={"contained"}
+                        type="submit"
+                        color={"primary"}
+                    >
+                        <SearchIcon/>
                     </Button>
+
                 </Stack>
             </form>
 

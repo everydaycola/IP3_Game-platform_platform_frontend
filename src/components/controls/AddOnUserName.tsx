@@ -1,4 +1,4 @@
-import {Button, CircularProgress, Stack, TextField, Typography, useTheme} from "@mui/material";
+import {Button, CircularProgress,Stack, TextField, Typography, useTheme} from "@mui/material";
 import {useSendFriendRequest} from "../../hooks/api/friends/useSendFriendRequest.tsx";
 import {type FormEvent, useState} from "react";
 
@@ -23,22 +23,32 @@ export function AddOnUserName() {
                 <form onSubmit={handleFormSubmit}>
                     <Stack direction="column"
                            spacing={2}
-                           sx={{m: 2}}>
+                           alignItems={"center"}
+                           sx={{
+                               m: 2,
+                           }}>
                         <TextField
                             label="Gebruikersnaam"
                             variant="outlined"
                             fullWidth
                             value={username}
                             sx={{
+                                '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: theme.palette.primary.main,
+                                },
                                 '& .MuiOutlinedInput-input': {
                                     color: theme.palette.primary.main,
                                 }
                             }}
                             onChange={(e) => setUsername(e.target.value)}
                         />
-                        <Button type="submit"
-                                variant="contained">
-                            Toevoegen
+                        <Button
+                            fullWidth
+                            variant={"contained"}
+                            type="submit"
+                            color={"primary"}
+                        >
+                            Verzoek versturen
                         </Button>
                     </Stack>
                 </form>
