@@ -26,6 +26,18 @@ export async function postFriendRequest(friendUserName:string){
     const{data:friends} = await axios.post<FriendList>(`/user/friends/${friendUserName}`)
     return friends
 }
+export async function deleteFriend(friendUsername:string){
+    try {
+        await axios.delete(`/user/friends/${friendUsername}`);
+        return true;
+    }catch(err: unknown){
+        if (axios.isAxiosError(err) && err.response?.status === 404) {
+            return false;
+        }
+        throw err;
+    }
+}
+
 
 export async function getFriendRecommendations(nameQuery?:string){
     const query = new URLSearchParams();
