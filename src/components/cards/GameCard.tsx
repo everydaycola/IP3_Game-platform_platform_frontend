@@ -2,7 +2,7 @@ import type {CompactGame} from "../../models/Game.ts";
 import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import {useNavigate} from "react-router-dom";
-import {useFavoriteGameUpdates} from "../../hooks/useFavoriteGameUpdates.tsx";
+import {useFavoriteGameUpdates} from "../../hooks/api/favoriteGames/useFavoriteGameUpdates.tsx";
 import {FavoriteButton} from "../FavoriteButton.tsx";
 
 interface GameCardProps {

@@ -1,3 +1,5 @@
+export {invalidateFriendRelatedKeys} from './invalidationFunctions';
+
 export const gamesQueryKey={
     all:["gameList"] as const,
     currentGame: (gameId: string) => ["currentGame", gameId] as const,
@@ -18,4 +20,8 @@ export const friendsQueryKey={
 
 export const friendRequestQueryKey={
     all:["friend-requests"] as const,
+}
+
+export const friendRecommendationsQueryKey={
+    all:["friend-recommendations"] as const,
 }

@@ -8,3 +8,7 @@ export type FriendList = {
 export type FriendRequestList ={
     friends:FriendRelation[]
 };
+
+export type FriendRecommendationList = {
+    recommendations:FriendRelation[]
+};

@@ -4,7 +4,7 @@ import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import {useEffect, useState} from "react";
 import {useCheckGameReachable} from "../hooks/useCheckGameReachable.tsx";
 import {FavoriteButton} from "./FavoriteButton.tsx";
-import {useFavoriteGameUpdates} from "../hooks/useFavoriteGameUpdates.tsx";
+import {useFavoriteGameUpdates} from "../hooks/api/favoriteGames/useFavoriteGameUpdates.tsx";
 
 interface GamePlayerProps{
     gameId: string;

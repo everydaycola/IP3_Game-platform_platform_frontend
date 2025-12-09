@@ -1,14 +1,16 @@
-import {Avatar, Box, Button, Card, CardContent, Paper, Typography, useTheme} from "@mui/material";
+import {Avatar, Box, Button, Card, CardContent,Stack, Typography, useTheme} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
 import {useContext} from "react";
 import SecurityContext from "../context/SecurityContext.ts";
 import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
+import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 
 export function ProfilePage() {
     const theme = useTheme();
     const {userName} = useParams();
-    const {loggedInUser} = useContext(SecurityContext);
     const {platformUser} = usePlatformUser();
+    const {isAuthenticated,loggedInUser, logout, login} = useContext(SecurityContext)
+    const {isSmallScreen} = useMediaQueries();
 
     return (
         <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3, overflow: 'hidden'}}>
@@ -24,21 +26,34 @@ export function ProfilePage() {
                     position: "relative"
                 }}
             >
-                {loggedInUser?.username === userName &&
+                <Stack
+                    direction={"row"}
+                    sx={{
+                        position:"absolute",
+                        top:0,
+                        right:0,
+                        p:2
+                    }}
+                    gap={2}
+                >
+                    {loggedInUser?.username === userName &&
+                        <Button
+                            data-testid="preference-edit-button"
+                            variant={"contained"}
+                            component={Link}
+                            to={"/userPreferences"}
+                        >
+                            Voorkeuren wijzigen
+                        </Button>
+                    }
                     <Button
-                        data-testid="preference-edit-button"
-                        sx={{
-                            position: "absolute",
-                            top: 8,
-                            right: 8
-                        }}
-                        variant={"contained"}
-                        component={Link}
-                        to={"/userPreferences"}
-                    >
-                        Voorkeuren wijzigen
+                            variant="contained"
+                            color="secondary"
+                            onClick={isAuthenticated() ? logout : login}>
+                        {isAuthenticated() ? "Uitloggen" : "Inloggen"}
                     </Button>
-                }
+                </Stack>
+
             </Box>
             <Box sx={{display: 'flex', justifyContent: 'center', mt: -8}}>
                 <Avatar
@@ -57,21 +72,15 @@ export function ProfilePage() {
                     {userName}
                 </Typography>
 
-                <Paper
-                    sx={{
-                        display: 'flex',
-                        width: '100%',
-                        minHeight: 250,
-                        overflow: 'hidden',
-                        mt: 4,
-                        color: theme.palette.primary.main
-                    }}
-                >
+                <Stack
+                    sx={{width:"100%"}}
+                    direction={isSmallScreen? "column":"row"}
+               >
                     <Box
                         sx={{
-                            width: '75%',
+                            flex:3,
                             p: 2,
-                            textAlign: "left"
+                            textAlign: "left",
                         }}
                     >
                         <Typography>
@@ -82,9 +91,9 @@ export function ProfilePage() {
                     {loggedInUser?.username === userName &&
                         <Box
                             sx={{
-                                width: '25%',
+                                flex:1,
                                 p: 2,
-                                textAlign: "right"
+                                textAlign: "right",
                             }}
                         >
                             <Button
@@ -98,7 +107,7 @@ export function ProfilePage() {
                             </Button>
                         </Box>
                     }
-                </Paper>
+                </Stack>
             </CardContent>
         </Card>
 

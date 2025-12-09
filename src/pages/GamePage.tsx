@@ -1,10 +1,10 @@
 import {Typography, useMediaQuery} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {GamePlayer} from "../components/GamePlayer.tsx";
-import {useGame} from "../hooks/useGame.tsx";
+import {useGame} from "../hooks/api/games/useGame.tsx";
 import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx";
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
-import {useGameIsFavorite} from "../hooks/useIsFavoriteGame.tsx";
+import {useGameIsFavorite} from "../hooks/api/favoriteGames/useIsFavoriteGame.tsx";
 
 
 export function GamePage() {
