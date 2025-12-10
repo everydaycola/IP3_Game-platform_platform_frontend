@@ -5,6 +5,8 @@ import {useGame} from "../hooks/api/games/useGame.tsx";
 import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx";
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
 import {useGameIsFavorite} from "../hooks/api/favoriteGames/useIsFavoriteGame.tsx";
+import {achievementList} from "../models/achievement/TEST_ACHIEVEMENT_DATA.ts";
+import {AchievementPreviewList} from "../components/lists/AchievementPreviewList.tsx";
 
 
 export function GamePage() {
@@ -17,6 +19,7 @@ export function GamePage() {
         throw new Error("Something went wrong with fetching a game...")
     }
 
+    const testAchievements = achievementList;
     return (
         <>
             <Typography variant={"h2"}>
@@ -27,7 +30,7 @@ export function GamePage() {
                 :
                 <>
                     {game.url ?
-                    <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
+                        <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
                         :
                         <ErrorCard
                             title={"Ohnee..."}
@@ -36,6 +39,8 @@ export function GamePage() {
                     }
                 </>
             }
+            <Typography variant={"h3"} sx={{mt:4}}>Achievements</Typography>
+            <AchievementPreviewList achievements={testAchievements}/>
         </>
     )
 }
