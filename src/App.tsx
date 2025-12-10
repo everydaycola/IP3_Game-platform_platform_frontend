@@ -11,20 +11,20 @@ import {GamePageLoadingFallback} from "./pages/fallbacks/GamePageLoadingFallback
 import {ErrorCard} from "./components/cards/ErrorCard.tsx";
 import {GamesPageLoadingFallback} from "./pages/fallbacks/GamesPageLoadingFallback.tsx";
 import {FallbackWrapper} from "./components/FallbackWrapper.tsx";
-import SecurityContextProvider from "./context/SecurityContextProvider.tsx";
 import {UserConfigPage} from "./pages/UserConfigPage.tsx";
 import {ProfilePage} from "./pages/ProfilePage.tsx";
 import {FriendListPage} from "./pages/FriendListPage.tsx";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {RouteGuard} from "./components/identity/RouteGuard.tsx";
+import {useInitSecurity} from "./hooks/security/useInitSecurity.tsx";
 
 function App() {
+    useInitSecurity();
 
     return (
         <>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider theme={theme}>
-                    <SecurityContextProvider>
                         <CssBaseline/>
                         <BrowserRouter>
                             <AppLayout mainContent={
@@ -133,7 +133,6 @@ function App() {
                                 </MainContentContainer>
                             }/>
                         </BrowserRouter>
-                    </SecurityContextProvider>
                     <ReactQueryDevtools initialIsOpen={false} />
                 </ThemeProvider>
             </QueryClientProvider>

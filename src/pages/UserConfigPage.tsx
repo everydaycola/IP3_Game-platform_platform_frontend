@@ -1,11 +1,15 @@
 import {Typography, Stack, Avatar, Button, Card, useTheme} from "@mui/material";
-import {useContext} from "react";
-import SecurityContext from "../context/SecurityContext.ts";
 import {Navigate} from "react-router-dom";
 import {ThemeControls} from "../components/controls/ThemeControls.tsx";
+import {useSecurityStore} from "../stores/securityStore.ts";
 
 export function UserConfigPage() {
-    const {isAuthenticated, isInitialised, loggedInUser, logout, login} = useContext(SecurityContext)
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const isInitialised = useSecurityStore((state) => state.isInitialised);
+    const login = useSecurityStore((state) => state.login);
+    const logout = useSecurityStore((state) => state.logout);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
+
     const theme = useTheme();
     if (isInitialised && !isAuthenticated()) {
         return <Navigate to="/games"

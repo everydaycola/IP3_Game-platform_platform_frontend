@@ -3,9 +3,9 @@ import {Link, useNavigate} from "react-router-dom";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import {useContext, useState} from "react";
-import SecurityContext from "../context/SecurityContext.ts";
+import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
+import {useSecurityStore} from "../stores/securityStore.ts";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -16,7 +16,9 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const [hamnavOpen, setHamnavOpen] = useState(false);
     const theme = useTheme();
     const navigate = useNavigate();
-    const {isAuthenticated, login, loggedInUser} = useContext(SecurityContext);
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const login = useSecurityStore((state) => state.login);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
 
     return (
         <>

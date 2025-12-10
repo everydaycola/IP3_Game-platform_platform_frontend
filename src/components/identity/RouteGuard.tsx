@@ -1,8 +1,10 @@
-import {type PropsWithChildren, useContext, useEffect} from 'react'
-import SecurityContext from '../../context/SecurityContext.ts'
+import {type PropsWithChildren,useEffect} from 'react'
+import {useSecurityStore} from "../../stores/securityStore.ts";
 
 export function RouteGuard({children}: PropsWithChildren) {
-    const {isInitialised, isAuthenticated, login} = useContext(SecurityContext)
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const login = useSecurityStore((state) => state.login);
+    const isInitialised = useSecurityStore((state) => state.isInitialised);
 
     useEffect(() => {
         if (isInitialised && !isAuthenticated()) {

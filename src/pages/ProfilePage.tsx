@@ -1,15 +1,17 @@
 import {Avatar, Box, Button, Card, CardContent,Stack, Typography, useTheme} from "@mui/material";
 import {Link, useParams} from "react-router-dom";
-import {useContext} from "react";
-import SecurityContext from "../context/SecurityContext.ts";
 import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
+import {useSecurityStore} from "../stores/securityStore.ts";
 
 export function ProfilePage() {
     const theme = useTheme();
     const {userName} = useParams();
     const {platformUser} = usePlatformUser();
-    const {isAuthenticated,loggedInUser, logout, login} = useContext(SecurityContext)
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const login = useSecurityStore((state) => state.login);
+    const logout = useSecurityStore((state) => state.logout);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const {isSmallScreen} = useMediaQueries();
 
     return (
