@@ -11,9 +11,10 @@ export function AchievementPreviewList({achievements, amountToShow = 3}: Achieve
     return (
         <Stack
             direction={"row"}
+            flexWrap={"wrap"}
             sx={{
                 width: "100%",
-                minHeight: 100,
+                minHeight: 20,
                 mt:2
             }}
             gap={2}

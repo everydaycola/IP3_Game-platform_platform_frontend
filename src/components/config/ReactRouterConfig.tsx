@@ -83,7 +83,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/achievements"}
                 element={
-                    createFallbackWrapperWithRouteGuard({
+                    createFallbackWrapper({
                         children:<AchievementPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}

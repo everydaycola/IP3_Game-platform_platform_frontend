@@ -70,46 +70,59 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                         >Fourteengames</Typography>
                         <Stack direction={"column"}>
                             {isAuthenticated() && loggedInUser != null &&
-                                <Typography
-                                    sx={{
-                                        textDecoration: "none",
-                                        color: theme.palette.primary.main,
-                                        m: 2,
-                                    }}
-                                    variant={"h6"}
-                                    component={Link}
-                                    to={`/profile/${loggedInUser?.username}`}
-                                >
-                                    Profiel
-                                </Typography>
-                            }
-                            {isAuthenticated() && loggedInUser != null &&
-                                <Typography
-                                    sx={{
-                                        textDecoration: "none",
-                                        color: theme.palette.primary.main,
-                                        m: 2,
-                                        mt:0
-                                    }}
-                                    variant={"h6"}
-                                    component={Link}
-                                    to={`/friends`}
-                                >
-                                    Vrienden
-                                </Typography>
+                                <>
+                                    <Typography
+                                        sx={{
+                                            textDecoration: "none",
+                                            color: theme.palette.primary.main,
+                                            m: 2,
+                                        }}
+                                        variant={"h6"}
+                                        component={Link}
+                                        to={`/profile/${loggedInUser?.username}`}
+                                    >
+                                        Profiel
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            textDecoration: "none",
+                                            color: theme.palette.primary.main,
+                                            m: 2,
+                                            mt: 0
+                                        }}
+                                        variant={"h6"}
+                                        component={Link}
+                                        to={`/friends`}
+                                    >
+                                        Vrienden
+                                    </Typography>
+                                </>
                             }
                             <Typography
                                 sx={{
                                     textDecoration: "none",
                                     color: theme.palette.primary.main,
                                     m: 2,
-                                    mt:0
+                                    mt: 0
                                 }}
                                 variant={"h6"}
                                 component={Link}
                                 to={"/"}
                             >
                                 Games
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    textDecoration: "none",
+                                    color: theme.palette.primary.main,
+                                    m: 2,
+                                    mt: 0
+                                }}
+                                variant={"h6"}
+                                component={Link}
+                                to={"/achievements"}
+                            >
+                                Achievements
                             </Typography>
                         </Stack>
                     </Box>
@@ -171,6 +184,18 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                         to={"/"}
                                     >
                                         Games
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            textDecoration: "none",
+                                            color: theme.palette.primary.contrastText,
+                                            mt: 1
+                                        }}
+                                        variant={"h6"}
+                                        component={Link}
+                                        to={"/achievements"}
+                                    >
+                                        Achievements
                                     </Typography>
                                 </Stack>
                             </Box>
