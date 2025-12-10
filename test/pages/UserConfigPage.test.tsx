@@ -3,7 +3,7 @@ import {render, screen} from "@testing-library/react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {UserConfigPage} from "../../src/pages/UserConfigPage.tsx";
 import SecurityContext from "../../src/context/SecurityContext.ts";
-import type {User} from "../../src/models/user.ts";
+import type {User} from "../../src/models/auth/user.ts";
 
 vi.mock('axios')
 

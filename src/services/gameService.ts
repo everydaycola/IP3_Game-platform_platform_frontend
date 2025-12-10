@@ -1,5 +1,5 @@
 import axios from "axios";
-import type {CompactGame, Game} from "../models/Game.ts";
+import type {CompactGame, Game} from "../models/game/Game.ts";
 
 
 export async function checkGameReachable(gameUrl: string): Promise<boolean>{

@@ -1,5 +1,5 @@
-import type {CompactGame} from "../../src/models/Game.ts";
-import type {FavoriteGame} from "../../src/models/FavoriteGame.ts";
+import type {CompactGame} from "../../src/models/game/Game.ts";
+import type {FavoriteGame} from "../../src/models/game/FavoriteGame.ts";
 
 export const compactGame1: CompactGame = {
     id: "1",

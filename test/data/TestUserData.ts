@@ -1,6 +1,6 @@
-import type { User } from "../../src/models/user";
-import type {FriendList} from "../../src/models/apiTypes/FriendList.ts";
-import type {FriendRelation} from "../../src/models/apiTypes/FriendRelation.ts";
+import type { User } from "../../src/models/auth/user.ts";
+import type {FriendList} from "../../src/models/platformuser/FriendList.ts";
+import type {FriendRelation} from "../../src/models/platformuser/FriendRelation.ts";
 
 export const mockUserId = "11111111-1111-1111-1111-111111111111"
 

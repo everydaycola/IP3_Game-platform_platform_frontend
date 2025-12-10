@@ -1,7 +1,7 @@
-import type {CompactGame} from "../../models/Game.ts";
+import type {CompactGame} from "../../models/game/Game.ts";
 import {Stack} from "@mui/material";
 import {GameCard} from "../cards/GameCard.tsx";
-import type {FavoriteGame} from "../../models/FavoriteGame.ts";
+import type {FavoriteGame} from "../../models/game/FavoriteGame.ts";
 
 interface GameCardListProps {
     games: CompactGame[];

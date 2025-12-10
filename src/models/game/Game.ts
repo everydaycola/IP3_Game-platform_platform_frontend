@@ -10,3 +10,5 @@ export type Game = {
 }
 
 export type CompactGame = Omit<Game,  "description" | "price" | "image">
+
+//Todo: implement a achievement list.

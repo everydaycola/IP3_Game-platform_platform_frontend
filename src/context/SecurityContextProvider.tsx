@@ -1,7 +1,7 @@
 import {type PropsWithChildren, useEffect, useState} from 'react'
 import SecurityContext from './SecurityContext.ts'
 import Keycloak from 'keycloak-js'
-import type {User} from "../models/user.ts";
+import type {User} from "../models/auth/user.ts";
 import {isExpired} from 'react-jwt'
 import {addAccessTokenToAuthHeader, removeAccessTokenFromAuthHeader, notifyBackendUserLogin} from "../services/auth.ts";
 

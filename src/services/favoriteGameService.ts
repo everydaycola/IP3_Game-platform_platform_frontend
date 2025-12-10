@@ -1,6 +1,6 @@
 import axios from "axios";
-import type {Game} from "../models/Game.ts";
-import type {FavoriteGame} from "../models/FavoriteGame.ts";
+import type {Game} from "../models/game/Game.ts";
+import type {FavoriteGame} from "../models/game/FavoriteGame.ts";
 
 
 export async function getFavoriteGames(){

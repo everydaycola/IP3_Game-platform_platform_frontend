@@ -1,7 +1,7 @@
 import {describe, it, expect, vi, type Mocked} from "vitest";
 import axios, {type AxiosStatic} from "axios";
 import {getPlatformUserData} from "../../src/services/userService.ts";
-import type {User} from "../../src/models/user.ts";
+import type {User} from "../../src/models/auth/user.ts";
 
 vi.mock("axios");
 

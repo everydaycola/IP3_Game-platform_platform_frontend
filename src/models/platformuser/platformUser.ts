@@ -3,3 +3,5 @@ export type PlatformUser = {
     userName: string
     biography: string
 }
+
+//Todo: Add UserAchievements

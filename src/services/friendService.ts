@@ -1,6 +1,6 @@
 import axios from "axios";
-import type {FriendList, FriendRecommendationList, FriendRequestList} from "../models/apiTypes/FriendList.ts";
-import type {FriendRelation} from "../models/apiTypes/FriendRelation.ts";
+import type {FriendList, FriendRecommendationList, FriendRequestList} from "../models/platformuser/FriendList.ts";
+import type {FriendRelation} from "../models/platformuser/FriendRelation.ts";
 
 export async function findAllFriends(){
     const {data: friends} = await axios.get<FriendList>('/user/friends')

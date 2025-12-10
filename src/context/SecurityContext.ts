@@ -1,5 +1,5 @@
 import {createContext} from 'react'
-import type {User} from '../models/user.ts'
+import type {User} from '../models/auth/user.ts'
 
 export type SecurityContext = {
     isInitialised: boolean
