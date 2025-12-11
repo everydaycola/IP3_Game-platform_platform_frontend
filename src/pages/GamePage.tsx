@@ -5,7 +5,7 @@ import {useGame} from "../hooks/api/games/useGame.tsx";
 import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx";
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
 import {useGameIsFavorite} from "../hooks/api/favoriteGames/useIsFavoriteGame.tsx";
-
+import {AchievementPreviewList} from "../components/lists/AchievementPreviewList.tsx";
 
 export function GamePage() {
     const {gameId} = useParams();
@@ -27,7 +27,7 @@ export function GamePage() {
                 :
                 <>
                     {game.url ?
-                    <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
+                        <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
                         :
                         <ErrorCard
                             title={"Ohnee..."}
@@ -36,6 +36,8 @@ export function GamePage() {
                     }
                 </>
             }
+            <Typography variant={"h3"} sx={{mt:4}}>Achievements</Typography>
+            <AchievementPreviewList filter={"all"} achievements={game.achievements}/>
         </>
     )
 }

@@ -112,9 +112,7 @@ describe('GamesPage', () => {
         const queryClient = new QueryClient();
 
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
-        //Mock retrieval for games
         mockedAxios.get.mockResolvedValueOnce({data: emptyCompactGameList});
-        //Mock favorite retrieval.
         mockedAxios.get.mockResolvedValueOnce({data: emptyFavoriteGamesList});
 
         //Act

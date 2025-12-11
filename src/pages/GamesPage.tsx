@@ -6,7 +6,7 @@ import {SearchIconWrapper, StyledInputBase, Search} from "../components/controls
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {useEffect, useState} from "react";
-import type {CompactGame} from "../models/Game.ts";
+import type {CompactGame} from "../models/game/Game.ts";
 import {GameCardList} from "../components/lists/GameCardList.tsx";
 import {useFavoriteGames} from "../hooks/api/favoriteGames/useFavoriteGames.tsx";
 

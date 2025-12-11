@@ -1,11 +1,12 @@
 import {AppBar, Avatar, Box, Button, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
-import {Link, useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import {useContext, useState} from "react";
-import SecurityContext from "../context/SecurityContext.ts";
+import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
+import {useSecurityStore} from "../stores/securityStore.ts";
+import {NavbarLinks} from "./navbar/NavbarLinks.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -16,7 +17,9 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const [hamnavOpen, setHamnavOpen] = useState(false);
     const theme = useTheme();
     const navigate = useNavigate();
-    const {isAuthenticated, login, loggedInUser} = useContext(SecurityContext);
+    const login = useSecurityStore((state) => state.login);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
 
     return (
         <>
@@ -66,50 +69,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                         p: 2
                                     }}
                         >Fourteengames</Typography>
-                        <Stack direction={"column"}>
-                            {isAuthenticated() && loggedInUser != null &&
-                                <Typography
-                                    sx={{
-                                        textDecoration: "none",
-                                        color: theme.palette.primary.main,
-                                        m: 2,
-                                    }}
-                                    variant={"h6"}
-                                    component={Link}
-                                    to={`/profile/${loggedInUser?.username}`}
-                                >
-                                    Profiel
-                                </Typography>
-                            }
-                            {isAuthenticated() && loggedInUser != null &&
-                                <Typography
-                                    sx={{
-                                        textDecoration: "none",
-                                        color: theme.palette.primary.main,
-                                        m: 2,
-                                        mt:0
-                                    }}
-                                    variant={"h6"}
-                                    component={Link}
-                                    to={`/friends`}
-                                >
-                                    Vrienden
-                                </Typography>
-                            }
-                            <Typography
-                                sx={{
-                                    textDecoration: "none",
-                                    color: theme.palette.primary.main,
-                                    m: 2,
-                                    mt:0
-                                }}
-                                variant={"h6"}
-                                component={Link}
-                                to={"/"}
-                            >
-                                Games
-                            </Typography>
-                        </Stack>
+                        <NavbarLinks isSmallScreen={isSmallScreen}/>
                     </Box>
                 </Drawer>
 
@@ -130,47 +90,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                     backgroundColor: theme.palette.primary.main,
                                 }}
                             >
-                                <Stack direction={"column"}>
-                                    {isAuthenticated() && loggedInUser != null &&
-                                        <Typography
-                                            sx={{
-                                                textDecoration: "none",
-                                                color: theme.palette.primary.contrastText
-                                            }}
-                                            variant={"h6"}
-                                            component={Link}
-                                            to={`/profile/${loggedInUser?.username}`}
-                                        >
-                                            Profiel
-                                        </Typography>
-                                    }
-                                    {isAuthenticated() && loggedInUser != null &&
-                                        <Typography
-                                            sx={{
-                                                textDecoration: "none",
-                                                color: theme.palette.primary.contrastText,
-                                                mt: 1
-                                            }}
-                                            variant={"h6"}
-                                            component={Link}
-                                            to={`/friends`}
-                                        >
-                                            Vrienden
-                                        </Typography>
-                                    }
-                                    <Typography
-                                        sx={{
-                                            textDecoration: "none",
-                                            color: theme.palette.primary.contrastText,
-                                            mt: 1
-                                        }}
-                                        variant={"h6"}
-                                        component={Link}
-                                        to={"/"}
-                                    >
-                                        Games
-                                    </Typography>
-                                </Stack>
+                                <NavbarLinks isSmallScreen={isSmallScreen}/>
                             </Box>
 
                             {isAuthenticated() ?

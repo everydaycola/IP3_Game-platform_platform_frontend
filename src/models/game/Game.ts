@@ -1,3 +1,5 @@
+import type {Achievement} from "../achievement/Achievement.ts";
+
 export type Game = {
     id: string;
     name: string;
@@ -7,6 +9,7 @@ export type Game = {
     icon: string;
     genre:string;
     url:string;
+    achievements: Achievement[]
 }
 
 export type CompactGame = Omit<Game,  "description" | "price" | "image">

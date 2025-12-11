@@ -6,8 +6,7 @@ interface FallbackWrapperProps{
     errorFallback:ReactNode;
 }
 
-export function FallbackWrapper({ loadingFallback, errorFallback, children }: PropsWithChildren<FallbackWrapperProps>
-) {
+export function FallbackWrapper({ loadingFallback, errorFallback, children }: PropsWithChildren<FallbackWrapperProps>) {
     return(
         <>
             <ErrorBoundary fallback={errorFallback}>

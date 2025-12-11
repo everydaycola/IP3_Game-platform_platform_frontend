@@ -1,15 +1,15 @@
 import {Button, Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
-import {useContext, useState} from "react";
-import SecurityContext from "../context/SecurityContext.ts";
+import {useState} from "react";
 import {useFriendList} from "../hooks/api/friends/useFriendList.tsx";
 import FriendCard from "../components/cards/FriendCard.tsx";
 import {useFriendRequestList} from "../hooks/api/friends/useFriendRequestList.tsx";
 import FriendRequestCard from "../components/cards/FriendRequestCard.tsx";
 import {NewFriendDialog} from "../components/dialogs/NewFriendDialog.tsx";
+import {useSecurityStore} from "../stores/securityStore.ts";
 
 export function FriendListPage() {
     const theme = useTheme();
-    const {loggedInUser} = useContext(SecurityContext);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const {friendList} = useFriendList();
     const {friendRequests} = useFriendRequestList();
     const [isAddingNewFriends, setIsAddingNewFriends] = useState(false);
