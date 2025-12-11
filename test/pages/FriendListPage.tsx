@@ -3,7 +3,6 @@ import {render, screen, waitFor} from "@testing-library/react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {emptyFriendList, emptyFriendRequestList, mockuser, testFriendList, testFriendRequestList} from "../data/TestUserData.ts";
-import SecurityContext from "../../src/context/SecurityContext.ts";
 import axios, {type AxiosStatic} from "axios";
 import {FriendListPage} from "../../src/pages/FriendListPage.tsx";
 
