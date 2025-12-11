@@ -1,22 +1,20 @@
 import { IconButton, Stack, Typography} from "@mui/material";
 import {AchievementPreviewList} from "./lists/AchievementPreviewList.tsx";
-import {achievementList} from "../models/achievement/TEST_ACHIEVEMENT_DATA.ts";
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from "react";
+import type {Achievement} from "../models/achievement/Achievement.ts";
 
 interface GameFullAchievementListProps{
     gameName:string;
+    filter: "all"|"achieved"|"not-achieved"
+    achievements: Achievement[];
+    openedByDefault?:boolean;
 }
 
-export function GameFullAchievementList({gameName}:GameFullAchievementListProps){
-    const [isExpanded, setIsExpanded] = useState(false);
+export function GameFullAchievementList({gameName,filter, achievements, openedByDefault = false}:GameFullAchievementListProps){
+    const [isExpanded, setIsExpanded] = useState(openedByDefault);
 
-    const bigList = [
-        ...achievementList,
-        ...achievementList,
-        ...achievementList
-    ];
     return(
         <Stack direction={"column"}>
             <Stack direction={"row"} alignItems={"center"}>
@@ -37,8 +35,9 @@ export function GameFullAchievementList({gameName}:GameFullAchievementListProps)
             </Stack>
 
             <AchievementPreviewList
-                achievements={bigList}
-                amountToShow={isExpanded ? bigList.length : 0}
+                achievements={achievements}
+                filter={filter}
+                amountToShow={isExpanded ? achievements.length : 0}
             />
 
         </Stack>
