@@ -3,7 +3,7 @@ import {render, screen, waitFor} from "@testing-library/react";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import {GamePage} from "../../src/pages/GamePage";
 import axios, {type AxiosStatic} from "axios";
-import {compactGame1} from "../data/TestGames.ts";
+import {compactGame1, compactGame4} from "../data/TestGames.ts";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ErrorBoundary} from "react-error-boundary";
 
@@ -12,7 +12,7 @@ vi.mock('axios')
 describe('GamePage', () => {
     it("renders gamepage with valid IFrame when fetches are successful", async () => {
         //Arrange
-        const gameId = compactGame1.id; // or whatever the id is
+        const gameId = compactGame1.id;
         const queryClient = new QueryClient();
 
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
@@ -34,6 +34,34 @@ describe('GamePage', () => {
             const iframe = container.querySelector("iframe");
             expect(iframe).toBeInTheDocument();
             expect(iframe).toHaveAttribute('src', compactGame1.url);
+        });
+    });
+
+    it("renders gamepage with achievements in valid IFrame when fetches are successful and if the game has achievements", async () => {
+        //Arrange
+        const gameId = compactGame4.id;
+        const queryClient = new QueryClient();
+
+        const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
+        mockedAxios.get.mockResolvedValueOnce({data: compactGame4});
+
+        //Act
+        const {container} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter initialEntries={[`/games/${gameId}`]}>
+                    <Routes>
+                        <Route path="/games/:gameId" element={<GamePage/>}/>
+                    </Routes>
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+        //Assert
+        await waitFor(() => {
+            expect(screen.getByText(compactGame4.name)).toBeInTheDocument();
+            const iframe = container.querySelector("iframe");
+            expect(iframe).toBeInTheDocument();
+            expect(iframe).toHaveAttribute('src', compactGame1.url);
+            expect(screen.getByTestId("achievement-card")).toBeInTheDocument()
         });
     });
 
@@ -74,7 +102,7 @@ describe('GamePage', () => {
         });
 
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
-        mockedAxios.get.mockResolvedValueOnce(new Error("Network error"));
+        mockedAxios.get.mockRejectedValueOnce(new Error("Network error"));
 
         //Act
         render(
@@ -103,7 +131,7 @@ describe('GamePage', () => {
         const queryClient = new QueryClient();
 
         const mockedAxios = axios as unknown as Mocked<AxiosStatic>;
-        mockedAxios.get.mockResolvedValueOnce({
+        mockedAxios.get.mockRejectedValueOnce({
             data: { ...compactGame1, url: undefined }
         });
 

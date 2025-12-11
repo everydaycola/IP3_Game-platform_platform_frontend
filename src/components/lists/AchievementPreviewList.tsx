@@ -31,6 +31,7 @@ export function AchievementPreviewList({achievements, filter, amountToShow = 3}:
         >
             {filtered.slice(0, amountToShow).map((achievement) =>
                 <AchievementPreviewCard
+                    data-testid="achievement-card"
                     key={"achievement" + achievement.id}
                     name={achievement.name}
                     description={achievement.description}

@@ -37,7 +37,7 @@ export function GamePage() {
                 </>
             }
             <Typography variant={"h3"} sx={{mt:4}}>Achievements</Typography>
-            <AchievementPreviewList achievements={game.achievements}/>
+            <AchievementPreviewList filter={"all"} achievements={game.achievements}/>
         </>
     )
 }
