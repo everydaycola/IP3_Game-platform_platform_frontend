@@ -40,7 +40,7 @@ export default function NewFriendCard({userName}: FriendCardProps) {
                         variant={"contained"}
                         color={"secondary"}
                         sx={{mr: 2}}
-                        onClick={() => navigate("http://localhost:5173/profile/" + userName)}
+                        onClick={() => navigate("/profile/" + userName)}
                     >
                         Profiel bezoeken
                     </Button>
