@@ -7,6 +7,7 @@ export function UserConfigPage() {
     const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
     const isInitialised = useSecurityStore((state) => state.isInitialised);
     const login = useSecurityStore((state) => state.login);
+    const manageAccount = useSecurityStore((state) => state.manageAccount);
     const logout = useSecurityStore((state) => state.logout);
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
 
@@ -21,6 +22,16 @@ export function UserConfigPage() {
             <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3,p:4, overflow: 'hidden', color:theme.palette.primary.main}}>
                 <Stack direction="row"
                        justifyContent="flex-end">
+                    <Button
+                        sx={{
+                            mr:2
+                        }}
+                        color={"primary"}
+                        variant={"contained"}
+                        onClick={manageAccount}
+                    >
+                        inloggegevens wijzigen
+                    </Button>
                     <Button sx={{width: "25%"}}
                             variant="contained"
                             color="secondary"
@@ -94,13 +105,6 @@ export function UserConfigPage() {
                             <Typography sx={{mr: 2}}>Thema:</Typography>
                             <ThemeControls/>
                         </Stack>
-                        <Typography
-                            variant={"h6"}
-                            fontWeight={"bold"}
-                            sx={{mt: 2}}
-                        >
-                            Notificatie instellingen
-                        </Typography>
                     </Stack>
 
                 </Stack>
