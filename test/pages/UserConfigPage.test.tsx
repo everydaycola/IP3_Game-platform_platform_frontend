@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, type Mock } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
-import { UserConfigPage } from "../../src/pages/UserConfigPage";
+import { UserPreferencePage } from "../../src/pages/UserPreferencePage.tsx";
 import type { User } from "../../src/models/auth/user";
 vi.mock("../../src/stores/securityStore", () => ({
     useSecurityStore: vi.fn(),
@@ -14,7 +14,7 @@ function setSecurityStore(state: any) {
     );
 }
 
-describe("UserConfigPage", () => {
+describe("UserPreferencePage", () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
@@ -34,7 +34,7 @@ describe("UserConfigPage", () => {
         render(
             <MemoryRouter initialEntries={["/user-config"]}>
                 <Routes>
-                    <Route path="/user-config" element={<UserConfigPage />} />
+                    <Route path="/user-config" element={<UserPreferencePage />} />
                     <Route path="/games" element={<div>Games page</div>} />
                 </Routes>
             </MemoryRouter>
@@ -57,7 +57,7 @@ describe("UserConfigPage", () => {
         render(
             <MemoryRouter initialEntries={["/user-config"]}>
                 <Routes>
-                    <Route path="/user-config" element={<UserConfigPage />} />
+                    <Route path="/user-config" element={<UserPreferencePage />} />
                     <Route path="/games" element={<div>Games page</div>} />
                 </Routes>
             </MemoryRouter>
@@ -66,7 +66,7 @@ describe("UserConfigPage", () => {
         expect(screen.getByText("Games page")).toBeInTheDocument();
     });
 
-    it("shows UserConfigPage when initialised and authenticated", () => {
+    it("shows UserPreferencePage when initialised and authenticated", () => {
         //Arrange
         const user: User = {
             name: "testUser",
@@ -89,7 +89,7 @@ describe("UserConfigPage", () => {
         render(
             <MemoryRouter initialEntries={["/user-config"]}>
                 <Routes>
-                    <Route path="/user-config" element={<UserConfigPage />} />
+                    <Route path="/user-config" element={<UserPreferencePage />} />
                     <Route path="/games" element={<div>Games page</div>} />
                 </Routes>
             </MemoryRouter>

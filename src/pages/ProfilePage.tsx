@@ -11,9 +11,6 @@ export function ProfilePage() {
     const theme = useTheme();
     const {userName} = useParams();
     const {platformUser} = usePlatformUser();
-    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
-    const login = useSecurityStore((state) => state.login);
-    const logout = useSecurityStore((state) => state.logout);
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const {isSmallScreen} = useMediaQueries();
     const [isEditingProfile, setIsEditingProfile] = useState(false);
@@ -24,7 +21,7 @@ export function ProfilePage() {
             <Box
                 component="div"
                 sx={{
-                    backgroundImage: `url(${platformUser.bannerUrl?  platformUser.bannerUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuq3joaHJkCS8gftpCUUR3Yg63O6kFWSO7fg&s"})`,
+                    backgroundImage: `url(${platformUser.bannerUrl ? platformUser.bannerUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuq3joaHJkCS8gftpCUUR3Yg63O6kFWSO7fg&s"})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: '100%',
@@ -44,32 +41,26 @@ export function ProfilePage() {
                     gap={2}
                 >
                     {loggedInUser?.username === userName &&
-                        <Button
-                            data-testid="preference-edit-button"
-                            variant={"contained"}
-                            onClick={() => {
-                                setIsEditingProfile(true)
-                            }}
-                        >
-                            Profiel wijzigen
-                        </Button>
+                        <>
+                            <Button
+                                data-testid="preference-edit-button"
+                                variant={"contained"}
+                                component={Link}
+                                to={"/userPreferences"}
+                            >
+                                Voorkeuren bewerken
+                            </Button>
+                            <Button
+                                data-testid="preference-edit-button"
+                                variant={"contained"}
+                                onClick={() => {
+                                    setIsEditingProfile(true)
+                                }}
+                            >
+                                Profiel wijzigen
+                            </Button>
+                        </>
                     }
-                    {loggedInUser?.username === userName &&
-                        <Button
-                            data-testid="preference-edit-button"
-                            variant={"contained"}
-                            component={Link}
-                            to={"/userPreferences"}
-                        >
-                            Account gegevens wijzigen
-                        </Button>
-                    }
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={isAuthenticated() ? logout : login}>
-                        {isAuthenticated() ? "Uitloggen" : "Inloggen"}
-                    </Button>
                 </Stack>
 
             </Box>
