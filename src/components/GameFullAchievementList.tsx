@@ -4,6 +4,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from "react";
 import type {Achievement} from "../models/achievement/Achievement.ts";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
+import {UnlockedAchievementCount} from "./UnlockedAchievementCount.tsx";
 
 interface GameFullAchievementListProps{
     gameName:string;
@@ -14,6 +16,11 @@ interface GameFullAchievementListProps{
 
 export function GameFullAchievementList({gameName,filter, achievements, openedByDefault = false}:GameFullAchievementListProps){
     const [isExpanded, setIsExpanded] = useState(openedByDefault);
+    const {platformUser} = usePlatformUser();
+
+    const unlockedCount = achievements.filter(a =>
+        platformUser.achievements.some(u => u.achievementId === a.id)
+    ).length;
 
     return(
         <Stack direction={"column"}>
@@ -33,6 +40,7 @@ export function GameFullAchievementList({gameName,filter, achievements, openedBy
                     }
                 </IconButton>
             </Stack>
+            <UnlockedAchievementCount unlockedCount={unlockedCount} totalCount={achievements.length}/>
 
             <AchievementPreviewList
                 achievements={achievements}
