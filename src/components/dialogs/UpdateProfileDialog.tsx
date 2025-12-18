@@ -6,7 +6,8 @@ import type {PlatformUserUpdateType} from "../../models/platformuser/platformUse
 import {PlatformUserUpdateFormFields} from "../formfields/PlatformUserUpdateFormFields.tsx";
 import {usePlatformUser} from "../../hooks/usePlatformUser.tsx";
 import {ConfirmationDialog} from "./ConfirmationDialog.tsx";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {useSyncReactHookForm} from "../../hooks/useSyncReactHookForm.tsx";
 
 interface UpdateRoomDialogProps {
     isOpen: boolean,
@@ -19,7 +20,7 @@ export function UpdateRoomDialog({isOpen, onClose, onUpdateUserProfile}: UpdateR
     const [isConfirming, setIsConfirming] = useState(false);
     const {platformUser} = usePlatformUser();
     const theme = useTheme();
-    const methods = useForm({
+    const methods = useForm<UpdateProfileFormValues>({
         resolver: zodResolver(updateProfileSchema),
         defaultValues: {
             biography: platformUser.biography,
@@ -29,17 +30,15 @@ export function UpdateRoomDialog({isOpen, onClose, onUpdateUserProfile}: UpdateR
     })
     const {handleSubmit, reset, formState: {isSubmitting}} = methods;
 
-    //UseEffect is used since default values are only set on init render.
-    //Todo: seperate the logic into it's own hook for higher readability.
-    useEffect(() => {
-        if (platformUser) {
-            reset({
-                biography: platformUser.biography ?? "",
-                profilePictureUrl: platformUser.profilePictureUrl ?? "",
-                bannerUrl: platformUser.bannerUrl ?? ""
-            });
-        }
-    }, [platformUser]);
+    useSyncReactHookForm<UpdateProfileFormValues>({
+        syncDependency: platformUser,
+        reset: reset,
+        values: {
+            biography: platformUser.biography ?? "",
+            profilePictureUrl: platformUser.profilePictureUrl ?? "",
+            bannerUrl: platformUser.bannerUrl ?? "",
+        },
+    });
 
     function handleRoomUpdate(data: UpdateProfileFormValues) {
         const updatedUser: PlatformUserUpdateType = {
