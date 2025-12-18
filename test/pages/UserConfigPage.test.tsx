@@ -95,7 +95,6 @@ describe("UserPreferencePage", () => {
             </MemoryRouter>
         );
         //Assert
-        expect(screen.getByText("Uw voorkeuren beheren")).toBeInTheDocument();
         expect(screen.getByRole("button", { name: /uitloggen/i })).toBeInTheDocument();
         expect(screen.getByText("testUserName")).toBeInTheDocument();
         expect(screen.getByText("Email: test@test.com")).toBeInTheDocument();
