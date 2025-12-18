@@ -19,7 +19,6 @@ export function UpdateRoomDialog({isOpen, onClose, onUpdateUserProfile}: UpdateR
     const [isConfirming, setIsConfirming] = useState(false);
     const {platformUser} = usePlatformUser();
     const theme = useTheme();
-    console.log(platformUser);
     const methods = useForm({
         resolver: zodResolver(updateProfileSchema),
         defaultValues: {
@@ -30,8 +29,16 @@ export function UpdateRoomDialog({isOpen, onClose, onUpdateUserProfile}: UpdateR
     })
     const {handleSubmit, reset, formState: {isSubmitting}} = methods;
 
+    //UseEffect is used since default values are only set on init render.
+    //Todo: seperate the logic into it's own hook for higher readability.
     useEffect(() => {
-        reset();
+        if (platformUser) {
+            reset({
+                biography: platformUser.biography ?? "",
+                profilePictureUrl: platformUser.profilePictureUrl ?? "",
+                bannerUrl: platformUser.bannerUrl ?? ""
+            });
+        }
     }, [platformUser]);
 
     function handleRoomUpdate(data: UpdateProfileFormValues) {
