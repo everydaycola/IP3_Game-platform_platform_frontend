@@ -9,7 +9,6 @@ export function PlatformUserUpdateFormFields() {
     return (
         <>
             <TextField
-                required
                 label="Biography"
                 type="text"
                 fullWidth
@@ -24,7 +23,6 @@ export function PlatformUserUpdateFormFields() {
                 {...register("biography", {valueAsNumber: false})}
             />
             <TextField
-                required
                 label="Profile picture (url)"
                 type="text"
                 fullWidth
@@ -39,7 +37,6 @@ export function PlatformUserUpdateFormFields() {
                 {...register("profilePictureUrl", {valueAsNumber: false})}
             />
             <TextField
-                required
                 label="Banner image (url)"
                 type="text"
                 fullWidth
