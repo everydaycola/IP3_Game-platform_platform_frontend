@@ -1,52 +1,107 @@
-import { IconButton, Stack, Typography} from "@mui/material";
+import {Box, Stack, Card, Typography, Divider, FormControlLabel, Switch, IconButton} from "@mui/material";
 import {AchievementPreviewList} from "./lists/AchievementPreviewList.tsx";
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from "react";
 import type {Achievement} from "../models/achievement/Achievement.ts";
 import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 import {UnlockedAchievementCount} from "./UnlockedAchievementCount.tsx";
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 
-interface GameFullAchievementListProps{
-    gameName:string;
-    filter: "all"|"achieved"|"not-achieved"
+interface GameFullAchievementListProps {
+    gameName: string;
     achievements: Achievement[];
-    openedByDefault?:boolean;
+    openedByDefault?: boolean;
 }
 
-export function GameFullAchievementList({gameName,filter, achievements, openedByDefault = false}:GameFullAchievementListProps){
+export function GameFullAchievementList({gameName, achievements, openedByDefault = false}: GameFullAchievementListProps) {
     const [isExpanded, setIsExpanded] = useState(openedByDefault);
     const {platformUser} = usePlatformUser();
+    const [filter, setFilter] = useState<"all" | "achieved" | "not-achieved">("all");
 
     const unlockedCount = achievements.filter(a =>
         platformUser.achievements.some(u => u.achievementId === a.id)
     ).length;
 
-    return(
-        <Stack direction={"column"}>
-            <Stack direction={"row"} alignItems={"center"}>
-                <Typography variant={"h4"}
-                            sx={{mt: 4}}>
-                    {gameName}
-                </Typography>
-                <IconButton
-
-                    onClick={() => setIsExpanded(!isExpanded)}
-                >
-                    {isExpanded?
-                    <ExpandLessIcon/>
-                        :
-                    <ExpandMoreIcon/>
+    return (
+        <Stack direction={"column"} sx={{mt: 2}}>
+            <Typography variant={"h4"}>{gameName}</Typography>
+            {unlockedCount != achievements.length &&
+                <Card sx={{minHeight: 150, display: "flex"}}>
+                    <Box sx={{
+                        flex: 1,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative"
+                    }}>
+                        <UnlockedAchievementCount unlockedCount={unlockedCount} totalCount={achievements.length}/>
+                        <IconButton
+                            size={"large"}
+                            color={"primary"}
+                            sx={{
+                                position: "absolute",
+                                right: 2
+                            }}
+                            onClick={() => setIsExpanded(!isExpanded)}
+                        >
+                            {isExpanded ?
+                                <ChevronRightIcon/>
+                                :
+                                <ChevronLeftIcon/>
+                            }
+                        </IconButton>
+                    </Box>
+                    {isExpanded && unlockedCount != achievements.length &&
+                        <>
+                            <Divider orientation="vertical" flexItem/>
+                            <Box sx={{flex: 3, p: 2}}>
+                                <FormControlLabel
+                                    control={
+                                        <Switch
+                                            checked={filter === "achieved"}
+                                            onChange={(e) =>
+                                                setFilter(e.target.checked ? "achieved" : "all")
+                                            }
+                                            size="small"
+                                        />
+                                    }
+                                    label={"Alleen niet behaalde weergeven"}
+                                />
+                                <AchievementPreviewList
+                                    achievements={achievements}
+                                    filter={filter}
+                                    amountToShow={achievements.length}/>
+                            </Box>
+                        </>
                     }
-                </IconButton>
-            </Stack>
-            <UnlockedAchievementCount unlockedCount={unlockedCount} totalCount={achievements.length}/>
+                </Card>
+            }
 
-            <AchievementPreviewList
-                achievements={achievements}
-                filter={filter}
-                amountToShow={isExpanded ? achievements.length : 0}
-            />
+            {unlockedCount === achievements.length &&
+                <Card sx={{minHeight: 150, display: "flex", p:2}}>
+                    <Box sx={{
+                        flex: 1,
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        position: "relative"
+                    }}>
+                        <UnlockedAchievementCount unlockedCount={unlockedCount} totalCount={achievements.length}/>
+                    </Box>
+                    <Box sx={{flex: 3, p: 2}} display={"flex"} flexDirection={"column"} justifyContent={"center"}>
+                        <Typography variant={"h4"} color={"primary"}>
+                            Proficiat!
+                        </Typography>
+                        <Typography variant={"h5"} color={"primary"}>
+                            Je hebt alle achievements voor
+                            <Typography component={"span"} variant={"h5"} color={"secondary"} sx={{fontWeight:"bold", mx:1}}>
+                                {gameName}
+                            </Typography>
+                            vrijgespeeld 🎉
+                        </Typography>
+                    </Box>
+                </Card>
+            }
 
         </Stack>
     )

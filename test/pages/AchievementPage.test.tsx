@@ -42,7 +42,7 @@ describe("AchievementPage", () => {
         expect(screen.getByText("Achievements")).toBeInTheDocument();
         expect(
             screen.getByText(
-                "After we implement a 'purhcase system' users will only see achievements for games they own."
+                "After we implement a 'purchase system' users will only see achievements for games they own."
             )
         ).toBeInTheDocument();
         expect(screen.getByText("Filter:")).toBeInTheDocument();

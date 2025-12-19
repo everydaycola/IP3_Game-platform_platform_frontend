@@ -73,7 +73,7 @@ export function GamePlayer({gameId,gameUrl,isFavorite}:GamePlayerProps){
                     <iframe
                         width={"100%"}
                         height={"100%"}
-                        src={gameUrl+ "/playing/19"}
+                        src={gameUrl}
                     />
                 </CardContent>
                 <CardActions
