@@ -16,11 +16,11 @@ export function AchievementPage() {
                     After we implement a 'purchase system' users will only see achievements for games they own.
                 </Typography>
             </Stack>
-            {games.map((game,idx) =>
+            {games.map((game) =>
                     game.achievements.length !== 0 && (
                         <GameFullAchievementList
                             key={"game" + game.id}
-                            openedByDefault={idx === 0}
+                            openedByDefault={true}
                             gameName={game.name}
                             achievements={game.achievements}
                         />
