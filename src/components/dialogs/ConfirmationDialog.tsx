@@ -18,10 +18,8 @@ export function ConfirmationDialog({isOpen, onAccept, onClose, confirmationMessa
     return (
         <Dialog open={isOpen}
                 onClose={onClose}>
-            <DialogTitle>
-                <Typography color={"primary"} variant={"h5"} >
-                    {confirmationMessage}
-                </Typography>
+            <DialogTitle color={"primary"}>
+                {confirmationMessage}
                 <Typography color={"primary"}>
                     {confirmationDescription}
                 </Typography>
