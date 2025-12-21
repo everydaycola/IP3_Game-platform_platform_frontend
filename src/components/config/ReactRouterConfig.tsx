@@ -6,7 +6,7 @@ import {GamePageLoadingFallback} from "../../pages/fallbacks/GamePageLoadingFall
 import {GamePage} from "../../pages/GamePage.tsx";
 import {Typography} from "@mui/material";
 import {ProfilePage} from "../../pages/ProfilePage.tsx";
-import {UserConfigPage} from "../../pages/UserConfigPage.tsx";
+import {UserPreferencePage} from "../../pages/UserPreferencePage.tsx";
 import {FriendListPage} from "../../pages/FriendListPage.tsx";
 import {AchievementPage} from "../../pages/AchievementPage.tsx";
 import {createFallbackWrapper, createFallbackWrapperWithRouteGuard} from "../factories/fallbackWrapperFactory.tsx";
@@ -58,7 +58,7 @@ export function ReactRouterConfig() {
                 path={"/userPreferences"}
                 element={
                     createFallbackWrapperWithRouteGuard({
-                        children: <UserConfigPage/>,
+                        children: <UserPreferencePage/>,
                         errorFallback: <ErrorCard
                             title={"Ohnee..."}
                             description={"Er ging iets mis met het laden van deze pagina..."}
