@@ -1,12 +1,13 @@
 import {Typography, Stack, Avatar, Button, Card, useTheme} from "@mui/material";
-import {Navigate} from "react-router-dom";
+import {Navigate, Link} from "react-router-dom";
 import {ThemeControls} from "../components/controls/ThemeControls.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
 
-export function UserConfigPage() {
+export function UserPreferencePage() {
     const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
     const isInitialised = useSecurityStore((state) => state.isInitialised);
     const login = useSecurityStore((state) => state.login);
+    const manageAccount = useSecurityStore((state) => state.manageAccount);
     const logout = useSecurityStore((state) => state.logout);
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
 
@@ -21,6 +22,16 @@ export function UserConfigPage() {
             <Card sx={{maxWidth: "100%", mx: 'auto', mt: 5, borderRadius: 3,p:4, overflow: 'hidden', color:theme.palette.primary.main}}>
                 <Stack direction="row"
                        justifyContent="flex-end">
+                    <Button
+                        sx={{
+                            mr:2
+                        }}
+                        color={"primary"}
+                        variant={"contained"}
+                        onClick={manageAccount}
+                    >
+                        inloggegevens wijzigen
+                    </Button>
                     <Button sx={{width: "25%"}}
                             variant="contained"
                             color="secondary"
@@ -56,6 +67,12 @@ export function UserConfigPage() {
                         >
                             {loggedInUser?.username || "Gebruiker"}
                         </Typography>
+                        <Button
+                            component={Link}
+                            to={`/profile/${loggedInUser?.username}`}
+                        >
+                            Profiel bekijken
+                        </Button>
                     </Stack>
                     <Stack direction={"column"}
                            sx={{
@@ -69,7 +86,7 @@ export function UserConfigPage() {
                                 width: "100%"
                             }}
                         >
-                            Uw voorkeuren beheren
+                            Uw gegevens
                         </Typography>
                         {loggedInUser && (
                             <Stack direction={"column"}
@@ -79,28 +96,29 @@ export function UserConfigPage() {
                                         Naam: {[loggedInUser.firstName, loggedInUser.lastName].filter(Boolean).join(" ")}
                                     </Typography>
                                 )}
-                                {loggedInUser.username && (
+                                {loggedInUser.email && (
                                     <Typography>Email: {loggedInUser.email}</Typography>
                                 )}
                             </Stack>
                         )}
+                        <Typography
+                            variant={"h4"}
+                            sx={{
+                                width: "100%",
+                                mt:2
+                            }}
+                        >
+                            Uw voorkeuren
+                        </Typography>
                         <Stack direction={"row"}
                                sx={{
                                    display: "flex",
                                    alignItems: "center",
                                    justifyContent: "space-between",
-                                   mt: 2
                                }}>
                             <Typography sx={{mr: 2}}>Thema:</Typography>
                             <ThemeControls/>
                         </Stack>
-                        <Typography
-                            variant={"h6"}
-                            fontWeight={"bold"}
-                            sx={{mt: 2}}
-                        >
-                            Notificatie instellingen
-                        </Typography>
                     </Stack>
 
                 </Stack>

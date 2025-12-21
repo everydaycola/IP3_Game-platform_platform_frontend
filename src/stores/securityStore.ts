@@ -14,6 +14,7 @@ interface SecurityState{
 interface SecurityActions{
     init:() => void;
     login:() => void;
+    manageAccount:() => void;
     logout: () => void;
     isAuthenticated: () => boolean;
     updateUserFromToken: () => void;
@@ -50,6 +51,9 @@ export const useSecurityStore = create<SecurityState & SecurityActions>((set,get
     },
     login:() => {
         keycloak.login();
+    },
+    manageAccount:() => {
+        keycloak.accountManagement();
     },
     logout: () => {
         removeAccessTokenFromAuthHeader();

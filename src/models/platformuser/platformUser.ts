@@ -5,4 +5,8 @@ export type PlatformUser = {
     userName: string
     biography: string
     achievements: UserAchievement[]
+    profilePictureUrl:string,
+    bannerUrl:string
 }
+
+export type PlatformUserUpdateType = Omit<PlatformUser, "userName" | "achievements">
