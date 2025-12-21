@@ -1,4 +1,4 @@
-import {Box, Stack, Card, Typography, Divider, FormControlLabel, Switch, IconButton} from "@mui/material";
+import {Box, Stack, Card, Typography, Divider, FormControlLabel, Switch, IconButton,useTheme} from "@mui/material";
 import {AchievementPreviewList} from "./lists/AchievementPreviewList.tsx";
 import {useState} from "react";
 import type {Achievement} from "../models/achievement/Achievement.ts";
@@ -17,6 +17,7 @@ export function GameFullAchievementList({gameName, achievements, openedByDefault
     const [isExpanded, setIsExpanded] = useState(openedByDefault);
     const {platformUser} = usePlatformUser();
     const [filter, setFilter] = useState<"all" | "achieved" | "not-achieved">("all");
+    const theme = useTheme();
 
     const unlockedCount = achievements.filter(a =>
         platformUser.achievements.some(u => u.achievementId === a.id)
@@ -58,13 +59,14 @@ export function GameFullAchievementList({gameName, achievements, openedByDefault
                                 <FormControlLabel
                                     control={
                                         <Switch
-                                            checked={filter === "achieved"}
+                                            checked={filter === "not-achieved"}
                                             onChange={(e) =>
-                                                setFilter(e.target.checked ? "achieved" : "all")
+                                                setFilter(e.target.checked ? "not-achieved" : "all")
                                             }
                                             size="small"
                                         />
                                     }
+                                    sx={{color:theme.palette.primary.main}}
                                     label={"Alleen niet behaalde weergeven"}
                                 />
                                 <AchievementPreviewList

@@ -14,7 +14,7 @@ export function UnlockedAchievementCount({unlockedCount, totalCount}: UnlockedAc
             alignItems={"center"}
         >
             <AchievementCircularPercentage unlockedCount={unlockedCount} totalCount={totalCount}/>
-            <Typography component={"output"} variant={"h6"} sx={{mt:2}} color={"secondary"}>{(unlockedCount/totalCount) * 100}% Unlocked</Typography>
+            <Typography component={"output"} variant={"h6"} sx={{mt:2}} color={"secondary"}>{(unlockedCount/totalCount) * 100}% behaald</Typography>
         </Stack>
     )
 }
