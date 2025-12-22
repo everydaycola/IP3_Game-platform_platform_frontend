@@ -11,7 +11,7 @@ export function NavbarLinks({isSmallScreen}:NavbarLinksProps){
     return(
         <Stack direction={"column"}>
             <NavBarLink textContent={"Winkel"} linkTo={"/"} isSmallScreen={isSmallScreen}/>
-            <NavBarLink textContent={"Bibliotheek"} linkTo={"/library"} isSmallScreen={isSmallScreen}/>
+            <NavBarLink textContent={"Bibliotheek"} linkTo={"/library"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Vrienden"} linkTo={"/friends"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Profiel"} linkTo={`/profile/${loggedInUser?.username}`} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Achievements"} linkTo={"/achievements"} isSmallScreen={isSmallScreen}/>
