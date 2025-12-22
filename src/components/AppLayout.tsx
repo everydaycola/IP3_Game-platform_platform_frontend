@@ -1,5 +1,4 @@
-import {AppBar, Avatar, Box, Button, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {AppBar, Box, Button, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,7 +6,6 @@ import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
 import {NavbarLinks} from "./navbar/NavbarLinks.tsx";
-import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -17,11 +15,9 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const {isSmallScreen} = useMediaQueries();
     const [hamnavOpen, setHamnavOpen] = useState(false);
     const theme = useTheme();
-    const navigate = useNavigate();
     const login = useSecurityStore((state) => state.login);
     const logout = useSecurityStore((state) => state.logout);
     const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
-    const {platformUser} = usePlatformUser();
 
     return (
         <>
@@ -97,20 +93,6 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
 
                             <Stack direction={"column"}>
-                                <Avatar
-                                    src={platformUser.profilePictureUrl || undefined}
-                                    sx={{
-                                        width: 100,
-                                        height: 100,
-                                        margin:"0 auto",
-                                        mb:4,
-                                        border: '3px solid white',
-                                        bgcolor: platformUser.profilePictureUrl ? 'transparent' : theme.palette.primary.main,
-                                        color: theme.palette.primary.contrastText,
-                                        cursor:"pointer"
-                                    }}
-                                    onClick={() => navigate(`/profile/${platformUser.userName}`)}
-                                />
                                 <Button
                                     variant="contained"
                                     color="secondary"
