@@ -1,19 +1,28 @@
 import {useState} from "react";
-import {Snackbar} from "@mui/material";
+import {Alert, Snackbar} from "@mui/material";
 
 interface NotificationElementProps{
-    message:string
+    message:string,
+    severity?: "success" | "error" | "warning" | "info";
 }
 
-export function NotificationElement({message}:NotificationElementProps){
-    const [open, setOpen] = useState(true);
 
+export function NotificationElement({ message, severity = "info" }: NotificationElementProps) {
+    const [open, setOpen] = useState(true);
     return (
         <Snackbar
             open={open}
-            autoHideDuration={1000}
+            autoHideDuration={3000}
             onClose={() => setOpen(false)}
-            message={message}
-        />
+            anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        >
+            <Alert
+                onClose={() => setOpen(false)}
+                severity={severity}
+                sx={{ width: "100%" }}
+            >
+                {message}
+            </Alert>
+        </Snackbar>
     );
 }

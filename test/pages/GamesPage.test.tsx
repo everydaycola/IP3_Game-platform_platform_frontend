@@ -4,7 +4,7 @@ import {MemoryRouter, Route, Routes} from "react-router-dom";
 import axios, {type AxiosStatic} from "axios";
 import {compactGameList, emptyCompactGameList, emptyFavoriteGamesList, favoriteGamesList} from "../data/TestGames.ts";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {GamesPage} from "../../src/pages/GamesPage.tsx";
+import {GameLibraryPage} from "../../src/pages/GameLibraryPage.tsx";
 import {ErrorBoundary} from "react-error-boundary";
 
 vi.mock('axios')
@@ -24,7 +24,7 @@ describe('GamesPage', () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games`]}>
                     <Routes>
-                        <Route path="/games" element={<GamesPage/>}/>
+                        <Route path="/games" element={<GameLibraryPage/>}/>
                     </Routes>
                 </MemoryRouter>
             </QueryClientProvider>
@@ -56,7 +56,7 @@ describe('GamesPage', () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games`]}>
                     <Routes>
-                        <Route path="/games" element={<GamesPage/>}/>
+                        <Route path="/games" element={<GameLibraryPage/>}/>
                     </Routes>
                 </MemoryRouter>
             </QueryClientProvider>
@@ -90,7 +90,7 @@ describe('GamesPage', () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games`]}>
                     <Routes>
-                        <Route path="/games" element={<GamesPage/>}/>
+                        <Route path="/games" element={<GameLibraryPage/>}/>
                     </Routes>
                 </MemoryRouter>
             </QueryClientProvider>
@@ -120,7 +120,7 @@ describe('GamesPage', () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={[`/games`]}>
                     <Routes>
-                        <Route path="/games" element={<GamesPage/>}/>
+                        <Route path="/games" element={<GameLibraryPage/>}/>
                     </Routes>
                 </MemoryRouter>
             </QueryClientProvider>
@@ -145,7 +145,7 @@ describe('GamesPage', () => {
                     <Routes>
                         <Route path="/games" element={
                             <ErrorBoundary fallback={<div>Error!</div>}>
-                                <GamesPage/>
+                                <GameLibraryPage/>
                             </ErrorBoundary>
                         }/>
                     </Routes>

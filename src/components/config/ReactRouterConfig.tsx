@@ -1,7 +1,7 @@
 import {Navigate, Route, Routes} from "react-router-dom";
 import {ErrorCard} from "../cards/ErrorCard.tsx";
 import {GamesPageLoadingFallback} from "../../pages/fallbacks/GamesPageLoadingFallback.tsx";
-import {GamesPage} from "../../pages/GamesPage.tsx";
+import {GameLibraryPage} from "../../pages/GameLibraryPage.tsx";
 import {GamePageLoadingFallback} from "../../pages/fallbacks/GamePageLoadingFallback.tsx";
 import {GamePage} from "../../pages/GamePage.tsx";
 import {Typography} from "@mui/material";
@@ -10,17 +10,18 @@ import {UserPreferencePage} from "../../pages/UserPreferencePage.tsx";
 import {FriendListPage} from "../../pages/FriendListPage.tsx";
 import {AchievementPage} from "../../pages/AchievementPage.tsx";
 import {createFallbackWrapper, createFallbackWrapperWithRouteGuard} from "../factories/fallbackWrapperFactory.tsx";
+import {GameStorePage} from "../../pages/GameStorePage.tsx";
 
 export function ReactRouterConfig() {
     return (
         <Routes>
             <Route path="/"
-                   element={<Navigate to="/games"
+                   element={<Navigate to="/store"
                                       replace/>}/>
-            <Route path={"/games"}
+            <Route path={"/library"}
                    element={
                        createFallbackWrapper({
-                           children: <GamesPage/>,
+                           children: <GameLibraryPage/>,
                            errorFallback: <ErrorCard
                                title={"Ohnee..."}
                                description={"Er ging iets mis met het ophalen van games..."}
@@ -28,6 +29,20 @@ export function ReactRouterConfig() {
                            loadingFallback: <GamesPageLoadingFallback/>
                        })
                    }/>
+
+            <Route path={"/store"}
+                element={
+                    createFallbackWrapper({
+                        children: <GameStorePage/>,
+                        errorFallback: <ErrorCard
+                            title={"Ohnee..."}
+                            description={"Er ging iets mis met het ophalen van games..."}
+                        />,
+                        loadingFallback: <GamesPageLoadingFallback/>
+                    })
+                }
+            />
+
             <Route
                 path={"/games/:gameId"}
                 element={

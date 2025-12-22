@@ -7,6 +7,7 @@ import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
 import {NavbarLinks} from "./navbar/NavbarLinks.tsx";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -19,8 +20,8 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const navigate = useNavigate();
     const login = useSecurityStore((state) => state.login);
     const logout = useSecurityStore((state) => state.logout);
-    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const {platformUser} = usePlatformUser();
 
     return (
         <>
@@ -97,10 +98,18 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
                             <Stack direction={"column"}>
                                 <Avatar
-                                    alt="Placeholder"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99-ZMZeEtYlFVdT-HN3Hz0f_i64Zf76D67g&s"
-                                    sx={{width: 100, height: 100, margin: "0 auto", mb: 4, cursor: "pointer"}}
-                                    onClick={() => navigate(`/profile/${loggedInUser?.username}`)}
+                                    src={platformUser.profilePictureUrl || undefined}
+                                    sx={{
+                                        width: 100,
+                                        height: 100,
+                                        margin:"0 auto",
+                                        mb:4,
+                                        border: '3px solid white',
+                                        bgcolor: platformUser.profilePictureUrl ? 'transparent' : theme.palette.primary.main,
+                                        color: theme.palette.primary.contrastText,
+                                        cursor:"pointer"
+                                    }}
+                                    onClick={() => navigate(`/profile/${platformUser.userName}`)}
                                 />
                                 <Button
                                     variant="contained"
