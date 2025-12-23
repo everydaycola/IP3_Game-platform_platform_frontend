@@ -61,7 +61,7 @@ export function StoreGameCard({game}: GameCardProps) {
                         <Typography
                             sx={{fontWeight: "bold"}}
                             color={theme.palette.primary.main}
-                        >{game.price.toFixed(2)} credits</Typography>
+                        >{game.price.toFixed(2)} {creditName}</Typography>
                         <Button
                             variant={"contained"}
                             onClick={() => setIsConfirming(true)}
