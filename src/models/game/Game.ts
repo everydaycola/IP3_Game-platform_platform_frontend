@@ -12,4 +12,4 @@ export type Game = {
     achievements: Achievement[]
 }
 
-export type CompactGame = Omit<Game,  "description" | "price" | "image">
+export type CompactGame = Omit<Game,  "description" | "image">

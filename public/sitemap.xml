@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
     <!-- accesible without signin-->
-    <!-- Shows a list of all accesible games -->
+    <!-- Place to buy new games to add them into your library, as well as place to find credit saldo. -->
     <url>
-        <loc>https://localhost/games</loc>
+        <loc>https://localhost/store</loc>
         <changefreq>daily</changefreq>
         <priority>0.8</priority>
     </url>
@@ -17,6 +17,12 @@
     </url>
 
     <!-- requires sign in -->
+    <!-- Place to view all your owned games. -->
+    <url>
+        <loc>https://localhost/library</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
     <!-- The gameplay page for tic tac toe -->
     <url>
         <loc>https://localhost/games/11111111-1111-1111-1111-111111111111</loc>

@@ -1,5 +1,4 @@
-import {AppBar, Avatar, Box, Button, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import {AppBar, Box, Button, Drawer, IconButton, Stack, Toolbar, Typography, useTheme} from "@mui/material";
 import {useMediaQueries} from "../hooks/useMediaQueries.tsx";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -16,11 +15,9 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const {isSmallScreen} = useMediaQueries();
     const [hamnavOpen, setHamnavOpen] = useState(false);
     const theme = useTheme();
-    const navigate = useNavigate();
     const login = useSecurityStore((state) => state.login);
     const logout = useSecurityStore((state) => state.logout);
-    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
-    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated());
 
     return (
         <>
@@ -96,12 +93,6 @@ export function AppLayout({mainContent}: AppLayoutProps) {
 
 
                             <Stack direction={"column"}>
-                                <Avatar
-                                    alt="Placeholder"
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99-ZMZeEtYlFVdT-HN3Hz0f_i64Zf76D67g&s"
-                                    sx={{width: 100, height: 100, margin: "0 auto", mb: 4, cursor: "pointer"}}
-                                    onClick={() => navigate(`/profile/${loggedInUser?.username}`)}
-                                />
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -110,8 +101,8 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                         margin: "0 auto",
                                         mb: 4
                                     }}
-                                    onClick={isAuthenticated() ? logout : login}>
-                                    {isAuthenticated() ? "Uitloggen" : "Inloggen"}
+                                    onClick={isAuthenticated ? logout : login}>
+                                    {isAuthenticated ? "Uitloggen" : "Inloggen"}
                                 </Button>
                             </Stack>
 

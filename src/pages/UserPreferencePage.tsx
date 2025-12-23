@@ -2,6 +2,7 @@ import {Typography, Stack, Avatar, Button, Card, useTheme} from "@mui/material";
 import {Navigate, Link} from "react-router-dom";
 import {ThemeControls} from "../components/controls/ThemeControls.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 
 export function UserPreferencePage() {
     const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
@@ -10,6 +11,7 @@ export function UserPreferencePage() {
     const manageAccount = useSecurityStore((state) => state.manageAccount);
     const logout = useSecurityStore((state) => state.logout);
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
+    const {platformUser} = usePlatformUser();
 
     const theme = useTheme();
     if (isInitialised && !isAuthenticated()) {
@@ -57,9 +59,15 @@ export function UserPreferencePage() {
                         }}
                     >
                         <Avatar
-                            alt="Placeholder"
-                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR99-ZMZeEtYlFVdT-HN3Hz0f_i64Zf76D67g&s"
-                            sx={{width: 150, height: 150}}
+                            src={platformUser.profilePictureUrl || undefined}
+                            sx={{
+                                width: 150,
+                                height: 150,
+                                margin:"0 auto",
+                                border: '3px solid white',
+                                bgcolor: platformUser.profilePictureUrl ? 'transparent' : theme.palette.primary.main,
+                                color: theme.palette.primary.contrastText,
+                            }}
                         />
                         <Typography
                             variant={"h4"}
