@@ -60,7 +60,7 @@ export function GameStorePage() {
                 <Card sx={{borderRadius: 4}}>
                     <CardContent>
                         <Typography variant="h6" color={theme.palette.primary.main}>
-                            Saldo: {platformUser.credits} {creditName}
+                            Saldo: {platformUser.credits.toFixed(2)} {creditName}
                         </Typography>
                         <Button sx={{mt: 1}} variant="contained" onClick={() => setIsAddingCredits(true)}>
                             Saldo toevoegen

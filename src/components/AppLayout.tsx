@@ -17,7 +17,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
     const theme = useTheme();
     const login = useSecurityStore((state) => state.login);
     const logout = useSecurityStore((state) => state.logout);
-    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated);
+    const isAuthenticated = useSecurityStore((state) => state.isAuthenticated());
 
     return (
         <>
@@ -101,8 +101,8 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                                         margin: "0 auto",
                                         mb: 4
                                     }}
-                                    onClick={isAuthenticated() ? logout : login}>
-                                    {isAuthenticated() ? "Uitloggen" : "Inloggen"}
+                                    onClick={isAuthenticated ? logout : login}>
+                                    {isAuthenticated ? "Uitloggen" : "Inloggen"}
                                 </Button>
                             </Stack>
 

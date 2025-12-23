@@ -67,8 +67,8 @@ export function AddCreditsDialog({isOpen, onClose, presetValues}: AddCreditsDial
                         onChange={handleToggleChange}
                     >
                         {presetValues.map(value => (
-                            <ToggleButton key={value} value={value} sx={{color:theme.palette.primary.main}}>
-                                {value} credits
+                            <ToggleButton key={value} value={value.toFixed(2)} sx={{color:theme.palette.primary.main}}>
+                                {value.toFixed(2)} credits
                             </ToggleButton>
                         ))}
                     </ToggleButtonGroup>

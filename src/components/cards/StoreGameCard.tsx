@@ -61,7 +61,7 @@ export function StoreGameCard({game}: GameCardProps) {
                         <Typography
                             sx={{fontWeight: "bold"}}
                             color={theme.palette.primary.main}
-                        >€ {game.price}</Typography>
+                        >{game.price.toFixed(2)} credits</Typography>
                         <Button
                             variant={"contained"}
                             onClick={() => setIsConfirming(true)}
@@ -87,7 +87,7 @@ export function StoreGameCard({game}: GameCardProps) {
                                 onClose={() => setIsConfirming(false)}
                                 confirmationMessage={`Aankoop bevestigen`}
                                 confirmationDescription={`Weet je zeker dat je ${game.name} wilt kopen?`}
-                                warningMessage={`Dit kost ${game.price} ${creditName}`}
+                                warningMessage={`Dit kost ${game.price.toFixed(2)} ${creditName}`}
             />
         </>
     )
