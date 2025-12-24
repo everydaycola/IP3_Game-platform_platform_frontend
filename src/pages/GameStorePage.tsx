@@ -59,7 +59,11 @@ export function GameStorePage() {
             <Stack direction="row">
                 <Card sx={{borderRadius: 4}}>
                     <CardContent>
-                        <Typography variant="h6" color={theme.palette.primary.main}>
+                        <Typography
+                            variant="h6"
+                            color={theme.palette.primary.main}
+                            data-testid={"SaldoVisual"}
+                        >
                             Saldo: {platformUser.credits.toFixed(2)} {creditName}
                         </Typography>
                         <Button sx={{mt: 1}} variant="contained" onClick={() => setIsAddingCredits(true)}>
@@ -84,7 +88,7 @@ export function GameStorePage() {
             <AddCreditsDialog
                 onClose={() => setIsAddingCredits(false)}
                 isOpen={isAddingCredits}
-                presetValues={[10,20,50,100]}
+                presetValues={[10, 20, 50, 100]}
             />
         </>
     );

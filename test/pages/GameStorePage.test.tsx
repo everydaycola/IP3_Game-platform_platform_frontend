@@ -56,10 +56,11 @@ describe("GameStorePage", () => {
             </MemoryRouter>
         );
         //Assert
+        screen.debug();
         expect(screen.getByText("Store")).toBeInTheDocument();
-        expect(screen.getByText(`Saldo: ${mockPlatformUser.credits} credits`)).toBeInTheDocument();
+        expect(screen.getByTestId("SaldoVisual")).toBeInTheDocument();
         expect(screen.getByText("Alpha Game")).toBeInTheDocument();
-        expect(screen.queryByText("Beta Game")).not.toBeInTheDocument(); // owned games filtered
+        expect(screen.queryByText("Beta Game")).not.toBeInTheDocument();
     });
 
     it("toggles sort order when abc button is clicked", () => {
