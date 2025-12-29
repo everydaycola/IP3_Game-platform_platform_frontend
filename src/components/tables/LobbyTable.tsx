@@ -1,18 +1,23 @@
 import {Button, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import type {Lobby} from "../../models/lobby/Lobby.ts";
-import {useGamesList} from "../../hooks/api/games/useGamesList.tsx";
 import {useJoinLobby} from "../../hooks/api/lobby/useJoinLobby.tsx";
 import axios from "axios";
 import {useNotificationStore} from "../../stores/notificationStore.ts";
+import type {CompactGame} from "../../models/game/Game.ts";
 
 interface LobbyTableProps{
-    lobbies: Lobby[]
+    lobbies: Lobby[];
+    games: CompactGame[];
 }
 
-export function LobbyTable({lobbies}:LobbyTableProps){
-    const {games} = useGamesList();
+export function LobbyTable({lobbies, games}:LobbyTableProps){
     const {joinLobby, joinLobbyIsError, error} = useJoinLobby();
     const addNotification = useNotificationStore((state) => state.addNotification);
+
+    const allowedGameIds = new Set(games.map(g => g.id));
+    const filteredLobbies = allowedGameIds.size > 0
+        ? lobbies.filter(lobby => allowedGameIds.has(lobby.gameId))
+        : lobbies;
 
     if (joinLobbyIsError) {
         if (error && axios.isAxiosError(error)) {
@@ -37,7 +42,7 @@ export function LobbyTable({lobbies}:LobbyTableProps){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {lobbies.map(lobby =>
+                    {filteredLobbies.map(lobby =>
                         <TableRow
                             key={"lobby"+ lobby.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

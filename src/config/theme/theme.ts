@@ -73,6 +73,39 @@ export const theme = createTheme({
                     fontWeight: 600,
                 },
             },
-        }
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                },
+            },
+        },
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    color: colors.lightBlue,
+                },
+                icon: {
+                    color: colors.lightBlue,
+                },
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                },
+            },
+        },
     }
 })

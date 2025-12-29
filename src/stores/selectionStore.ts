@@ -5,7 +5,7 @@ interface SelectionState {
 }
 
 interface SelectionActions {
-    setSelectedGameId: (gameId: string) => void;
+    setSelectedGameId: (gameId: string | null) => void;
 }
 
 export const useSelectionStore = create<SelectionState & SelectionActions>((set) => ({
@@ -13,5 +13,5 @@ export const useSelectionStore = create<SelectionState & SelectionActions>((set)
     selectedGameId: null,
 
     // Actions
-    setSelectedGameId: (gameId: string) => set({ selectedGameId: gameId }),
+    setSelectedGameId: (gameId: string|null) => set({ selectedGameId: gameId }),
 }));

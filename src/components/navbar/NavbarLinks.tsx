@@ -18,7 +18,6 @@ export function NavbarLinks({isSmallScreen}:NavbarLinksProps){
             <NavBarLink textContent={"Vrienden"} linkTo={"/friends"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Profiel"} linkTo={`/profile/${loggedInUser?.username}`} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Achievements"} linkTo={"/achievements"} isSmallScreen={isSmallScreen}/>
-            <NavBarLink textContent={"Lobbies"} linkTo={"/Lobbies"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
         </Stack>
     )
 }
