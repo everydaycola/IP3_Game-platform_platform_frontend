@@ -1,0 +1,94 @@
+import {Button, Card, Dialog, DialogActions, DialogTitle, Stack, Typography, useTheme} from "@mui/material";
+import {useNavigate} from "react-router-dom";
+
+interface ConfirmationDialogProps {
+    isOpen: boolean,
+    onClose: () => void,
+}
+
+export function GameLobbySelectionDialog({isOpen,onClose}: ConfirmationDialogProps) {
+    const theme = useTheme();
+    const navigate = useNavigate();
+
+    return (
+        <Dialog open={isOpen}
+                onClose={onClose}
+                maxWidth={"lg"}
+        >
+            <DialogTitle color={"primary"}
+                         variant={"h4"}>
+                Lobby
+            </DialogTitle>
+            <DialogActions>
+                <Stack direction={"column"}>
+                    <Stack gap={2}
+                           direction={"row"}>
+                        <Card
+                            sx={{
+                                maxWidth:300,
+                                p: 2,
+                                cursor: "pointer"
+                            }}
+                            onClick={() => {
+                                console.log("opening a new lobby");
+                            }}
+                        >
+                            <Typography variant={"h4"}
+                                        sx={{color: theme.palette.primary.main}}>
+                                Nieuwe lobby openen
+                            </Typography>
+                            <Typography sx={{color: theme.palette.primary.main}}>
+                                Maak een eigen lobby aan en beslis zelf over de configuratie!
+                            </Typography>
+                        </Card>
+                        <Card
+                            sx={{
+                                maxWidth:300,
+                                p: 2,
+                                cursor: "pointer"
+                            }}
+                            onClick={() => {
+                                console.log("selected online mode")
+                            }}
+                        >
+                            <Typography variant={"h4"}
+                                        sx={{color: theme.palette.primary.main}}>
+                                Quick play
+                            </Typography>
+                            <Typography sx={{color: theme.palette.primary.main}}>
+                                Geen zin om zelf iets te zoeken? Gebruik quickplay om automatisch toegevoegd te worden aan een spel
+                            </Typography>
+                        </Card>
+                        <Card
+                            sx={{
+                                maxWidth:300,
+                                p: 2,
+                                cursor: "pointer"
+                            }}
+                            onClick={() => {
+                                navigate("/lobbies")
+                            }}
+                        >
+                            <Typography variant={"h4"}
+                                        sx={{color: theme.palette.primary.main}}>
+                                Lobby lijst
+                            </Typography>
+                            <Typography sx={{color: theme.palette.primary.main}}>
+                                Opzoek naar een specifieke lobby? bekijke onze lobby lijst.
+                            </Typography>
+                        </Card>
+                    </Stack>
+                    <Button
+                        variant={"contained"}
+                        color={"secondary"}
+                        sx={{mt: 2}}
+                        onClick={onClose}
+                    >
+                        Annuleren
+                    </Button>
+                </Stack>
+            </DialogActions>
+
+        </Dialog>
+    )
+}

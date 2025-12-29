@@ -62,5 +62,17 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                    borderBottom: `1px solid ${colors.lightBlue}`,
+                },
+                head: {
+                    color: colors.lightBlue,
+                    fontWeight: 600,
+                },
+            },
+        }
     }
 })

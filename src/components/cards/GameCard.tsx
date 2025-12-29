@@ -1,19 +1,20 @@
 import type {CompactGame} from "../../models/game/Game.ts";
 import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useTheme} from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import {useNavigate} from "react-router-dom";
 import {useFavoriteGameUpdates} from "../../hooks/api/favoriteGames/useFavoriteGameUpdates.tsx";
 import {FavoriteButton} from "../FavoriteButton.tsx";
+import {useSelectionStore} from "../../stores/selectionStore.ts";
 
 interface GameCardProps {
     game: CompactGame
     isFavorite:boolean;
+    onSelectGame: () => void;
 }
 
-export function GameCard({game,isFavorite}: GameCardProps) {
-    const navigate = useNavigate();
+export function GameCard({game,isFavorite, onSelectGame}: GameCardProps) {
     const theme = useTheme();
     const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGameUpdates();
+    const setSelectedGame = useSelectionStore((state) => state.setSelectedGameId);
 
     if(removeFavoriteError || addFavoriteError){
         throw new Error("Error with updating favorites.");
@@ -27,10 +28,15 @@ export function GameCard({game,isFavorite}: GameCardProps) {
         }
     }
 
+    function handleSelectGame(){
+        setSelectedGame(game.id);
+        onSelectGame();
+    }
+
 
     return (
         <Card
-            onClick={() => navigate(`/games/${game.id}`)}
+            onClick={handleSelectGame}
             sx={{
                 width: {lg: "20%", xs: "40%"},
                 height:"60%",

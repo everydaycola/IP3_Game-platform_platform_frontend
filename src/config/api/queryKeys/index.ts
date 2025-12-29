@@ -30,3 +30,8 @@ export const friendRequestQueryKey={
 export const friendRecommendationsQueryKey={
     all:["friend-recommendations"] as const,
 }
+
+export const lobbyQueryKey={
+    all:["lobbies"] as const,
+}
+

@@ -6,6 +6,9 @@ interface NavbarLinksProps{
     isSmallScreen?:boolean;
 }
 
+//Searching for the actualy router config?
+//This is found within ReactRouterConfig.tsx
+//This file only controls the links to routes. NOt the routes itself.
 export function NavbarLinks({isSmallScreen}:NavbarLinksProps){
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     return(
@@ -15,6 +18,7 @@ export function NavbarLinks({isSmallScreen}:NavbarLinksProps){
             <NavBarLink textContent={"Vrienden"} linkTo={"/friends"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Profiel"} linkTo={`/profile/${loggedInUser?.username}`} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
             <NavBarLink textContent={"Achievements"} linkTo={"/achievements"} isSmallScreen={isSmallScreen}/>
+            <NavBarLink textContent={"Lobbies"} linkTo={"/Lobbies"} requiresSignIn={true} isSmallScreen={isSmallScreen}/>
         </Stack>
     )
 }

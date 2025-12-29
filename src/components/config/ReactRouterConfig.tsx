@@ -11,6 +11,7 @@ import {FriendListPage} from "../../pages/FriendListPage.tsx";
 import {AchievementPage} from "../../pages/AchievementPage.tsx";
 import {createFallbackWrapper, createFallbackWrapperWithRouteGuard} from "../factories/fallbackWrapperFactory.tsx";
 import {GameStorePage} from "../../pages/GameStorePage.tsx";
+import {LobbyPage} from "../../pages/LobbyPage.tsx";
 
 export function ReactRouterConfig() {
     return (
@@ -100,6 +101,19 @@ export function ReactRouterConfig() {
                 element={
                     createFallbackWrapper({
                         children:<AchievementPage/>,
+                        errorFallback:<ErrorCard
+                            title={"Ohnee..."}
+                            description={"Er ging iets mis met het laden van deze pagina..."}
+                        />,
+                        loadingFallback: <Typography>FALLBACK</Typography>
+                    })
+                }/>
+
+            <Route
+                path={"/Lobbies"}
+                element={
+                    createFallbackWrapper({
+                        children:<LobbyPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
                             description={"Er ging iets mis met het laden van deze pagina..."}
