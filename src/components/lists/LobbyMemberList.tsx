@@ -29,7 +29,7 @@ export function LobbyMemberList({lobby}:LobbyMemberListProps) {
             Spelers in deze lobby
         </Typography>
             {userData.map(u =>
-                <UserCard userName={u.userName}/>
+                <UserCard key={"user-"+u.id} userName={u.userName}/>
             )}
         </>
     )

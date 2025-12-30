@@ -61,24 +61,6 @@ export function GameLobbySelectionDialog({isOpen,onClose, gameId}: ConfirmationD
                                 cursor: "pointer"
                             }}
                             onClick={() => {
-                                console.log("selected online mode")
-                            }}
-                        >
-                            <Typography variant={"h4"}
-                                        sx={{color: theme.palette.primary.main}}>
-                                Quick play
-                            </Typography>
-                            <Typography sx={{color: theme.palette.primary.main}}>
-                                Geen zin om zelf iets te zoeken? Gebruik quickplay om automatisch toegevoegd te worden aan een spel
-                            </Typography>
-                        </Card>
-                        <Card
-                            sx={{
-                                maxWidth:300,
-                                p: 2,
-                                cursor: "pointer"
-                            }}
-                            onClick={() => {
                                 navigate("/lobbies")
                             }}
                         >

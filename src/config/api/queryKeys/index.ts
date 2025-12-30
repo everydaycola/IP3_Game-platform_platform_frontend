@@ -40,3 +40,7 @@ export const lobbyQueryKey={
     currentLobby: (lobbyId: string) => ["lobbies", lobbyId] as const,
 }
 
+export const currentGameSessionQueryKey={
+    current:["gameSession"] as const
+}
+

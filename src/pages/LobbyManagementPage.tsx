@@ -1,16 +1,16 @@
-import {Card, Stack, Typography, useTheme} from "@mui/material";
+import {Button, Card, Stack, Typography, useTheme} from "@mui/material";
 import {useLobby} from "../hooks/api/lobby/useLobby.tsx";
 import {useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import {LobbyMemberList} from "../components/lists/LobbyMemberList.tsx";
+import {useLobbyStartGame} from "../hooks/api/lobby/useLobbyStartGame.tsx";
 
 //Todo implement logic to actual start a game from a lobby.
 export function LobbyManagementPage() {
     const {lobbyId} = useParams();
     const {lobby} = useLobby(lobbyId!);
-    console.log(lobby);
     const theme = useTheme();
-
+    const {startGame} = useLobbyStartGame();
 
     return (
         <>
@@ -31,6 +31,17 @@ export function LobbyManagementPage() {
                     {lobby.players.length}/{lobby.maxPlayers} spelers in de lobby
                 </Typography>
                 <LobbyMemberList lobby={lobby}/>
+                <Button
+                    color={"secondary"}
+                    sx={{mt:2}}
+                    variant={"contained"}
+                    onClick={async () => {
+                        const result = await startGame(lobbyId!);
+                        console.log("Game started at id:", result.gameId);
+                    }}
+                >
+                    Spel starten
+                </Button>
             </Card>
         </>
     )
