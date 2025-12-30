@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {userDataQueryKey} from "../../../config/api/queryKeys";
+import {currentUserDataQueryKey} from "../../../config/api/queryKeys";
 import {addCredits} from "../../../services/userService.ts";
 
 export function useAddCredits() {
@@ -9,7 +9,7 @@ export function useAddCredits() {
         mutationFn: (amount:number) => addCredits(amount),
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: userDataQueryKey.current
+                queryKey: currentUserDataQueryKey.current
             });
         }
     })

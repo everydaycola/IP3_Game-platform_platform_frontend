@@ -1,10 +1,22 @@
 import axios from "axios";
-import type {PlatformUser, PlatformUserUpdateType} from "../models/platformuser/platformUser.ts";
 import type {OwnedCopy} from "../models/game/OwnedCopy.ts";
+import type {MinimalPlatformUser, PlatformUser, PlatformUserUpdateType} from "../models/platformuser/PlatformUser.ts";
 
 export async function getPlatformUserData(){
     const {data: platformUser} = await axios.get<PlatformUser>('/user')
     return platformUser
+}
+
+async function getAnotherUsersPlatformUserData(userId: string){
+    const {data: platformUser} = await axios.get<MinimalPlatformUser>(`/user/${userId}`)
+    return platformUser
+}
+
+export async function getMultipleUsersPlatformUserData(userIds: string[]) {
+    const requests = userIds.map((userId) =>
+        getAnotherUsersPlatformUserData(userId)
+    )
+    return await Promise.all(requests);
 }
 
 export async function updateUserProfile(data: PlatformUserUpdateType){

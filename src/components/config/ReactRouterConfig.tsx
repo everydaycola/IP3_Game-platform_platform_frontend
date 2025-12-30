@@ -12,6 +12,7 @@ import {AchievementPage} from "../../pages/AchievementPage.tsx";
 import {createFallbackWrapper, createFallbackWrapperWithRouteGuard} from "../factories/fallbackWrapperFactory.tsx";
 import {GameStorePage} from "../../pages/GameStorePage.tsx";
 import {LobbyPage} from "../../pages/LobbyPage.tsx";
+import {LobbyManagementPage} from "../../pages/LobbyManagementPage.tsx";
 
 export function ReactRouterConfig() {
     return (
@@ -121,6 +122,20 @@ export function ReactRouterConfig() {
                         loadingFallback: <Typography>FALLBACK</Typography>
                     })
                 }/>
+
+            <Route
+                path={"/lobby/:lobbyId"}
+                element={
+                    createFallbackWrapper({
+                        children:<LobbyManagementPage/>,
+                        errorFallback:<ErrorCard
+                            title={"Ohnee..."}
+                            description={"Er ging iets mis met het laden van deze pagina..."}
+                        />,
+                        loadingFallback: <Typography>FALLBACK</Typography>
+                    })
+                }
+            />
 
         </Routes>
     )

@@ -1,14 +1,19 @@
 import {Button, Card, Dialog, DialogActions, DialogTitle, Stack, Typography, useTheme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import {useCreateLobby} from "../../hooks/api/lobby/useCreateLobby.tsx";
+import {useNotificationStore} from "../../stores/notificationStore.ts";
 
 interface ConfirmationDialogProps {
     isOpen: boolean,
     onClose: () => void,
+    gameId:string;
 }
 
-export function GameLobbySelectionDialog({isOpen,onClose}: ConfirmationDialogProps) {
+export function GameLobbySelectionDialog({isOpen,onClose, gameId}: ConfirmationDialogProps) {
     const theme = useTheme();
     const navigate = useNavigate();
+    const addNotification = useNotificationStore((state) => state.addNotification);
+    const {addLobbyAsync} = useCreateLobby();
 
     return (
         <Dialog open={isOpen}
@@ -29,8 +34,16 @@ export function GameLobbySelectionDialog({isOpen,onClose}: ConfirmationDialogPro
                                 p: 2,
                                 cursor: "pointer"
                             }}
-                            onClick={() => {
-                                console.log("opening a new lobby");
+                            onClick={async () => {
+                                try{
+                                    const lobby = await addLobbyAsync(gameId);
+                                    navigate(`/lobby/${lobby.id}`);
+                                }catch {
+                                    addNotification({
+                                        message:"Er ging iets mis bij het maken van de lobby...",
+                                        severity:"error"
+                                    })
+                                }
                             }}
                         >
                             <Typography variant={"h4"}

@@ -73,7 +73,7 @@ export function GameModeSelectionDialog({isOpen, onClose}: ConfirmationDialogPro
                     </Stack>
                 </DialogActions>
             </Dialog>
-            <GameLobbySelectionDialog isOpen={isSelectingLobbyMethod} onClose={() => setIsSelectingLobbyMethod(false)}/>
+            <GameLobbySelectionDialog isOpen={isSelectingLobbyMethod}  gameId={selectedGame ?? ""} onClose={() => setIsSelectingLobbyMethod(false)}/>
         </>
     )
 }

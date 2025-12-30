@@ -4,6 +4,7 @@ import {useJoinLobby} from "../../hooks/api/lobby/useJoinLobby.tsx";
 import axios from "axios";
 import {useNotificationStore} from "../../stores/notificationStore.ts";
 import type {CompactGame} from "../../models/game/Game.ts";
+import {useNavigate} from "react-router-dom";
 
 interface LobbyTableProps{
     lobbies: Lobby[];
@@ -13,11 +14,12 @@ interface LobbyTableProps{
 export function LobbyTable({lobbies, games}:LobbyTableProps){
     const {joinLobby, joinLobbyIsError, error} = useJoinLobby();
     const addNotification = useNotificationStore((state) => state.addNotification);
-
+    const navigate = useNavigate();
     const allowedGameIds = new Set(games.map(g => g.id));
+    const safeLobbies = lobbies ?? [];
     const filteredLobbies = allowedGameIds.size > 0
-        ? lobbies.filter(lobby => allowedGameIds.has(lobby.gameId))
-        : lobbies;
+        ? safeLobbies.filter(lobby => allowedGameIds.has(lobby.gameId))
+        : safeLobbies;
 
     if (joinLobbyIsError) {
         if (error && axios.isAxiosError(error)) {
@@ -57,7 +59,10 @@ export function LobbyTable({lobbies, games}:LobbyTableProps){
                             <TableCell align="right">
                                 <Button
                                     variant={"contained"}
-                                    onClick={() => {joinLobby(lobby.id)}}
+                                    onClick={async () => {
+                                        await joinLobby(lobby.id)
+                                        navigate(`/lobby/${lobby.id}`)
+                                    }}
                                 >
                                     JOIN
                                 </Button>

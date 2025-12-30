@@ -4,7 +4,7 @@ import {queryClient} from "../../../config/api";
 import {patchJoinLobby} from "../../../services/lobbyService.ts";
 
 export function useJoinLobby() {
-    const {mutate:joinLobby, isPending: joinLobbyPending, isError: joinLobbyIsError, error} = useMutation(
+    const {mutateAsync:joinLobby, isPending: joinLobbyPending, isError: joinLobbyIsError, error} = useMutation(
         {
             mutationFn: async (lobbyId:string) => {
                 return patchJoinLobby(lobbyId)

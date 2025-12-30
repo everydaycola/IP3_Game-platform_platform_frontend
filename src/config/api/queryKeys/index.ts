@@ -15,8 +15,12 @@ export const favoriteGamesQueryKey={
     currentGame: (gameId: string) => ["currentFavorite", gameId] as const,
 }
 
-export const userDataQueryKey={
+export const currentUserDataQueryKey={
     current:["currentUserData"] as const,
+}
+
+export const plaformUsersDataQueryKey={
+    all:["allUsersData"] as const,
 }
 
 export const friendsQueryKey={
@@ -33,5 +37,6 @@ export const friendRecommendationsQueryKey={
 
 export const lobbyQueryKey={
     all:["lobbies"] as const,
+    currentLobby: (lobbyId: string) => ["lobbies", lobbyId] as const,
 }
 
