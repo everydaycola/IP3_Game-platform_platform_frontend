@@ -47,7 +47,7 @@ export function LobbyManagementPage() {
                         sx={{mt: 2}}
                         variant={"contained"}
                         onClick={() => {
-                            startGame(lobbyId!);
+                            startGame(lobby);
                         }}
                     >
                         Spel starten
