@@ -1,8 +1,5 @@
 import {Button, Card, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
 import type {Lobby} from "../../models/lobby/Lobby.ts";
-import {useJoinLobby} from "../../hooks/api/lobby/useJoinLobby.tsx";
-import axios from "axios";
-import {useNotificationStore} from "../../stores/notificationStore.ts";
 import type {CompactGame} from "../../models/game/Game.ts";
 import {useNavigate} from "react-router-dom";
 
@@ -12,25 +9,12 @@ interface LobbyTableProps{
 }
 
 export function LobbyTable({lobbies, games}:LobbyTableProps){
-    const {joinLobby, joinLobbyIsError, error} = useJoinLobby();
-    const addNotification = useNotificationStore((state) => state.addNotification);
     const navigate = useNavigate();
     const allowedGameIds = new Set(games.map(g => g.id));
     const safeLobbies = lobbies ?? [];
     const filteredLobbies = allowedGameIds.size > 0
         ? safeLobbies.filter(lobby => allowedGameIds.has(lobby.gameId))
         : safeLobbies;
-
-    if (joinLobbyIsError) {
-        if (error && axios.isAxiosError(error)) {
-            if(error.response?.status === 409 && error.response?.data?.includes("already inside")){
-                addNotification({
-                    message:"Je bent al lid van deze lobby...",
-                    severity:"error"
-                })
-            }
-        }
-    }
 
     return(
         <TableContainer component={Card} sx={{flex:4, height:"100%", overflowY:"scroll"}}>
@@ -40,7 +24,7 @@ export function LobbyTable({lobbies, games}:LobbyTableProps){
                         <TableCell>Lobby ID</TableCell>
                         <TableCell>Game</TableCell>
                         <TableCell align="right">Playercount</TableCell>
-                        <TableCell align="right">Join</TableCell>
+                        <TableCell align="right">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -59,12 +43,11 @@ export function LobbyTable({lobbies, games}:LobbyTableProps){
                             <TableCell align="right">
                                 <Button
                                     variant={"contained"}
-                                    onClick={async () => {
-                                        await joinLobby(lobby.id)
+                                    onClick={() => {
                                         navigate(`/lobby/${lobby.id}`)
                                     }}
                                 >
-                                    JOIN
+                                    lobby bekijken
                                 </Button>
                             </TableCell>
                         </TableRow>

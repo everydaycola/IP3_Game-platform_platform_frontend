@@ -7,9 +7,11 @@ interface ConfirmationDialogProps {
     isOpen: boolean,
     onAccept: () => void,
     onClose: () => void,
+    acceptButtonContent?: string,
+    rejectButtonContent?:string
 }
 
-export function ConfirmationDialog({isOpen, onAccept, onClose, confirmationMessage= "Weet je het zeker?",confirmationDescription = "", warningMessage = ""}: ConfirmationDialogProps) {
+export function ConfirmationDialog({isOpen, onAccept, onClose, confirmationMessage= "Weet je het zeker?",confirmationDescription = "", warningMessage = "", acceptButtonContent = "ja", rejectButtonContent ="nee"}: ConfirmationDialogProps) {
     function handleAccept() {
         onAccept();
         onClose();
@@ -33,12 +35,12 @@ export function ConfirmationDialog({isOpen, onAccept, onClose, confirmationMessa
                     variant={"contained"}
                     color={"primary"}
                 >
-                    Ja
+                    {acceptButtonContent}
                 </Button>
                 <Button onClick={onClose}
                         color="secondary"
                 >
-                    Nee
+                    {rejectButtonContent}
                 </Button>
             </DialogActions>
 

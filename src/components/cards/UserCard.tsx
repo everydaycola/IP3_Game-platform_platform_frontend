@@ -47,7 +47,7 @@ export default function UserCard({userName}: FriendCardProps) {
                         <Button
                             fullWidth
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             onClick={() => navigate("/profile/" + userName)}
                         >
                             Profiel bezoeken
