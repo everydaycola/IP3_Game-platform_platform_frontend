@@ -24,8 +24,8 @@ export async function createLobby(gameId:string){
 }
 export async function lobbyStartGame(lobby:Lobby){
     const {data} = await axios.post<StartedGameResponse>(`/lobby/${lobby.id}/start`, {
-        player1Id: lobby.players[0].userId,
-        player2Id:lobby.players[1].userId
+        player1Id: lobby.players[0]?.userId || "",
+        player2Id:lobby.players[1]?.userId || ""
     })
     return data;
 }

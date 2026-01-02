@@ -6,17 +6,37 @@ import {LobbyMemberList} from "../components/lists/LobbyMemberList.tsx";
 import {useLobbyStartGame} from "../hooks/api/lobby/useLobbyStartGame.tsx";
 import {ConfirmationDialog} from "../components/dialogs/ConfirmationDialog.tsx";
 import {useState} from "react";
+import axios from "axios";
+import {useNotificationStore} from "../stores/notificationStore.ts";
 
 export function LobbyManagementPage() {
     const {lobbyId} = useParams();
     const {lobby} = useLobby(lobbyId!);
     const theme = useTheme();
-    const {startGame} = useLobbyStartGame();
+    const {startGame, startGameError, error} = useLobbyStartGame();
+    const addNotification = useNotificationStore((state) => state.addNotification);
     const navigate = useNavigate();
     const [closedStartMessage, setClosedStartMessage] = useState(false);
 
     function navigateToGame() {
         navigate(`/games/${lobby.gameId}`)
+    }
+
+    if(startGameError){
+        if (error && axios.isAxiosError(error)) {
+            if(error.response?.status === 403 && error.response?.data?.includes("Non lobby manager")){
+                addNotification({
+                    message:"Je hebt geen rechten om een spel te starten voor deze lobby...",
+                    severity:"error"
+                })
+            }
+            if(error.response?.status === 409 && error.response?.data?.includes("Lobby is not full yet")){
+                addNotification({
+                    message:"Deze lobby mist nog spelers...",
+                    severity:"warning"
+                })
+            }
+        }
     }
 
     return (
@@ -77,7 +97,7 @@ export function LobbyManagementPage() {
                 rejectButtonContent={"Nog even de lobby bekijken"}
                 isOpen={lobby.currentGameSessionId != null && !closedStartMessage}
                 confirmationMessage={"De lobby host heeft het spel gestart, klaar om te spelen?"}
-                onAccept={() => navigateToGame()}
+                onAccept={() => {navigateToGame()}}
                 onClose={() => {
                     setClosedStartMessage(true)
                 }}
