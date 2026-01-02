@@ -66,7 +66,7 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
 
     return (
         <>
-            {!game?.configurableSettings || Object.keys(game.configurableSettings).length === 0 &&
+            {Object.keys(game.configurableSettings).length != 0 &&
                 <>
                     <Typography
                         variant="h4"
@@ -103,36 +103,36 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
                             </div>
                         );
                     })}
-                    {lobby.currentGameSessionId === null ?
-                        <Button
-                            color={"secondary"}
-                            sx={{mt: 2}}
-                            variant={"contained"}
-                            onClick={() => {
-                                startGame({lobby:lobby, settings:selectedSettings});
-                            }}
-                        >
-                            Spel starten
-                        </Button>
-                        :
-                        <>
-                            <Typography sx={{color: theme.palette.primary.main, mt: 2}}
-                                        fontWeight={"bold"}
-                                        variant={"h4"}>
-                                Het spel is reeds gestart!
-                            </Typography>
-                            <Button
-                                color={"primary"}
-                                sx={{mt: 1}}
-                                variant={"contained"}
-                                onClick={() => {
-                                    navigateToGame();
-                                }}
-                            >
-                                Naar het spel
-                            </Button>
-                        </>
-                    }
+                </>
+            }
+            {lobby.currentGameSessionId === null ?
+                <Button
+                    color={"secondary"}
+                    sx={{mt: 2}}
+                    variant={"contained"}
+                    onClick={() => {
+                        startGame({lobby: lobby, settings: selectedSettings});
+                    }}
+                >
+                    Spel starten
+                </Button>
+                :
+                <>
+                    <Typography sx={{color: theme.palette.primary.main, mt: 2}}
+                                fontWeight={"bold"}
+                                variant={"h4"}>
+                        Het spel is reeds gestart!
+                    </Typography>
+                    <Button
+                        color={"primary"}
+                        sx={{mt: 1}}
+                        variant={"contained"}
+                        onClick={() => {
+                            navigateToGame();
+                        }}
+                    >
+                        Naar het spel
+                    </Button>
                 </>
             }
         </>
