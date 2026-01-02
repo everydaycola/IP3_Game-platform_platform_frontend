@@ -9,7 +9,8 @@ export type Game = {
     icon: string;
     genre:string;
     url:string;
-    achievements: Achievement[]
+    achievements: Achievement[],
+    configurableSettings: Record<string, unknown>
 }
 
 export type CompactGame = Omit<Game,  "description" | "image">
