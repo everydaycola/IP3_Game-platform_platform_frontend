@@ -99,7 +99,6 @@ export function GameLibraryPage() {
             <GameModeSelectionDialog
                 isOpen={isSelectingGameMode}
                 onClose={() => setIsSelectingGameMode(false)}
-                onAccept={() => {console.log("accepted");}}
             />
 
         </>
