@@ -71,6 +71,7 @@ export const useSecurityStore = create<SecurityState & SecurityActions>((set,get
         const parsed = keycloak.tokenParsed as KeycloakTokenParsed;
         const idParsed = keycloak.idTokenParsed as KeycloakTokenParsed;
 
+        const userId = parsed["sub"];
         const preferredUsername = parsed["preferred_username"];
         const email = parsed["email"];
         const givenName = idParsed["given_name"];
@@ -79,6 +80,7 @@ export const useSecurityStore = create<SecurityState & SecurityActions>((set,get
 
         set({
             loggedInUser:{
+                id:userId!,
                 name: givenName ?? preferredUsername ?? "",
                 username: preferredUsername,
                 email,

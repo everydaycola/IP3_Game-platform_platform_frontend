@@ -18,6 +18,11 @@ export async function patchJoinLobby(lobbyId: string){
     return lobby;
 }
 
+export async function deleteLeaveLobby(lobbyId: string){
+    const {data:lobby} = await axios.delete<Lobby>(`/lobby/${lobbyId}`);
+    return lobby;
+}
+
 export async function createLobby(gameId:string){
     const{data:lobby} = await axios.post<Lobby>('/lobby', {gameId:gameId})
     return lobby;

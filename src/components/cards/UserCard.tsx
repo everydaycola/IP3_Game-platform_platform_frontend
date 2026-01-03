@@ -1,11 +1,13 @@
-import {Avatar, Button, Card, CardContent,Stack, Typography, useTheme} from "@mui/material";
+import { Button, Card, CardContent, Stack, Typography, useTheme} from "@mui/material";
 import {useNavigate} from "react-router-dom";
+import ShieldIcon from '@mui/icons-material/Shield';
 
 interface FriendCardProps {
     userName: string;
+    isLobbyHost: boolean;
 }
 
-export default function UserCard({userName}: FriendCardProps) {
+export default function UserCard({userName, isLobbyHost}: FriendCardProps) {
     const theme = useTheme();
     const navigate = useNavigate();
     return (
@@ -21,7 +23,7 @@ export default function UserCard({userName}: FriendCardProps) {
         >
             <CardContent>
                 <Stack
-                    direction={{ xs: "column", sm: "row" }}
+                    direction={{xs: "column", sm: "row"}}
                     alignItems="center"
                     width="100%"
                     spacing={2}
@@ -29,11 +31,15 @@ export default function UserCard({userName}: FriendCardProps) {
                     <Stack
                         direction="row"
                         alignItems="center"
-                        width={{ xs: "100%", sm: "auto" }}
+                        width={{xs: "100%", sm: "auto"}}
                         flex={1}
                     >
-                        <Avatar sx={{ bgcolor: "primary.main", width: 32, height: 32 }} />
-                        <Typography variant="body1" sx={{ ml: 2 }} fontWeight={500}>
+                        {isLobbyHost &&
+                            <ShieldIcon/>
+                        }
+                        <Typography variant="body1"
+                                    sx={{ml: 2}}
+                                    fontWeight={500}>
                             {userName}
                         </Typography>
                     </Stack>
@@ -41,7 +47,7 @@ export default function UserCard({userName}: FriendCardProps) {
                     <Stack
                         direction="row"
                         alignItems="center"
-                        width={{ xs: "100%", sm: "auto" }}
+                        width={{xs: "100%", sm: "auto"}}
                         spacing={1}
                     >
                         <Button

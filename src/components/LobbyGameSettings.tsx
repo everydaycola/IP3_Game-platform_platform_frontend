@@ -6,6 +6,7 @@ import {useLobbyStartGame} from "../hooks/api/lobby/useLobbyStartGame.tsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useNotificationStore} from "../stores/notificationStore.ts";
+import {useSecurityStore} from "../stores/securityStore.ts";
 
 interface LobbyGameSettingsProps {
     gameId: string;
@@ -18,6 +19,7 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
     const {startGame, startGameError, error} = useLobbyStartGame();
     const addNotification = useNotificationStore((state) => state.addNotification);
     const navigate = useNavigate();
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const [selectedSettings, setSelectedSettings] =
         useState<Record<string, unknown>>({});
 
@@ -106,16 +108,20 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
                 </>
             }
             {lobby.currentGameSessionId === null ?
-                <Button
-                    color={"secondary"}
-                    sx={{mt: 2}}
-                    variant={"contained"}
-                    onClick={() => {
-                        startGame({lobby: lobby, settings: selectedSettings});
-                    }}
-                >
-                    Spel starten
-                </Button>
+                <>
+                    {lobby.lobbyHostId === loggedInUser?.id &&
+                        <Button
+                            color={"secondary"}
+                            sx={{mt: 2}}
+                            variant={"contained"}
+                            onClick={() => {
+                                startGame({lobby: lobby, settings: selectedSettings});
+                            }}
+                        >
+                            Spel starten
+                        </Button>
+                    }
+                </>
                 :
                 <>
                     <Typography sx={{color: theme.palette.primary.main, mt: 2}}
@@ -136,5 +142,6 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
                 </>
             }
         </>
-    );
+    )
+        ;
 }

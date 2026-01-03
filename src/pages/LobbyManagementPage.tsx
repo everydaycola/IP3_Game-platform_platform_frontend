@@ -7,8 +7,6 @@ import {ConfirmationDialog} from "../components/dialogs/ConfirmationDialog.tsx";
 import {useState} from "react";
 import {LobbyGameSettings} from "../components/LobbyGameSettings.tsx";
 
-//Todo: Hide buttons based on their visibility.
-//Todo: Add a visual for showing who the lobby host / manager is.
 export function LobbyManagementPage() {
     const {lobbyId} = useParams();
     const {lobby} = useLobby(lobbyId!);
