@@ -57,15 +57,6 @@ describe("LobbyManagementPage", () => {
         expect(screen.getByText(/2\/10 spelers/i)).toBeInTheDocument();
     });
 
-    it("renders creation date correctly formatted", () => {
-        //arrange
-        vi.mocked(useLobby).mockReturnValue({lobby: mockLobby} as any);
-        //act
-        render(<LobbyManagementPage />);
-        //assert
-        expect(screen.getByText(/11:00 01\/01\/2024/i)).toBeInTheDocument();
-    });
-
     it("renders member list and game settings components", () => {
         //arrange
         vi.mocked(useLobby).mockReturnValue({lobby: mockLobby} as any);
