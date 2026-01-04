@@ -68,7 +68,7 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
 
     return (
         <>
-            {Object.keys(game.configurableSettings).length != 0 &&
+            {lobby.lobbyHostId === loggedInUser?.id &&Object.keys(game.configurableSettings).length != 0 &&
                 <>
                     <Typography
                         variant="h4"
@@ -112,9 +112,15 @@ export function LobbyGameSettings({gameId, lobby}: LobbyGameSettingsProps) {
                     {lobby.lobbyHostId === loggedInUser?.id &&
                         <Button
                             color={"secondary"}
-                            sx={{mt: 2}}
+                            sx={{
+                                mt: 2,
+                            }}
                             variant={"contained"}
                             onClick={() => {
+                                if(lobby.players.length < lobby.maxPlayers){
+                                    addNotification({message:"Deze lobby is nog niet vol.", severity:"warning"})
+                                    return
+                                }
                                 startGame({lobby: lobby, settings: selectedSettings});
                             }}
                         >
