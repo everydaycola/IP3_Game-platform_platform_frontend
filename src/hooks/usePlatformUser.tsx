@@ -6,6 +6,7 @@ export function usePlatformUser(){
     const { data: platformUser} = useSuspenseQuery({
         queryKey: userDataQueryKey.current,
         queryFn: () => getPlatformUserData(),
+        refetchInterval:30000
     })
     return {platformUser}
 }

@@ -14,7 +14,8 @@ export const compactGame1: CompactGame = {
     icon: "icon.png",
     genre: "Puzzle",
     url: "http://localhost:1234",
-    achievements:[]
+    achievements:[],
+    price:5
 }
 
 export const compactGame2: CompactGame = {
@@ -23,7 +24,8 @@ export const compactGame2: CompactGame = {
     icon: "GoIcon.png",
     genre: "Strategy",
     url: "http://localhost:1235",
-    achievements:[]
+    achievements:[],
+    price:19.99
 }
 export const compactGame3: CompactGame = {
     id: "3",
@@ -31,7 +33,8 @@ export const compactGame3: CompactGame = {
     icon: "ChessIcon.png",
     genre: "Strategy",
     url: "http://localhost:1236",
-    achievements:[]
+    achievements:[],
+    price:49.99
 }
 
 export const compactGame4: CompactGame = {
@@ -40,7 +43,8 @@ export const compactGame4: CompactGame = {
     icon:"TetrisIcon.png",
     genre:"Strategy",
     url:"http://localhost:1237",
-    achievements:[achievement]
+    achievements:[achievement],
+    price:2.99
 }
 
 export const compactGameList : CompactGame[] =[compactGame1,compactGame2,compactGame3];

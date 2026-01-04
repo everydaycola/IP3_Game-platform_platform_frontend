@@ -1,47 +1,31 @@
-import {Stack, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import {GameFullAchievementList} from "../components/GameFullAchievementList.tsx";
 import {useGamesList} from "../hooks/api/games/useGamesList.tsx";
-import { useState } from "react";
+import {useOwnedGames} from "../hooks/api/games/useOwnedGames.tsx";
 
 export function AchievementPage() {
-    const [filter, setFilter] = useState<"all"|"achieved"|"not-achieved">("all");
-    const {games} = useGamesList();
+    const { games } = useGamesList();
+    const { ownedGames } = useOwnedGames();
+    const ownedIds = new Set(ownedGames?.map(o => o.gameId) ?? []);
 
     return (
-        <Stack direction={{sx: "column"}}
-        >
+        <Stack direction={{ sx: "column" }}>
             <Stack direction={"column"}>
-                <Typography variant={"h2"}>
-                    Achievements
-                </Typography>
-                <Typography>
-                    After we implement a 'purhcase system' users will only see achievements for games they own.
-                </Typography>
-                <Typography variant={"h6"}  sx={{mt:2}}>
-                    Filter:
-                </Typography>
-                <ToggleButtonGroup
-                    value={filter}
-                    exclusive
-                    onChange={(_, newValue) => newValue && setFilter(newValue)}
-                    size="small"
-                >
-                    <ToggleButton value="all">Alles</ToggleButton>
-                    <ToggleButton value="achieved">Behaald</ToggleButton>
-                    <ToggleButton value="not-achieved">Niet behaald</ToggleButton>
-                </ToggleButtonGroup>
+                <Typography variant={"h2"}>Achievements</Typography>
             </Stack>
-            {games.map((game,idx) =>
-                    game.achievements.length !== 0 && (
-                        <GameFullAchievementList
-                            key={"game" + game.id}
-                            filter={filter}
-                            openedByDefault={idx === 0}
-                            gameName={game.name}
-                            achievements={game.achievements}
-                        />
-                    )
-            )}
+
+            {games
+                .filter(game => ownedIds.has(game.id))
+                .filter(game => game.achievements.length !== 0)
+                .map(game => (
+                    <GameFullAchievementList
+                        key={"game" + game.id}
+                        openedByDefault={true}
+                        gameName={game.name}
+                        achievements={game.achievements}
+                    />
+                ))
+            }
         </Stack>
-    )
+    );
 }

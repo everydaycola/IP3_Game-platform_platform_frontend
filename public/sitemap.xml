@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <!-- accesible without signin-->
+    <!-- Place to buy new games to add them into your library, as well as place to find credit saldo. -->
+    <url>
+        <loc>https://localhost/store</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- shows all achievements for all owned games (both achieved and non achieved)-->
+    <url>
+        <loc>https://localhost/achievements</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- requires sign in -->
+    <!-- Place to view all your owned games. -->
+    <url>
+        <loc>https://localhost/library</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <!-- The gameplay page for tic tac toe -->
+    <url>
+        <loc>https://localhost/games/11111111-1111-1111-1111-111111111111</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- The gameplay page for Go -->
+    <url>
+        <loc>https://localhost/games/22222222-2222-2222-2222-222222222222</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- list of all friends including logic to send friend requests or remove existing friends. -->
+    <url>
+        <loc>https://localhost/friends</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <!-- userPrefences is the page where a user decides over things like theme as well as finding account info and signing out. -->
+    <url>
+        <loc>https://localhost/userPreferences</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.4</priority>
+    </url>
+
+</urlset>

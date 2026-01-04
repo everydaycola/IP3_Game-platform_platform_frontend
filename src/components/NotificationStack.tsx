@@ -4,6 +4,6 @@ import {NotificationElement} from "./NotificationElement.tsx";
 export function NotificationStack() {
     const notifications = useNotificationStore((state) => state.notifications);
     return (
-        notifications.map((notification) => <NotificationElement message={notification.message}/> )
+        notifications.map((notification) => <NotificationElement message={notification.message} severity={notification.severity}/> )
     )
 }

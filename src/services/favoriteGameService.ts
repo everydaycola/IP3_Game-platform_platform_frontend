@@ -4,13 +4,13 @@ import type {FavoriteGame} from "../models/game/FavoriteGame.ts";
 
 
 export async function getFavoriteGames(){
-    const {data:games} = await axios.get<FavoriteGame[]>(`/games/favorite`)
+    const {data:games} = await axios.get<FavoriteGame[]>(`/user/favorites`)
     return games
 }
 
 export async function isFavoriteGame(gameId: string){
     try {
-        await axios.get(`/games/favorite/${gameId}`);
+        await axios.get(`/user/favorites/${gameId}`);
         return true;
     } catch (err: unknown) {
         if (axios.isAxiosError(err) && err.response?.status === 404) {
@@ -21,10 +21,10 @@ export async function isFavoriteGame(gameId: string){
 }
 
 export async function addFavoriteGame(gameId:string){
-    const {data:game} = await axios.post<Game>(`/games/favorite/${gameId}`)
+    const {data:game} = await axios.post<Game>(`/user/favorites/${gameId}`)
     return game;
 }
 export async function removeFavoriteGame(gameId:string){
-    await axios.delete(`/games/favorite/${gameId}`)
+    await axios.delete(`/user/favorites/${gameId}`)
     return true;
 }
