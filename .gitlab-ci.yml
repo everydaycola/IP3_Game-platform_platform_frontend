@@ -20,10 +20,26 @@ build:
       - dist/
     expire_in: 1 hour
 
+test:
+  stage: test
+  script:
+    - npm install
+    - npm run test-coverage
+  artifacts:
+    paths:
+      - coverage/
+    expire_in: 1 hour
+    when: always
+  dependencies:
+    - build
+
 megalinter:
   stage: quality-gate
   image: oxsecurity/megalinter-java:v7
   script: ["true"]
+  dependencies:
+    - build
+    - test
   variables:
     DEFAULT_WORKSPACE: $CI_PROJECT_DIR
     GITLAB_ACCESS_TOKEN_MEGALINTER: $ACCESS_TOKEN
@@ -38,19 +54,6 @@ megalinter:
       - megalinter-reports/
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-
-test:
-  stage: test
-  script:
-    - npm install
-    - npm run test-coverage
-  artifacts:
-    paths:
-      - coverage/
-    expire_in: 1 hour
-    when: always
-  dependencies:
-    - build
 
 
 docker-publish:
