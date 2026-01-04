@@ -1,15 +1,22 @@
 import {Card, InputLabel, MenuItem, Select, Stack, Typography} from "@mui/material";
-import {LobbyTable} from "../components/tables/LobbyTable.tsx";
-import {useLobbyList} from "../hooks/api/lobby/useLobbyList.tsx";
 import {useGamesList} from "../hooks/api/games/useGamesList.tsx";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
 import {useSelectionStore} from "../stores/selectionStore.ts";
+import {useLobbyList} from "../hooks/api/lobby/useLobbyList.tsx";
+import {LobbyTable} from "../components/tables/LobbyTable.tsx";
 
 export function LobbyPage() {
+    const {platformUser} = usePlatformUser();
     const {lobbies} = useLobbyList();
     const {games} = useGamesList();
     const selectedGameId = useSelectionStore((state) => state.selectedGameId);
     const setSelectedGameId = useSelectionStore((state) => state.setSelectedGameId);
-    const filteredGames = selectedGameId ? games.filter(g => g.id === selectedGameId) : games;
+
+    const ownedCopyIds = platformUser.ownedCopies.map(copy => copy.gameId);
+    const ownedGames = games.filter(game => ownedCopyIds.includes(game.id));
+    const filteredGames = selectedGameId
+        ? games.filter(g => g.id === selectedGameId)
+        : games;
 
     return (
         <>
@@ -38,7 +45,7 @@ export function LobbyPage() {
                         }
                     >
                         <MenuItem value="all">Alles</MenuItem>
-                        {games.map(game => (
+                        {ownedGames.map(game => (
                             <MenuItem key={"game" + game.id} value={game.id}>
                                 {game.name}
                             </MenuItem>
