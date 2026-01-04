@@ -18,7 +18,8 @@ export function CurrentPlayersOverlay({players}: CurrentPlayersOverlayProps) {
             <Card
                 sx={{
                     position: "absolute",
-
+                    top:100,
+                    right:30,
                     zIndex: "999",
                     p: 2
                 }}
