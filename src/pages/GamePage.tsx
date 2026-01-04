@@ -6,8 +6,11 @@ import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
 import {useGameIsFavorite} from "../hooks/api/favoriteGames/useIsFavoriteGame.tsx";
 import {AchievementPreviewList} from "../components/lists/AchievementPreviewList.tsx";
+import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
+import {GameNotOwnedCard} from "../components/cards/GameNotOwnedCard.tsx";
 
 export function GamePage() {
+    const {platformUser} = usePlatformUser();
     const {gameId} = useParams();
     const {game} = useGame(gameId!);
     const {isFavorite} = useGameIsFavorite(gameId!);
@@ -15,6 +18,10 @@ export function GamePage() {
 
     if (!game || !gameId) {
         throw new Error("Something went wrong with fetching a game...")
+    }
+
+    if(!platformUser.ownedCopies.map(copy => copy.gameId).includes(gameId)){
+        return <GameNotOwnedCard/>
     }
 
     return (
