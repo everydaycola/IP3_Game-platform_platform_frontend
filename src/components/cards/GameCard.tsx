@@ -3,58 +3,67 @@ import {Card, CardContent, CardActionArea, CardMedia, Typography, Stack, useThem
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
 import {useFavoriteGameUpdates} from "../../hooks/api/favoriteGames/useFavoriteGameUpdates.tsx";
 import {FavoriteButton} from "../FavoriteButton.tsx";
+import {useSelectionStore} from "../../stores/selectionStore.ts";
 
 interface GameCardProps {
     game: CompactGame
-    isFavorite:boolean;
+    isFavorite: boolean;
     onSelectGame: () => void;
 }
 
-export function GameCard({game,isFavorite, onSelectGame}: GameCardProps) {
+export function GameCard({game, isFavorite, onSelectGame}: GameCardProps) {
     const theme = useTheme();
-    const {addFavorite,removeFavoriteError,addFavoriteError, removeFavorite} = useFavoriteGameUpdates();
+    const setSelectedGameId = useSelectionStore((state) => state.setSelectedGameId);
+    const {addFavorite, removeFavoriteError, addFavoriteError, removeFavorite} = useFavoriteGameUpdates();
 
-    if(removeFavoriteError || addFavoriteError){
+    if (removeFavoriteError || addFavoriteError) {
         throw new Error("Error with updating favorites.");
     }
 
-    function handleFavoriteChange(){
-        if(isFavorite){
+    function handleFavoriteChange() {
+        if (isFavorite) {
             removeFavorite(game.id);
-        }else{
+        } else {
             addFavorite(game.id);
         }
     }
 
-    function handleSelectGame(){
+    function handleSelectGame() {
         onSelectGame();
     }
 
 
     return (
         <Card
-            onClick={handleSelectGame}
+            onClick={() => {
+                setSelectedGameId(game.id);
+                handleSelectGame();
+            }
+            }
             sx={{
                 width: {lg: "20%", xs: "40%"},
-                height:"60%",
+                height: "60%",
                 marginRight: "5%",
                 marginBottom: "5%",
-                cursor:"pointer",
+                cursor: "pointer",
                 borderRadius: 4
-        }}>
-            <CardActionArea sx={{height: "75%", overflow:"hidden"}}>
+            }}>
+            <CardActionArea sx={{height: "75%", overflow: "hidden"}}>
                 {game.icon == "" ?
-                    <Stack alignItems={"center"} sx={{marginY: "1rem"}}>
+                    <Stack alignItems={"center"}
+                           sx={{marginY: "1rem"}}>
                         <VideogameAssetIcon sx={{color: theme.palette.text.secondary}}/>
                     </Stack>
                     :
                     <CardMedia component="img"
-                               sx={{padding: "5%", height:250, width:"100%",marginX:"auto", objectFit:"cover",}}
+                               sx={{padding: "5%", height: 250, width: "100%", marginX: "auto", objectFit: "cover",}}
                                image={game.icon}/>
                 }
             </CardActionArea>
-            <CardContent sx={{height: "25%", boxShadow:"5"}}>
-                <Stack flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
+            <CardContent sx={{height: "25%", boxShadow: "5"}}>
+                <Stack flexDirection={"row"}
+                       alignItems={"center"}
+                       justifyContent={"space-between"}>
                     <Typography color={theme.palette.text.secondary}>{game.name}</Typography>
 
                     <FavoriteButton
