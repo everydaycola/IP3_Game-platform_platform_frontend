@@ -6,6 +6,7 @@ import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
 import {NavbarLinks} from "./navbar/NavbarLinks.tsx";
+import {ChatBox} from "./ChatBox.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;
@@ -110,7 +111,7 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                         </Stack>
                     )
                     }
-
+                    <ChatBox/>
                     {mainContent}
                 </Stack>
             </Box>
