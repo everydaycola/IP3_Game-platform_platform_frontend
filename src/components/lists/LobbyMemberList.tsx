@@ -5,6 +5,7 @@ import UserCard from "../cards/UserCard.tsx";
 import {JoinLobbyButton} from "../buttons/JoinLobbyButton.tsx";
 import {useSecurityStore} from "../../stores/securityStore.ts";
 import {useLeaveLobby} from "../../hooks/api/lobby/useLeaveLobby.tsx";
+import {useNavigate} from "react-router-dom";
 
 
 interface LobbyMemberListProps {
@@ -15,6 +16,7 @@ export function LobbyMemberList({lobby}: LobbyMemberListProps) {
     const theme = useTheme();
     const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     const {leaveLobby} = useLeaveLobby();
+    const navigate = useNavigate();
 
     const {userData, isError, isPending} = usePlatformUsers(lobby.players.map(u => u.userId))
 
@@ -43,7 +45,11 @@ export function LobbyMemberList({lobby}: LobbyMemberListProps) {
                     <Button
                         variant={"contained"}
                         color={"secondary"}
-                        onClick={() => leaveLobby(lobby.id)}
+                        onClick={() => {
+                            leaveLobby(lobby.id);
+                            navigate("/lobbies");
+                        }
+                        }
                     >
                         Lobby verlaten
                     </Button>
