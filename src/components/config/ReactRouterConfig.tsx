@@ -46,7 +46,7 @@ export function ReactRouterConfig() {
             />
 
             <Route
-                path={"/games/:gameId"}
+                path={"/games/:gameId/:gameSessionId?"}
                 element={
                     createFallbackWrapperWithRouteGuard({
                         children: <GamePage/>,

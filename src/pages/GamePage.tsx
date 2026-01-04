@@ -6,13 +6,15 @@ import {RotateDeviceInstruction} from "../components/RotateDeviceInstruction.tsx
 import {ErrorCard} from "../components/cards/ErrorCard.tsx";
 import {useGameIsFavorite} from "../hooks/api/favoriteGames/useIsFavoriteGame.tsx";
 import {AchievementPreviewList} from "../components/lists/AchievementPreviewList.tsx";
+import {useLobbyByGameSessionId} from "../hooks/api/lobby/useLobbyByGameSessionId.tsx";
+import {CurrentPlayersOverlay} from "../components/overlay/CurrentPlayersOverlay.tsx";
 
 export function GamePage() {
-    const {gameId} = useParams();
+    const {gameId, gameSessionId} = useParams();
     const {game} = useGame(gameId!);
     const {isFavorite} = useGameIsFavorite(gameId!);
     const isPortrait = useMediaQuery('(orientation: portrait)');
-
+    const {lobby} = useLobbyByGameSessionId(gameSessionId!, gameSessionId != null);
     if (!game || !gameId) {
         throw new Error("Something went wrong with fetching a game...")
     }
@@ -27,7 +29,14 @@ export function GamePage() {
                 :
                 <>
                     {game.url ?
-                        <GamePlayer gameId={game.id} gameUrl={game.url} isFavorite={isFavorite}/>
+                        <>
+                            {lobby &&
+                                <CurrentPlayersOverlay players={lobby?.players}/>
+                            }
+                            <GamePlayer gameId={game.id}
+                                        gameUrl={game.url}
+                                        isFavorite={isFavorite}/>
+                        </>
                         :
                         <ErrorCard
                             title={"Ohnee..."}
@@ -36,8 +45,10 @@ export function GamePage() {
                     }
                 </>
             }
-            <Typography variant={"h3"} sx={{mt:4}}>Achievements</Typography>
-            <AchievementPreviewList filter={"not-achieved"} achievements={game.achievements}/>
+            <Typography variant={"h3"}
+                        sx={{mt: 4}}>Achievements</Typography>
+            <AchievementPreviewList filter={"not-achieved"}
+                                    achievements={game.achievements}/>
         </>
     )
 }

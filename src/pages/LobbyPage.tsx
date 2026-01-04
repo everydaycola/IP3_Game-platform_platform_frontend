@@ -9,7 +9,6 @@ export function LobbyPage() {
     const {games} = useGamesList();
     const selectedGameId = useSelectionStore((state) => state.selectedGameId);
     const setSelectedGameId = useSelectionStore((state) => state.setSelectedGameId);
-
     const filteredGames = selectedGameId ? games.filter(g => g.id === selectedGameId) : games;
 
     return (

@@ -38,4 +38,5 @@ export const friendRecommendationsQueryKey={
 export const lobbyQueryKey={
     all:["lobbies"] as const,
     currentLobby: (lobbyId: string) => ["lobbies", lobbyId] as const,
+    currentByGameId: (gameId: string) => ["lobbies","gameid", gameId] as const,
 }
