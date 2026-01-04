@@ -22,6 +22,14 @@ export function JoinLobbyButton({lobbyId}:JoinLobbyButtonProps){
                 })
             }
         }
+        if (error && axios.isAxiosError(error)) {
+            if(error.response?.status === 403 && error.response?.data?.includes("is not owned")){
+                addNotification({
+                    message:"Je bezit deze game niet...",
+                    severity:"error"
+                })
+            }
+        }
     }
 
     return(
