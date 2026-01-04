@@ -21,6 +21,7 @@
     "@tanstack/react-query": "^5.90.10",
     "@tanstack/react-query-devtools": "^5.91.1",
     "axios": "^1.13.2",
+    "dayjs": "^1.11.19",
     "keycloak-js": "^26.2.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -50,7 +51,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.3",
     "vite": "^7.2.2",
-    "vitest": "^4.0.15",
-    "vite-plugin-runtime-env": "^1.0.0"
+    "vite-plugin-runtime-env": "^1.0.0",
+    "vitest": "^4.0.15"
   }
 }

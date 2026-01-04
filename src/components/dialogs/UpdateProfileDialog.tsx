@@ -2,7 +2,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Stack, useThe
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {type UpdateProfileFormValues, updateProfileSchema} from "../../schemas/updateProfileSchema.ts";
-import type {PlatformUserUpdateType} from "../../models/platformuser/platformUser.ts";
+import type {PlatformUserUpdateType} from "../../models/platformuser/PlatformUser.ts";
 import {PlatformUserUpdateFormFields} from "../formfields/PlatformUserUpdateFormFields.tsx";
 import {usePlatformUser} from "../../hooks/usePlatformUser.tsx";
 import {ConfirmationDialog} from "./ConfirmationDialog.tsx";

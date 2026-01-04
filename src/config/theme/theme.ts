@@ -62,5 +62,50 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiTableCell: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                    borderBottom: `1px solid ${colors.lightBlue}`,
+                },
+                head: {
+                    color: colors.lightBlue,
+                    fontWeight: 600,
+                },
+            },
+        },
+        MuiOutlinedInput: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                    '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: colors.lightBlue,
+                    },
+                },
+            },
+        },
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    color: colors.lightBlue,
+                },
+                icon: {
+                    color: colors.lightBlue,
+                },
+            },
+        },
+        MuiMenuItem: {
+            styleOverrides: {
+                root: {
+                    color: colors.lightBlue,
+                },
+            },
+        },
     }
 })

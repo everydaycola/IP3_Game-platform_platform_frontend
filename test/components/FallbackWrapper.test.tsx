@@ -3,8 +3,6 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import { FallbackWrapper } from '../../src/components/FallbackWrapper';
 
-
-//todo: Find a method to test suspense.
 describe('FallbackWrapper', () => {
     it('renders children when nothing suspends', () => {
         render(

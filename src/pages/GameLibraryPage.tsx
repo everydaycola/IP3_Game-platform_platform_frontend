@@ -10,6 +10,7 @@ import {useOwnedGames} from "../hooks/api/games/useOwnedGames.tsx";
 import {SearchIconWrapper, StyledInputBase, Search} from "../components/controls/Search.tsx";
 import {GameCardList} from "../components/lists/GameCardList.tsx";
 import {useNavigate} from "react-router-dom";
+import {GameModeSelectionDialog} from "../components/dialogs/GameModeSelectionDialog.tsx";
 
 export function GameLibraryPage() {
     const {games} = useGamesList();
@@ -17,6 +18,7 @@ export function GameLibraryPage() {
     const {favorites} = useFavoriteGames();
     const [sortAbc, setSortAbc] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const [isSelectingGameMode, setIsSelectingGameMode] = useState(false);
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -69,7 +71,9 @@ export function GameLibraryPage() {
 
             {sortedGames.length !== 0 ? (
                 <GameCardList games={sortedGames}
-                              favorites={favorites}/>
+                              favorites={favorites}
+                              onSelectGame={() => setIsSelectingGameMode(true)}
+                />
             ) : (
                 <Container>
                     <Stack alignItems="center"
@@ -92,6 +96,11 @@ export function GameLibraryPage() {
                     </Stack>
                 </Container>
             )}
+            <GameModeSelectionDialog
+                isOpen={isSelectingGameMode}
+                onClose={() => setIsSelectingGameMode(false)}
+            />
+
         </>
     );
 }

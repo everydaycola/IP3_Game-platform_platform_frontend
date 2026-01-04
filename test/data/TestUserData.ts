@@ -5,6 +5,7 @@ import type {FriendRelation} from "../../src/models/platformuser/FriendRelation.
 export const mockUserId = "11111111-1111-1111-1111-111111111111"
 
 export const mockuser : User={
+    id:"1",
     name:"testUser",
     username:"testUser",
     email:"test.user@email.be",

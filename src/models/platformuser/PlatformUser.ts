@@ -12,4 +12,12 @@ export type PlatformUser = {
     ownedCopies: OwnedCopy[]
 }
 
+export type MinimalPlatformUser = {
+    id:string;
+    userName: string
+    biography: string
+    profilePictureUrl:string
+}
+
+
 export type PlatformUserUpdateType = Omit<PlatformUser, "userName" | "achievements" | "credits"|"ownedCopies">

@@ -1,0 +1,1 @@
+export const pollInterval= 30000;

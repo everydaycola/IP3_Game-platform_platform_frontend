@@ -1,4 +1,4 @@
-import type {CompactGame, Game} from "../../src/models/game/Game.ts";
+import type {CompactGame} from "../../src/models/game/Game.ts";
 import type {FavoriteGame} from "../../src/models/game/FavoriteGame.ts";
 import type {Achievement} from "../../src/models/achievement/Achievement.ts";
 
@@ -15,7 +15,8 @@ export const compactGame1: CompactGame = {
     genre: "Puzzle",
     url: "http://localhost:1234",
     achievements:[],
-    price:5
+    price:5,
+    configurableSettings: {}
 }
 
 export const compactGame2: CompactGame = {
@@ -25,60 +26,10 @@ export const compactGame2: CompactGame = {
     genre: "Strategy",
     url: "http://localhost:1235",
     achievements:[],
-    price:19.99
+    price:19.99,
+    configurableSettings: {}
 }
-export const compactGame3: CompactGame = {
-    id: "3",
-    name: "Chess",
-    icon: "ChessIcon.png",
-    genre: "Strategy",
-    url: "http://localhost:1236",
-    achievements:[],
-    price:49.99
-}
-
-export const compactGame4: CompactGame = {
-    id:"4",
-    name:"Tetris",
-    icon:"TetrisIcon.png",
-    genre:"Strategy",
-    url:"http://localhost:1237",
-    achievements:[achievement],
-    price:2.99
-}
-
-export const compactGameList : CompactGame[] =[compactGame1,compactGame2,compactGame3];
-export const emptyCompactGameList: CompactGame[] = [];
-
-export const fullGame1: Game = {
-    id: "1",
-    name: "Tic Tac Toe",
-    description:"Place X and O",
-    icon: "icon.png",
-    image:"icon.png",
-    genre: "Puzzle",
-    url: "http://localhost:1234",
-    price:5,
-    achievements:[]
-}
-
-export const fullGame2: Game = {
-    id: "2",
-    name: "Go",
-    description:"place stones on a board!",
-    icon: "GoIcon.png",
-    image:"GoImage.png",
-    genre: "Strategy",
-    url: "http://localhost:1235",
-    price:20,
-    achievements:[]
-}
-
-
 export const favoriteGame1: FavoriteGame={
     id:"5",
-    gameId:"1"
+    gameId:"1",
 }
-
-export const favoriteGamesList: FavoriteGame[] = [favoriteGame1];
-export const emptyFavoriteGamesList: FavoriteGame[] = [];

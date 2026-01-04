@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {favoriteGamesQueryKey, gamesQueryKey, ownedGamesQueryKeys, userDataQueryKey} from "../../../config/api/queryKeys";
+import {favoriteGamesQueryKey, gamesQueryKey, ownedGamesQueryKeys, currentUserDataQueryKey} from "../../../config/api/queryKeys";
 import {buyGame} from "../../../services/userService.ts";
 
 export function useBuyGame() {
@@ -18,7 +18,7 @@ export function useBuyGame() {
                 queryKey: favoriteGamesQueryKey.all
             });
             queryClient.invalidateQueries({
-                queryKey: userDataQueryKey.current
+                queryKey: currentUserDataQueryKey.current
             });
 
         }
