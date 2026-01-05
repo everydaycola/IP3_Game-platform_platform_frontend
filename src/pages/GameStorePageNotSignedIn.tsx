@@ -1,29 +1,21 @@
-import {Typography, Container, Stack, Button, useTheme, Card, CardContent} from "@mui/material";
+import {Typography, Container, Stack, Button, useTheme} from "@mui/material";
 import {useGamesList} from "../hooks/api/games/useGamesList.tsx";
-import {useOwnedGames} from "../hooks/api/games/useOwnedGames.tsx";
 import VideogameAssetOffIcon from '@mui/icons-material/VideogameAssetOff';
 import SearchIcon from '@mui/icons-material/Search';
 import {SearchIconWrapper, StyledInputBase, Search} from "../components/controls/Search.tsx";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import {useState} from "react";
-import {StoreGameCardList} from "../components/lists/StoreGameCardList.tsx";
-import {usePlatformUser} from "../hooks/usePlatformUser.tsx";
-import {creditName} from "../config/theme/names.ts";
-import {AddCreditsDialog} from "../components/dialogs/AddCreditsDialog.tsx";
+import {StoreGameCardSignedOut} from "../components/cards/StoreGameCardSignedOut.tsx";
 
-export function GameStorePage() {
+export function GameStorePageNotSignedIn() {
     const {games} = useGamesList();
-    const {ownedGames} = useOwnedGames();
-    const [isAddingCredits, setIsAddingCredits] = useState(false);
     const [sortAbc, setSortAbc] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const theme = useTheme();
-    const {platformUser} = usePlatformUser();
-    const ownedIds = new Set(ownedGames?.map(o => o.gameId) ?? []);
+
 
     const filteredGames = (games ?? [])
-        .filter(g => !ownedIds.has(g.id))
         .filter(g => !searchTerm || g.name.toLowerCase().includes(searchTerm.toLowerCase()))
         .sort((g1, g2) => sortAbc ? g1.name.localeCompare(g2.name) : g2.name.localeCompare(g1.name));
 
@@ -55,25 +47,10 @@ export function GameStorePage() {
                 </Stack>
             </Stack>
 
-            <Stack direction="row">
-                <Card sx={{borderRadius: 4}}>
-                    <CardContent>
-                        <Typography
-                            variant="h6"
-                            color={theme.palette.primary.main}
-                            data-testid={"SaldoVisual"}
-                        >
-                            Saldo: {platformUser.credits.toFixed(2)} {creditName}
-                        </Typography>
-                        <Button sx={{mt: 1}} variant="contained" onClick={() => setIsAddingCredits(true)}>
-                            Saldo toevoegen
-                        </Button>
-                    </CardContent>
-                </Card>
-            </Stack>
-
             {filteredGames.length !== 0
-                ? <StoreGameCardList games={filteredGames} favorites={[]}/>
+                ? <Stack direction={"row"} flexWrap="wrap" height={"75%"} sx={{pt:2}}>
+                    {games.map(game => <StoreGameCardSignedOut game={game} key={game.id}/>)}
+                </Stack>
                 : (
                     <Container>
                         <Stack alignItems="center" justifyContent="center" spacing={2}>
@@ -83,12 +60,6 @@ export function GameStorePage() {
                     </Container>
                 )
             }
-
-            <AddCreditsDialog
-                onClose={() => setIsAddingCredits(false)}
-                isOpen={isAddingCredits}
-                presetValues={[10, 20, 50, 100]}
-            />
         </>
     );
 }
