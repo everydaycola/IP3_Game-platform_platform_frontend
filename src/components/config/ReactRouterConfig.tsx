@@ -25,7 +25,7 @@ export function ReactRouterConfig() {
                                       replace/>}/>
             <Route path={"/library"}
                    element={
-                       createFallbackWrapper({
+                       createFallbackWrapperWithRouteGuard({
                            children: <GameLibraryPage/>,
                            errorFallback: <ErrorCard
                                title={"Ohnee..."}
