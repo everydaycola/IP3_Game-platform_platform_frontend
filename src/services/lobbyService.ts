@@ -13,6 +13,10 @@ export async function findAllLobbies(){
     return lobbies
 }
 
+export async function findLobbyByGameSessionId(gameSessionId: string){
+    const {data: lobby} = await axios.get<Lobby>(`/lobby/byGame/${gameSessionId}`)
+    return lobby;
+}
 export async function patchJoinLobby(lobbyId: string){
     const {data:lobby} = await axios.patch<Lobby>(`/lobby/${lobbyId}`);
     return lobby;

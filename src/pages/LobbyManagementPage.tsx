@@ -15,7 +15,7 @@ export function LobbyManagementPage() {
     const navigate = useNavigate();
 
     function navigateToGame() {
-        navigate(`/games/${lobby.gameId}`)
+        navigate(`/games/${lobby.gameId}/${lobby.currentGameSessionId}`)
     }
 
     return (
