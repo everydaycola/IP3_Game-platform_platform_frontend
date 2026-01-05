@@ -35,11 +35,15 @@ export function ChatBox() {
         if (currentConversationId === null) {
             startConversation();
         }
+    }, []);
+
+    useEffect(() => {
+
         if(!open && currentConversationId != null){
             endConversation(currentConversationId);
             setCurrentConversationId(null);
         }
-    }, [currentConversationId, startConversation, open]);
+    }, [currentConversationId, open]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
