@@ -6,7 +6,7 @@ import {useState} from "react";
 import {NotificationStack} from "./NotificationStack.tsx";
 import {useSecurityStore} from "../stores/securityStore.ts";
 import {NavbarLinks} from "./navbar/NavbarLinks.tsx";
-import {ChatBox} from "./ChatBox.tsx";
+import {ChatBox} from "./chatbot/ChatBox.tsx";
 
 type AppLayoutProps = {
     mainContent?: React.ReactNode;

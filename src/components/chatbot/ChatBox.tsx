@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {type FormEvent, useEffect, useState} from "react";
 import {
     Box,
     SpeedDial,
@@ -10,10 +10,50 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import { chatBotName } from "../../config/chatbot";
+import { BotMessage } from "./BotMessage.tsx";
+import { UserMessage } from "./UserMessage.tsx";
+import { useSelectionStore } from "../../stores/selectionStore.ts";
+import { useConversation } from "../../hooks/api/conversation/useConversation.tsx";
+import { useStartConversation } from "../../hooks/api/conversation/useStartConversation.tsx";
+import { useSendMessage } from "../../hooks/api/conversation/useSendMessage.tsx";
+import {useSecurityStore} from "../../stores/securityStore.ts";
+import {useEndConversation} from "../../hooks/api/conversation/useEndConversation.tsx";
 
 export function ChatBox() {
     const [open, setOpen] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+    const currentConversationId = useSelectionStore((state) => state.currentConversationId);
+    const setCurrentConversationId = useSelectionStore((state) => state.setCurrentConversationId);
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
+    const { conversation } = useConversation(currentConversationId!);
+    const { startConversation } = useStartConversation();
+    const { sendMessage } = useSendMessage();
+    const {endConversation} = useEndConversation();
 
+    useEffect(() => {
+        if (currentConversationId === null) {
+            startConversation();
+        }
+        if(!open && currentConversationId != null){
+            endConversation(currentConversationId);
+            setCurrentConversationId(null);
+        }
+    }, [currentConversationId, startConversation, open]);
+
+    const handleSubmit = async (e: FormEvent) => {
+        e.preventDefault();
+        if (!inputValue.trim() || !currentConversationId) return;
+
+        await sendMessage({
+            conversationId: currentConversationId,
+            message: inputValue.trim(),
+        });
+
+        setInputValue("");
+    };
+
+    console.log(conversation);
     return (
         <Box
             sx={{
@@ -50,7 +90,7 @@ export function ChatBox() {
                         }}
                     >
                         <Typography variant="subtitle1">
-                            Chat Support
+                            {chatBotName} - support
                         </Typography>
                         <IconButton size="small" onClick={() => setOpen(false)}>
                             <CloseIcon sx={{ color: "white" }} />
@@ -62,15 +102,27 @@ export function ChatBox() {
                             flex: 1,
                             p: 2,
                             overflowY: "auto",
-                            bgcolor: "#f5f5f5"
                         }}
                     >
-                        <Typography variant="body2" color={"primary"}>
-                            Hier zegt den ai IETSKEN nuttig.
-                        </Typography>
+                        {conversation?.messages?.map((msg) =>
+                            msg.sender === loggedInUser?.id ? (
+                                <UserMessage key={msg.id} msg={msg.text} />
+                            ) : (
+                                <BotMessage key={msg.id} msg={msg.text} />
+                            )
+                        )}
+
+                        {!conversation?.messages?.length && (
+                            <>
+                                <BotMessage msg={"Hier zegt den ai IETSKEN nuttig."} />
+                                <UserMessage msg={"Hier zegt de user ietsken nuttig."} />
+                            </>
+                        )}
                     </Box>
 
                     <Box
+                        component="form"
+                        onSubmit={handleSubmit}
                         sx={{
                             p: 1,
                             display: "flex",
@@ -82,8 +134,10 @@ export function ChatBox() {
                             fullWidth
                             size="small"
                             placeholder="Type a message..."
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
                         />
-                        <IconButton color="primary">
+                        <IconButton color="primary" type="submit">
                             <SendIcon />
                         </IconButton>
                     </Box>
@@ -93,7 +147,7 @@ export function ChatBox() {
             <SpeedDial
                 ariaLabel="Chat"
                 icon={<SpeedDialIcon />}
-                onClick={() => setOpen(prev => !prev)}
+                onClick={() => setOpen((prev) => !prev)}
                 open={false}
                 onMouseEnter={(e) => e.stopPropagation()}
                 onMouseLeave={(e) => e.stopPropagation()}

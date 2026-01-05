@@ -39,3 +39,7 @@ export const lobbyQueryKey={
     all:["lobbies"] as const,
     currentLobby: (lobbyId: string) => ["lobbies", lobbyId] as const,
 }
+
+export const conversationQueryKey={
+    current:["currentConversation"] as const,
+}

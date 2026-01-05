@@ -1,11 +1,12 @@
-import {useSuspenseQuery} from "@tanstack/react-query";
-import {gamesQueryKey} from "../../../config/api/queryKeys";
+import {useQuery} from "@tanstack/react-query";
 import {getConversation} from "../../../services/conversationService.ts";
+import {conversationQueryKey} from "../../../config/api/queryKeys";
 
 export function useConversation(conversationId: string){
-    const {isLoading, isError, data: game} = useSuspenseQuery({
-        //queryKey: gamesQueryKey.currentGame(conversationId),
+    const {data: conversation, isPending, isError} = useQuery({
+        queryKey: conversationQueryKey.current,
         queryFn: () => getConversation(conversationId),
+        enabled: conversationId != null
     })
-    return {isLoading, isError, game}
+    return {conversation, isError, isPending}
 }
