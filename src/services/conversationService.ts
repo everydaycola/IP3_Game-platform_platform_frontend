@@ -13,7 +13,7 @@ export async function startConversation(){
 }
 
 export async function endConversation(conversationId:string){
-    const {data:conversation} = await axios.delete<Conversation>(`/${conversationId}`)
+    const {data:conversation} = await axios.delete<Conversation>(`/conversations/${conversationId}`)
     return conversation
 }
 
@@ -28,12 +28,12 @@ export async function startConversationWithoutUser(){
 }
 
 export async function endConversationWithoutUser(conversationId:string){
-    const {data:conversation} = await axios.delete<Conversation>(`/visitor/${conversationId}`)
+    const {data:conversation} = await axios.delete<Conversation>(`/conversations/visitor/${conversationId}`)
     return conversation
 }
 
 export async function sendMessageWithoutUser(conversationId:string, message:ToChatbotMessage){
-    const {data:conversation} = await axios.post<Conversation>(`/visitor/conversations/${conversationId}/messages`,message)
+    const {data:conversation} = await axios.post<Conversation>(`/conversations/visitor/${conversationId}/messages`,message)
     return conversation
 }
 

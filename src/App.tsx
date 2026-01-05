@@ -8,6 +8,7 @@ import {queryClient} from "./config/api";
 import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 import {useInitSecurity} from "./hooks/security/useInitSecurity.tsx";
 import {ReactRouterConfig} from "./components/config/ReactRouterConfig.tsx";
+import {ChatBox} from "./components/chatbot/ChatBox.tsx";
 
 function App() {
     useInitSecurity();
@@ -16,15 +17,16 @@ function App() {
         <>
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider theme={theme}>
-                        <CssBaseline/>
-                        <BrowserRouter>
-                            <AppLayout mainContent={
-                                <MainContentContainer>
-                                    <ReactRouterConfig/>
-                                </MainContentContainer>
-                            }/>
-                        </BrowserRouter>
-                    <ReactQueryDevtools initialIsOpen={false} />
+                    <CssBaseline/>
+                    <BrowserRouter>
+                        <AppLayout mainContent={
+                            <MainContentContainer>
+                                <ReactRouterConfig/>
+                            </MainContentContainer>
+                        }/>
+                    </BrowserRouter>
+                    <ChatBox/>
+                    <ReactQueryDevtools initialIsOpen={false}/>
                 </ThemeProvider>
             </QueryClientProvider>
         </>

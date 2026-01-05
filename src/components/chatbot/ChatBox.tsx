@@ -49,6 +49,7 @@ export function ChatBox() {
         e.preventDefault();
         if (!inputValue.trim() || !currentConversationId) return;
 
+        console.log("ietsken");
         await sendMessage({
             conversationId: currentConversationId,
             message: inputValue.trim(),
@@ -114,13 +115,6 @@ export function ChatBox() {
                             ) : (
                                 <BotMessage key={msg.id} msg={msg.text} />
                             )
-                        )}
-
-                        {!conversation?.messages?.length && (
-                            <>
-                                <BotMessage msg={"Hier zegt den ai IETSKEN nuttig."} />
-                                <UserMessage msg={"Hier zegt de user ietsken nuttig."} />
-                            </>
                         )}
                     </Box>
 

@@ -13,7 +13,6 @@ export function useSendMessage() {
             mutationFn: async ({conversationId, message}: {conversationId:string, message:string}) => {
                 const currentPageUrl = window.location.href;
                 if(loggedInUser){
-                    console.log({text:message, currentPageUrl:currentPageUrl, gameName:"",sentTime:new Date(Date.now())});
                     return sendMessage(conversationId, {text:message, currentPageUrl:currentPageUrl, gameName:"",sentTime:new Date(Date.now())})
                 }else{
                     return sendMessageWithoutUser(conversationId,  {text:message, currentPageUrl:currentPageUrl, gameName:"",sentTime:new Date(Date.now())});
