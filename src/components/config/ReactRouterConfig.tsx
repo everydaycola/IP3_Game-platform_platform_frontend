@@ -116,7 +116,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/Lobbies"}
                 element={
-                    createFallbackWrapper({
+                    createFallbackWrapperWithRouteGuard({
                         children:<LobbyPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
@@ -129,7 +129,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/lobby/:lobbyId"}
                 element={
-                    createFallbackWrapper({
+                    createFallbackWrapperWithRouteGuard({
                         children:<LobbyManagementPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
