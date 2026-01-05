@@ -2,7 +2,6 @@ import {type FormEvent, useEffect, useState} from "react";
 import {
     Box,
     SpeedDial,
-    SpeedDialIcon,
     Paper,
     TextField,
     IconButton,
@@ -17,48 +16,46 @@ import { useSelectionStore } from "../../stores/selectionStore.ts";
 import { useConversation } from "../../hooks/api/conversation/useConversation.tsx";
 import { useStartConversation } from "../../hooks/api/conversation/useStartConversation.tsx";
 import { useSendMessage } from "../../hooks/api/conversation/useSendMessage.tsx";
-import {useSecurityStore} from "../../stores/securityStore.ts";
 import {useEndConversation} from "../../hooks/api/conversation/useEndConversation.tsx";
+import ChatIcon from '@mui/icons-material/Chat';
 
 export function ChatBox() {
     const [open, setOpen] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const currentConversationId = useSelectionStore((state) => state.currentConversationId);
     const setCurrentConversationId = useSelectionStore((state) => state.setCurrentConversationId);
-    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
-    const { conversation } = useConversation(currentConversationId!);
+    const { conversation} = useConversation(currentConversationId!);
     const { startConversation } = useStartConversation();
     const { sendMessage } = useSendMessage();
-    const {endConversation} = useEndConversation();
+    const { endConversation } = useEndConversation();
 
     useEffect(() => {
-        if (currentConversationId === null) {
+        if (open && currentConversationId === null) {
             startConversation();
         }
-    }, []);
+    }, [open, currentConversationId, startConversation]);
 
     useEffect(() => {
+        const handleClose = async () => {
+            if (!open && currentConversationId) {
+                await endConversation(currentConversationId);
+                setCurrentConversationId(null);
+            }
+        };
+        handleClose();
+    }, [open, currentConversationId, endConversation, setCurrentConversationId]);
 
-        if(!open && currentConversationId != null){
-            endConversation(currentConversationId);
-            setCurrentConversationId(null);
-        }
-    }, [currentConversationId, open]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         if (!inputValue.trim() || !currentConversationId) return;
-
-        console.log("ietsken");
         await sendMessage({
             conversationId: currentConversationId,
-            message: inputValue.trim(),
+            message: inputValue.trim()
         });
-
         setInputValue("");
     };
 
-    console.log(conversation);
     return (
         <Box
             sx={{
@@ -110,7 +107,7 @@ export function ChatBox() {
                         }}
                     >
                         {conversation?.messages?.map((msg) =>
-                            msg.sender === loggedInUser?.id ? (
+                            msg.sender != "00000000-0000-0000-0000-000000000001" ? (
                                 <UserMessage key={msg.id} msg={msg.text} />
                             ) : (
                                 <BotMessage key={msg.id} msg={msg.text} />
@@ -134,6 +131,11 @@ export function ChatBox() {
                             placeholder="Type a message..."
                             value={inputValue}
                             onChange={(e) => setInputValue(e.target.value)}
+                            slotProps={{
+                                htmlInput: {
+                                    maxLength: 255
+                                }
+                            }}
                         />
                         <IconButton color="primary" type="submit">
                             <SendIcon />
@@ -144,7 +146,7 @@ export function ChatBox() {
 
             <SpeedDial
                 ariaLabel="Chat"
-                icon={<SpeedDialIcon />}
+                icon={<ChatIcon />}
                 onClick={() => setOpen((prev) => !prev)}
                 open={false}
                 onMouseEnter={(e) => e.stopPropagation()}
