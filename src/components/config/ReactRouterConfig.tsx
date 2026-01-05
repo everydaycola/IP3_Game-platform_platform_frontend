@@ -13,8 +13,11 @@ import {createFallbackWrapper, createFallbackWrapperWithRouteGuard} from "../fac
 import {GameStorePage} from "../../pages/GameStorePage.tsx";
 import {LobbyPage} from "../../pages/LobbyPage.tsx";
 import {LobbyManagementPage} from "../../pages/LobbyManagementPage.tsx";
+import {GameStorePageNotSignedIn} from "../../pages/GameStorePageNotSignedIn.tsx";
+import {useSecurityStore} from "../../stores/securityStore.ts";
 
 export function ReactRouterConfig() {
+    const loggedInUser = useSecurityStore((state) => state.loggedInUser);
     return (
         <Routes>
             <Route path="/"
@@ -22,7 +25,7 @@ export function ReactRouterConfig() {
                                       replace/>}/>
             <Route path={"/library"}
                    element={
-                       createFallbackWrapper({
+                       createFallbackWrapperWithRouteGuard({
                            children: <GameLibraryPage/>,
                            errorFallback: <ErrorCard
                                title={"Ohnee..."}
@@ -35,7 +38,7 @@ export function ReactRouterConfig() {
             <Route path={"/store"}
                 element={
                     createFallbackWrapper({
-                        children: <GameStorePage/>,
+                        children: loggedInUser ? <GameStorePage/>:<GameStorePageNotSignedIn/>,
                         errorFallback: <ErrorCard
                             title={"Ohnee..."}
                             description={"Er ging iets mis met het ophalen van games..."}
@@ -100,7 +103,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/achievements"}
                 element={
-                    createFallbackWrapper({
+                    createFallbackWrapperWithRouteGuard({
                         children:<AchievementPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
@@ -113,7 +116,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/Lobbies"}
                 element={
-                    createFallbackWrapper({
+                    createFallbackWrapperWithRouteGuard({
                         children:<LobbyPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
@@ -126,7 +129,7 @@ export function ReactRouterConfig() {
             <Route
                 path={"/lobby/:lobbyId"}
                 element={
-                    createFallbackWrapper({
+                    createFallbackWrapperWithRouteGuard({
                         children:<LobbyManagementPage/>,
                         errorFallback:<ErrorCard
                             title={"Ohnee..."}
