@@ -110,7 +110,6 @@ export function AppLayout({mainContent}: AppLayoutProps) {
                         </Stack>
                     )
                     }
-
                     {mainContent}
                 </Stack>
             </Box>
