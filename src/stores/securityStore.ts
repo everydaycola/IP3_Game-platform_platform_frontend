@@ -4,7 +4,8 @@ import {keycloak} from "../config/security";
 import {isExpired} from "react-jwt";
 import {addAccessTokenToAuthHeader, notifyBackendUserLogin, removeAccessTokenFromAuthHeader} from "../services/auth.ts";
 import type {KeycloakTokenParsed} from "keycloak-js";
-
+import {endConversationOnLogout} from "../services/conversationService.ts";
+import {useSelectionStore} from "./selectionStore.ts";
 
 interface SecurityState{
     isInitialised:boolean;
@@ -37,6 +38,7 @@ export const useSecurityStore = create<SecurityState & SecurityActions>((set,get
         };
         keycloak.onAuthLogout = () => {
             removeAccessTokenFromAuthHeader();
+            endConversationOnLogout(useSelectionStore.getState().currentConversationId!);
             set({loggedInUser: undefined});
         };
         keycloak.onAuthError = () => {
@@ -56,9 +58,9 @@ export const useSecurityStore = create<SecurityState & SecurityActions>((set,get
         keycloak.accountManagement();
     },
     logout: () => {
+        endConversationOnLogout(useSelectionStore.getState().currentConversationId!);
         removeAccessTokenFromAuthHeader();
         set({loggedInUser: undefined});
-
         keycloak.logout({redirectUri: window.location.origin})
     },
     isAuthenticated: () => {

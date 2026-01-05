@@ -17,6 +17,15 @@ export async function endConversation(conversationId:string){
     return conversation
 }
 
+export async function endConversationOnLogout(conversationId:string) {
+    if(!conversationId)return;
+    try {
+        await axios.delete(`/conversations/${conversationId}`);
+    } catch (e) {
+        console.error("Failed to notify backend about user login", e);
+    }
+}
+
 export async function sendMessage(conversationId:string, message:ToChatbotMessage){
     const {data:conversation} = await axios.post<Conversation>(`/conversations/${conversationId}/messages`,message)
     return conversation
