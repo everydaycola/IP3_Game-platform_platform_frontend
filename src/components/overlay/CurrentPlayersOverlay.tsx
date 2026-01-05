@@ -2,7 +2,8 @@ import {Box, Card, Collapse, IconButton, Typography, useTheme} from "@mui/materi
 import {usePlatformUsers} from "../../hooks/api/user/usePlatformUsers.tsx";
 import type {Player} from "../../models/lobby/Player.ts";
 import CurrentPlayerCard from "../cards/CurrentPlayerCard.tsx";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from "react";
 
 interface CurrentPlayersOverlayProps{
@@ -60,7 +61,7 @@ export function CurrentPlayersOverlay({players}: CurrentPlayersOverlayProps) {
                     aria-label="toggle player list"
                     sx={{color: theme.palette.primary.main}}
                 >
-                    {isOpen ? <ExpandLess /> : <ExpandMore />}
+                    {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </IconButton>
             </Box>
 

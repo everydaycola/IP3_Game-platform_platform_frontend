@@ -3,6 +3,7 @@ import { render, screen} from "@testing-library/react";
 import { usePlatformUsers } from "../../src/hooks/api/user/usePlatformUsers.tsx";
 import { useTheme } from "@mui/material";
 import {CurrentPlayersOverlay} from "../../src/components/overlay/CurrentPlayersOverlay.tsx";
+import {MemoryRouter} from "react-router-dom";
 
 vi.mock("../../src/hooks/api/user/usePlatformUsers.tsx", () => ({
     usePlatformUsers: vi.fn(),
@@ -47,7 +48,11 @@ describe("CurrentPlayersOverlay", () => {
     it("renders the player list when data is loaded successfully", () => {
         //Arrange
         //Act
-        render(<CurrentPlayersOverlay players={mockPlayers} />);
+        render(
+            <MemoryRouter>
+                <CurrentPlayersOverlay players={mockPlayers} />
+            </MemoryRouter>
+        );
         //Assert
         expect(screen.getByText("Spelers in dit spel:")).toBeInTheDocument();
         expect(screen.getByText("PlayerOne")).toBeInTheDocument();
@@ -61,7 +66,11 @@ describe("CurrentPlayersOverlay", () => {
             isError: true
         });
         //Act
-        render(<CurrentPlayersOverlay players={mockPlayers} />);
+        render(
+            <MemoryRouter>
+                <CurrentPlayersOverlay players={mockPlayers} />
+            </MemoryRouter>
+        );
         //Assert
         expect(screen.getByText("Er ging iets mis met het ophalen van de spelers...")).toBeInTheDocument();
         expect(screen.queryByText("Spelers in dit spel:")).not.toBeInTheDocument();
@@ -74,7 +83,11 @@ describe("CurrentPlayersOverlay", () => {
             isError: false
         });
         //Act
-        render(<CurrentPlayersOverlay players={mockPlayers} />);
+        render(
+            <MemoryRouter>
+                <CurrentPlayersOverlay players={mockPlayers} />
+            </MemoryRouter>
+        );
         //Assert
         expect(screen.getByText("Er ging iets mis met het ophalen van de spelers...")).toBeInTheDocument();
     });
