@@ -39,3 +39,8 @@ export async function lobbyStartGame(lobby:Lobby, settingsValues: Record<string,
     })
     return data;
 }
+
+export async function startTrainingGame(gameId: string) {
+    const {data} = await axios.post<StartedGameResponse>(`/lobby/training/${gameId}`);
+    return data;
+}

@@ -3,6 +3,7 @@ import {useSelectionStore} from "../../stores/selectionStore.ts";
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {GameLobbySelectionDialog} from "./GameLobbySelectionDialog.tsx";
+import {useStartTrainingGame} from "../../hooks/api/lobby/useStartTrainingGame.tsx";
 
 interface ConfirmationDialogProps {
     isOpen: boolean,
@@ -14,6 +15,7 @@ export function GameModeSelectionDialog({isOpen, onClose}: ConfirmationDialogPro
     const navigate = useNavigate();
     const selectedGame = useSelectionStore((state) => state.selectedGameId);
     const [isSelectingLobbyMethod, setIsSelectingLobbyMethod] = useState(false);
+    const {startTraining} = useStartTrainingGame();
 
     return (
         <>
@@ -32,7 +34,10 @@ export function GameModeSelectionDialog({isOpen, onClose}: ConfirmationDialogPro
                                     p: 2,
                                     cursor: "pointer"
                                 }}
-                                onClick={() => {
+                                onClick={async () => {
+                                    if (selectedGame) {
+                                        await startTraining(selectedGame);
+                                    }
                                     navigate(`/games/${selectedGame}`)
                                 }}
                             >
